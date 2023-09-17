@@ -1,3 +1,5 @@
+import { getTypeEffectiveness } from "./typechart"
+
 export class Pokemon{
     constructor(name, type, moveset, stats){
         this.name = name
@@ -12,13 +14,24 @@ export class Pokemon{
     }
 
     Attack(move,target){
+        let damage
         if(move.category == "Physical"){
-            const damage = move.power - target.defense
+            if(this.type.includes(move.type)){
+                damage = ((22*move.power*(this.attack/target.defense))/50 + 2)*(Math.floor(Math.random()*101)/100)*1.5*getTypeEffectiveness(move.type,target.type)
+            }
+            else{
+                damage = ((22*move.power*(this.attack/target.defense))/50 + 2)*(Math.floor(Math.random()*101)/100)*getTypeEffectiveness(move.type,target.type)
+            }
             if(damage<0) damage = 1
             target.hp = target.hp - damage
         }
         else if(move.category == "Special"){
-            const damage = move.power - target.spdefense
+            if(this.type.includes(move.type)){
+                damage = ((22*move.power*(this.spattack/target.spdefense))/50 + 2)*(Math.floor(Math.random()*101)/100)*1.5*getTypeEffectiveness(move.type,target.type)
+            }
+            else{
+                damage = ((22*move.power*(this.spattack/target.spdefense))/50 + 2)*(Math.floor(Math.random()*101)/100)*getTypeEffectiveness(move.type,target.type)
+            }
             if(damage<0) damage = 1
             target.hp = target.hp - damage
         }
