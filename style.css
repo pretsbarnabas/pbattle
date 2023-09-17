@@ -1,0 +1,23 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.menu-container{
+    top: 40vh;
+    left: 45vw;
+    position: absolute;
+    height: auto;
+    width: auto;
+
+}
+
+.menu-button{
+    width: 10vw;
+    height: fit-content;
+    border: 1px solid orange;
+    padding: 2vh;
+    text-align: center;
+    background-color: thistle;
+}
