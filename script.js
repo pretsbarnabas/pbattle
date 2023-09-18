@@ -28,3 +28,8 @@ function start_battle(){
 function toggle_menu_items(){
     document.querySelector(".menu-container").style.display = "none"
 }
+
+function backgroundzoom(){
+    const background = document.getElementById("bg")
+    
+}
