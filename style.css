@@ -21,3 +21,16 @@ body{
     text-align: center;
     background-color: thistle;
 }
+
+.combat-log-container{
+    height: 15vh;
+    border: solid 1px black;
+    width: 15vw;
+    position: absolute;
+    left: 84%;
+    top: 2%;
+    display: none;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    font-size: 12pt;
+}

@@ -1,4 +1,4 @@
-import { getTypeEffectiveness } from "./typechart"
+import { getTypeEffectiveness } from "./typechart.js"
 
 export class Pokemon{
     constructor(name, type, moveset, stats){
@@ -23,6 +23,7 @@ export class Pokemon{
                 damage = ((22*move.power*(this.attack/target.defense))/50 + 2)*(Math.floor(Math.random()*101)/100)*getTypeEffectiveness(move.type,target.type)
             }
             if(damage<0) damage = 1
+            damage = Math.round(damage) 
             target.hp = target.hp - damage
         }
         else if(move.category == "Special"){
@@ -33,10 +34,12 @@ export class Pokemon{
                 damage = ((22*move.power*(this.spattack/target.spdefense))/50 + 2)*(Math.floor(Math.random()*101)/100)*getTypeEffectiveness(move.type,target.type)
             }
             if(damage<0) damage = 1
+            damage = Math.round(damage)
             target.hp = target.hp - damage
         }
         else{
 
         }
+        return damage
     }
 }
