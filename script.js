@@ -3,6 +3,7 @@ import {Pokemon} from "./pokemon.js"
 import {Move} from "./move.js"
 import {Player} from "./player.js"
 import { combatLogger } from "./combatLogger.js"
+import * as moves from "./moves.js"
 
 
 let game
@@ -12,7 +13,7 @@ main()
 function main(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
     party = [
-        new Pokemon("Bulbasaur", ["Grass", "Poison"], [new Move("Leech Seed", "Grass","Physical",45,100,25), new Move("Tackle","Normal","Physical",40,100,35)], [45,49,49,65,65,45]),
+        new Pokemon("Bulbasaur", ["Grass", "Poison"], [new Move("Leech Seed", "Grass","Physical",45,100,25,moves.DragonDance), new Move("Tackle","Normal","Physical",40,100,35)], [45,49,49,65,65,45]),
         new Pokemon("Ivysaur", ["Grass", "Poison"], [new Move("Leech Seed", "Grass","Physical",45,100,25), new Move("Tackle","Normal","Physical",40,100,35)], [45,49,49,65,65,45])
     ]
 }

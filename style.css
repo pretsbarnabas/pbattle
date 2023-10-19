@@ -25,7 +25,7 @@ body{
 .combat-log-container{
     height: 15vh;
     border: solid 1px black;
-    width: 15vw;
+    width: fit-content;
     position: absolute;
     left: 84%;
     top: 2%;
