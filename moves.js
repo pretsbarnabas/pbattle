@@ -1,23 +1,27 @@
+import { combatLogger } from "./combatLogger.js"
 import { getTypeEffectiveness } from "./typechart.js"
+import {type, category} from "./enum.js"
 
-function CalculateDamage(move,target){
+let combatlogger = new combatLogger()
+
+function CalculateDamage(user,move,target){
     let damage
-    if(move.category == "Physical"){
-        if(this.type.includes(move.type)){
-            damage = ((22*move.power*((this.attack*this.attackStage[0]/this.attackStage[1])/(target.defense*this.defenseStage[0]/this.defenseStage[1])))/50 + 2)*(Math.floor(Math.random()*101)/100)*1.5*getTypeEffectiveness(move.type,target.type)
+    if(move.category == category.Physical){
+        if(user.type.includes(move.type)){
+            damage = ((22*move.power*((user.attack*user.attackStage[0]/user.attackStage[1])/(target.defense*user.defenseStage[0]/user.defenseStage[1])))/50 + 2)*(Math.floor(Math.random()*101)/100+0.001)*1.5*getTypeEffectiveness(move.type,target.type)
         }
         else{
-            damage = ((22*move.power*((this.attack*this.attackStage[0]/this.attackStage[1])/(target.defense*this.defenseStage[0]/this.defenseStage[1])))/50 + 2)*(Math.floor(Math.random()*101)/100)*getTypeEffectiveness(move.type,target.type)
+            damage = ((22*move.power*((user.attack*user.attackStage[0]/user.attackStage[1])/(target.defense*user.defenseStage[0]/user.defenseStage[1])))/50 + 2)*(Math.floor(Math.random()*101)/100+0.001)*getTypeEffectiveness(move.type,target.type)
         }
         if(damage<0) damage = 1
         damage = Math.round(damage) 
     }
-    else if(move.category == "Special"){
-        if(this.type.includes(move.type)){
-            damage = ((22*move.power*((this.spattack*this.spattackStage[0]/this.spattackStage[1])/(target.spdefense*this.spdefenseStage[0]/this.spdefenseStage[1])))/50 + 2)*(Math.floor(Math.random()*101)/100)*1.5*getTypeEffectiveness(move.type,target.type)
+    else if(move.category == category.Special){
+        if(user.type.includes(move.type)){
+            damage = ((22*move.power*((user.spattack*user.spattackStage[0]/user.spattackStage[1])/(target.spdefense*user.spdefenseStage[0]/user.spdefenseStage[1])))/50 + 2)*(Math.floor(Math.random()*101)/100+0.001)*1.5*getTypeEffectiveness(move.type,target.type)
         }
         else{
-            damage = ((22*move.power*((this.spattack*this.spattackStage[0]/this.spattackStage[1])/(target.spdefense*this.spdefenseStage[0]/this.spdefenseStage[1])))/50 + 2)*(Math.floor(Math.random()*101)/100)*getTypeEffectiveness(move.type,target.type)
+            damage = ((22*move.power*((user.spattack*user.spattackStage[0]/user.spattackStage[1])/(target.spdefense*user.spdefenseStage[0]/user.spdefenseStage[1])))/50 + 2)*(Math.floor(Math.random()*101)/100+0.001)*getTypeEffectiveness(move.type,target.type)
         }
         if(damage<0) damage = 1
         damage = Math.round(damage)
@@ -64,8 +68,14 @@ function ModifyStatStage(target, stage, amount){
     }
 }
 
-export function DragonDance(user){
+export function DragonDance(user,target){
     console.log(user.attackStage)
-    ModifyStatStage(user,"attackStage", -1)
+    ModifyStatStage(target,"attackStage", -1)
     console.log(user.attackStage)
+    combatlogger.Log("beepboop")
+}
+
+export function Tackle(user,target){
+    combatlogger.Log(CalculateDamage(user,this,target))
+    return CalculateDamage(user,this,target)
 }

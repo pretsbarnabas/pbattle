@@ -8,13 +8,18 @@ export class Game{
         this.combatLogger = combatLogger
     }
 
-    Turn(){
+    Turn(move){
         if(this.playerActive.speed >= this.bossActive.speed){
-            this.combatLogger.Log(`${this.bossActive.hp}`)
-            let dmg = this.playerActive.Attack(this.playerActive.moveset[0], this.bossActive)
-            this.combatLogger.Log(`${this.playerActive.name} used ${this.playerActive.moveset[0].name} on ${this.bossActive.name}, it dealt ${dmg} damage!`)
-            this.combatLogger.Log(`${this.bossActive.hp}`)
+            this.combatLogger.Log(`${this.playerActive.name} used ${move.name}`)
+            let dmg = this.playerActive.Attack(this.playerActive, move, this.bossActive)
+            if(dmg){
+                this.bossActive.hp -= dmg
             }
+            return
+        }
+        else{
+
+        }
 
     }
 }

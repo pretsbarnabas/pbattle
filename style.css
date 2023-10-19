@@ -25,12 +25,36 @@ body{
 .combat-log-container{
     height: 15vh;
     border: solid 1px black;
-    width: fit-content;
+    width: 80vw;
     position: absolute;
-    left: 84%;
-    top: 2%;
+    left: 10%;
+    top: 80%;
     display: none;
     overflow-y: scroll;
     overflow-wrap: break-word;
     font-size: 12pt;
+}
+
+.battle-menu-button{
+    position: absolute;
+    width: 15vw;
+    height: 10vh;
+    border-radius: 5%;
+}
+
+.battle-menu-button:nth-child(1){
+    top: 70%;
+    left: 60%;
+}
+.battle-menu-button:nth-child(2){
+    top: 70%;
+    left: 75%;
+}
+.battle-menu-button:nth-child(3){
+    top: 80%;
+    left: 60%;
+}
+.battle-menu-button:nth-child(4){
+    top: 80%;
+    left: 75%;
 }

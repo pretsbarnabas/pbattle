@@ -17,8 +17,8 @@ export class Pokemon{
         this.evasionStage = [3,3]
     }
 
-    Attack(move,target){
-        move.Action(target)
+    Attack(user,move,target){
+        move.Action(user,target)
     }
 
 

@@ -4,8 +4,4 @@ export class Player{
         this.items = "undefined"
     }
 
-    Attack(pokemon,move,target){
-        console.log(`${pokemon.name} used ${move.name}`)        
-        console.log(`${target.name} lost ${move.power - target.defense}`)        
-    }
 }
