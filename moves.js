@@ -76,6 +76,7 @@ export function DragonDance(user,target){
 }
 
 export function Tackle(user,target){
+    //accuracy/evasion check
     combatlogger.Log(CalculateDamage(user,this,target))
     return CalculateDamage(user,this,target)
 }
