@@ -1,9 +1,8 @@
 export class combatLogger{
-    constructor(){
-        this.htmlelement = document.querySelector(".combat-log-container")
-    }
-
-    Log(text){
+    static htmlelement = document.querySelector(".combat-log-container")
+    
+    static Log(text){
+        this.htmlelement.innerHTML = ""
         let log = document.createElement("p")
         log.innerText = text
         this.htmlelement.appendChild(log)

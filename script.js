@@ -2,16 +2,16 @@ import {Game} from "./game.js"
 import {Pokemon} from "./pokemon.js"
 import {Move} from "./move.js"
 import {Player} from "./player.js"
-import { combatLogger } from "./combatLogger.js"
 import {type,category} from "./enum.js"
-import * as moves from "./moves.js"
+import * as moves from "./moveslogic.js"
+
 
 let game
 let party
-main()
+setup()
 start_battle()
 
-function main(){
+function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
     party = [
         new Pokemon("Bulbasaur", [type.Grass, type.Poison], [new Move("Dragon Dance", type.Grass,category.Physical,45,100,25,moves.DragonDance), new Move("Tackle",type.Normal,category.Physical,40,100,35,moves.Tackle)], [45,49,49,65,65,45]),
@@ -22,7 +22,7 @@ function main(){
 function start_battle(){
     let player = new Player(party)
     let boss = new Player(party)
-    game = new Game(player,boss, new combatLogger())
+    game = new Game(player,boss)
     toggle_menu_items()
     createBattleScreenElements()
     console.log(game.player.party[0].name)

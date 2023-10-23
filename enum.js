@@ -24,3 +24,22 @@ export const category = {
     Special: "Special",
     Status: "Status"
 }
+
+export const stage = {
+    attack: "attackStage",
+    defense: "defenseStage",
+    spattack: "spattackStage",
+    spdefense: "spdefenseStage",
+    accuracy: "accuracyStage",
+    evasion: "evasionStage",
+    speed: "speedStage"
+}
+
+export const statusCondition = {
+    normal: "NRM",
+    burn: "BRN",
+    freeze: "FRZ",
+    paralysis: "PRZ",
+    poison: "PSN",
+    sleep: "SLP"
+}
