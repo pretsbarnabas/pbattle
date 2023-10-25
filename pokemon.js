@@ -16,9 +16,9 @@ export class Pokemon{
         this.speedStage = [2,2]
         this.accuracyStage = [3,3]
         this.evasionStage = [3,3]
-        this.statusCondition = null
-        this.spriteFronturl = spritefront
-        this.spriteBackurl = spriteback
+        this.statusCondition = "NRM"
+        this.spritefront = spritefront
+        this.spriteback = spriteback
     }
 
     Attack(user,move,target){

@@ -23,7 +23,7 @@ body{
 }
 
 .combat-log-container{
-    height: 15vh;
+    height: 16vh;
     border: solid 1px black;
     width: 80vw;
     position: absolute;
@@ -35,26 +35,76 @@ body{
     font-size: 12pt;
 }
 
+
 .battle-menu-button{
     position: absolute;
     width: 15vw;
-    height: 10vh;
+    height: 8vh;
     border-radius: 5%;
 }
 
 .battle-menu-button:nth-child(1){
-    top: 70%;
+    top: 80%;
     left: 60%;
 }
 .battle-menu-button:nth-child(2){
-    top: 70%;
+    top: 80%;
     left: 75%;
 }
 .battle-menu-button:nth-child(3){
-    top: 80%;
+    top: 88%;
     left: 60%;
 }
 .battle-menu-button:nth-child(4){
-    top: 80%;
+    top: 88%;
     left: 75%;
+}
+.battle-main-container{
+    width: fit-content;
+    height: fit-content;
+}
+.battle-pokemon-container:nth-child(1){
+    position: absolute;
+    left: 20%;
+    top: 60%;
+}
+.battle-pokemon-container:nth-child(2){
+    position: absolute;
+    top: 10%;
+    left: 60%;
+}
+.battle-pokemon-img{
+    width: 200px;
+    height: 200px;
+}
+
+.battle-status-container{
+    border: 2px solid black;
+    width: 20vw;
+    height: 5vh;
+    margin-top: 50px;
+    margin-left: 30px;
+
+}
+.battle-status-container:nth-child(2){
+    font-family: 'Courier New', Courier, monospace;
+}
+.battle-status-name{
+    position: relative;
+    left: 10%;
+}
+.battle-status-lvl{
+    position: relative;
+    left: 75%;
+    bottom: 40%;
+}
+.battle-status-hp{
+    position: relative;
+    bottom: 15%;
+    left: 9%;
+}
+.battle-status-ailment{
+    position: relative;
+    bottom: 55%;
+    left: 80%;
 }

@@ -175,7 +175,7 @@ export function Moonblast(user,target){
 }
 
 export function DragonBreath(user,target){
-    if(!HitCheck(user,target,this,accuracy)) return
+    if(!HitCheck(user,target,this.accuracy)) return
     if(rngCheck(30)){
         if(!target.type.includes(type.Electric)){
             setStatusCondition(target,statusCondition.paralysis)
