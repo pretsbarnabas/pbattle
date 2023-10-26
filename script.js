@@ -33,3 +33,15 @@ function backgroundzoom(){
     const background = document.getElementById("bg")
     
 }
+function PartyOnclick(){
+    console.log("asj");
+    const menucontainer = document.getElementById("menu");
+    menucontainer.style.top = "50%";
+    menucontainer.style.left = "5%";
+}
+
+const partyBtn = document.getElementById("partyButton")
+
+partyBtn.addEventListener("click",PartyOnclick)
+
+
