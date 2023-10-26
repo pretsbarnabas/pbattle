@@ -7,4 +7,7 @@ export class combatLogger{
         log.innerText = text
         this.htmlelement.appendChild(log)
     }
+    static sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 }

@@ -5,17 +5,19 @@ import {pokemon} from "./pokemondata.js"
 
 let game
 let party
+let bossparty
 setup()
 start_battle()
 
 function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
     party = [pokemon.Altaria]
+    bossparty = [pokemon.Typhlosion]
 }
 
 function start_battle(){
     let player = new Player(party)
-    let boss = new Player(party)
+    let boss = new Player(bossparty)
     game = new Game(player,boss)
     toggleMenuItems()
     createBattleScreenElements()
@@ -51,4 +53,6 @@ function createBattleScreenElements(){
         document.querySelector(".battle-main-container").appendChild(div)
         
     }
+    document.querySelectorAll(".battle-status-hp")[0].textContent = game.bossActive.hp
+    document.querySelectorAll(".battle-status-hp")[1].textContent = game.playerActive.hp
 }

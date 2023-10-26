@@ -154,20 +154,23 @@ function setStatusCondition(target,status){
     }
 }
 
-export function DragonDance(user,target){
-    ModifyStatStage(target,stage.spattack,1)
+export async function DragonDance(user,target){
+    ModifyStatStage(target,stage.attack,1)
     ModifyStatStage(target,stage.speed, 1)
-
+    combatLogger.Log(`It's Attack rose sharply! `)
+    await combatLogger.sleep(1000)
+    combatLogger.Log(`It's Speed rose sharply! `)
+    await combatLogger.sleep(1000)
 }
 
 export function Tackle(user,target){
-    if(!HitCheck(user,target,this.accuracy)) return
+    if(!HitCheck(user,target,this.accuracy)) return -1
     combatLogger.Log(CalculateDamage(user,this,target))
     return CalculateDamage(user,this,target)
 }
 
 export function Moonblast(user,target){
-    if(!HitCheck(user,target,this.accuracy)) return
+    if(!HitCheck(user,target,this.accuracy)) return -1
     if(rngCheck(30)){
         ModifyStatStage(target,stage.spattack,-1)
     }   
@@ -175,7 +178,7 @@ export function Moonblast(user,target){
 }
 
 export function DragonBreath(user,target){
-    if(!HitCheck(user,target,this.accuracy)) return
+    if(!HitCheck(user,target,this.accuracy)) return -1
     if(rngCheck(30)){
         if(!target.type.includes(type.Electric)){
             setStatusCondition(target,statusCondition.paralysis)

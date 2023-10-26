@@ -22,7 +22,7 @@ export class Pokemon{
     }
 
     Attack(user,move,target){
-        move.Action(user,target)
+        return move.Action(user,target)
     }
 
 
