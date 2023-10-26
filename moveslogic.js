@@ -12,7 +12,7 @@ function CalculateDamage(user,move,target){
         else{
             damage = ((22*move.power*((user.attack*user.attackStage[0]/user.attackStage[1])/(target.defense*(target.defenseStage[0]/target.defenseStage[1]))))/50 + 2)*((Math.floor(Math.random()*26)+85)/100)*getTypeEffectiveness(move.type,target.type)
         }
-        if(damage<0) damage = 1
+        if(damage<1) damage = 1
         damage = Math.round(damage) 
     }
     else if(move.category == category.Special){
@@ -22,7 +22,7 @@ function CalculateDamage(user,move,target){
         else{
             damage = ((22*move.power*((user.spattack*user.spattackStage[0]/user.spattackStage[1])/(target.spdefense*(target.spdefenseStage[0]/target.spdefenseStage[1]))))/50 + 2)*((Math.floor(Math.random()*26)+85)/100)*getTypeEffectiveness(move.type,target.type)
         }
-        if(damage<0) damage = 1
+        if(damage<1) damage = 1
     }
     if(Math.floor(Math.random()*24) == 23){
         console.log("bap")
@@ -157,10 +157,10 @@ function setStatusCondition(target,status){
 export async function DragonDance(user,target){
     ModifyStatStage(target,stage.attack,1)
     ModifyStatStage(target,stage.speed, 1)
-    combatLogger.Log(`It's Attack rose sharply! `)
-    await combatLogger.sleep(1000)
-    combatLogger.Log(`It's Speed rose sharply! `)
-    await combatLogger.sleep(1000)
+    await combatLogger.Log(`It's Attack rose sharply! `)
+    // await combatLogger.sleep(1000)
+    await combatLogger.Log(`It's Speed rose sharply! `)
+    // await combatLogger.sleep(1000)
 }
 
 export function Tackle(user,target){
