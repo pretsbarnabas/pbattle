@@ -3,9 +3,9 @@ import {type} from "./enum.js"
 export function getTypeEffectiveness(moveType, targetType){
     let effectiveness = 1
     for (let i = 0; i < targetType.length; i++) {
-        switch (targetType[i]) {
+        switch (moveType) {
             case type.Normal:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Rock:
                         effectiveness = effectiveness*0.5
                         break;
@@ -20,7 +20,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Fire:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
@@ -50,7 +50,7 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
             case type.Water:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*2
                         break;
@@ -75,7 +75,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Grass:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
@@ -112,7 +112,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Electric:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Water:
                         effectiveness = effectiveness*2
                         break;
@@ -137,7 +137,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Ice:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
@@ -168,7 +168,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Fighting:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Normal:
                         effectiveness = effectiveness*2
                         break;
@@ -207,7 +207,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Poison:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Grass:
                         effectiveness = effectiveness*2
                         break;
@@ -235,7 +235,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Ground:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*2
                         break;
@@ -266,7 +266,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Flying:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Grass:
                         effectiveness = effectiveness*2
                         break;
@@ -291,7 +291,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Psychic:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fighting:
                         effectiveness = effectiveness*2
                         break;
@@ -313,7 +313,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Bug:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
@@ -349,7 +349,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Rock:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*2
                         break;
@@ -377,7 +377,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Ghost:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Normal:
                         effectiveness = effectiveness*0
                         break;
@@ -399,7 +399,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Dragon:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Dragon:
                         effectiveness = effectiveness*2
                         break;
@@ -414,7 +414,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Dark:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fighting:
                         effectiveness = effectiveness*0.5
                         break;
@@ -436,7 +436,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Steel:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
@@ -464,7 +464,7 @@ export function getTypeEffectiveness(moveType, targetType){
                 }
                 break;
             case type.Fairy:
-                switch (moveType) {
+                switch (targetType[i]) {
                     case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;

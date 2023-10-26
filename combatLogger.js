@@ -6,7 +6,7 @@ export class combatLogger{
         let log = document.createElement("p")
         log.innerText = text
         this.htmlelement.appendChild(log)
-        await this.sleep(1000)
+        await this.sleep(2000)
     }
     static sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

@@ -16,13 +16,33 @@ export class Pokemon{
         this.speedStage = [2,2]
         this.accuracyStage = [3,3]
         this.evasionStage = [3,3]
-        this.statusCondition = "NRM"
+        this._statusCondition = "NRM"
         this.spritefront = spritefront
         this.spriteback = spriteback
+        this.imgelement = undefined
+        this.battlestatuselement = undefined
     }
 
     Attack(user,move,target){
         return move.Action(user,target)
+    }
+
+    get statusCondition(){
+        return this._statusCondition
+    }
+    set statusCondition(value){
+        this._statusCondition = value
+        this.battlestatuselement.children[3].textContent = this._statusCondition
+    }
+
+    get hp(){
+        return this._hp
+    }
+    set hp(value){
+        this._hp = value
+        if(this.battlestatuselement){
+            this.battlestatuselement.children[2].textContent = this._hp
+        }
     }
 
 

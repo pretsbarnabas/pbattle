@@ -53,6 +53,6 @@ function createBattleScreenElements(){
         document.querySelector(".battle-main-container").appendChild(div)
         
     }
-    document.querySelectorAll(".battle-status-hp")[0].textContent = game.bossActive.hp
-    document.querySelectorAll(".battle-status-hp")[1].textContent = game.playerActive.hp
+    game.updateElements()
+
 }

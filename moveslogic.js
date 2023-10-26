@@ -3,7 +3,7 @@ import { getTypeEffectiveness } from "./typechart.js"
 import {stage, category,type,statusCondition} from "./enum.js"
 
 
-function CalculateDamage(user,move,target){
+async function CalculateDamage(user,move,target){
     let damage
     if(move.category == category.Physical){
         if(user.type.includes(move.type)){
@@ -12,7 +12,7 @@ function CalculateDamage(user,move,target){
         else{
             damage = ((22*move.power*((user.attack*user.attackStage[0]/user.attackStage[1])/(target.defense*(target.defenseStage[0]/target.defenseStage[1]))))/50 + 2)*((Math.floor(Math.random()*26)+85)/100)*getTypeEffectiveness(move.type,target.type)
         }
-        if(damage<1) damage = 1
+        if(damage<0) damage = 1
         damage = Math.round(damage) 
     }
     else if(move.category == category.Special){
@@ -22,7 +22,7 @@ function CalculateDamage(user,move,target){
         else{
             damage = ((22*move.power*((user.spattack*user.spattackStage[0]/user.spattackStage[1])/(target.spdefense*(target.spdefenseStage[0]/target.spdefenseStage[1]))))/50 + 2)*((Math.floor(Math.random()*26)+85)/100)*getTypeEffectiveness(move.type,target.type)
         }
-        if(damage<1) damage = 1
+        if(damage<0) damage = 1
     }
     if(Math.floor(Math.random()*24) == 23){
         console.log("bap")
@@ -44,6 +44,11 @@ function CalculateDamage(user,move,target){
             }
         }
     } 
+    if(damage>0){
+        target.imgelement.classList.add("flicker-2")
+        await combatLogger.sleep(2000)
+        target.imgelement.classList.remove("flicker-2")
+    }
     damage = Math.round(damage)
     return damage
 }
@@ -148,19 +153,32 @@ function rngCheck(chance){
     return Math.floor(Math.random()*101) <= chance
 }
 
-function setStatusCondition(target,status){
+async function setStatusCondition(target,status){
     if(target.statusCondition == statusCondition.normal){
-        target.statusCondition = statusCondition[status]
+        target.statusCondition = status
+        await combatLogger.Log(`${target.name} got ${status}`)
     }
 }
 
 export async function DragonDance(user,target){
-    ModifyStatStage(target,stage.attack,1)
-    ModifyStatStage(target,stage.speed, 1)
-    await combatLogger.Log(`It's Attack rose sharply! `)
-    // await combatLogger.sleep(1000)
-    await combatLogger.Log(`It's Speed rose sharply! `)
-    // await combatLogger.sleep(1000)
+    if(target[stage.attack][0]==8){
+        await combatLogger.Log(`${user.name}'s attack won't go higher!`)
+    }
+    else{
+        ModifyStatStage(target,stage.attack,1)
+        await combatLogger.Log(`${user.name}'s attack rose!`)
+    }
+    if(target[stage.speed][0]==8){
+        await combatLogger.Log(`${user.name}'s speed won't go higher!`)
+    }
+    else{
+        ModifyStatStage(target,stage.speed, 1)
+        await combatLogger.Log(`${user.name}'s speed rose!`)
+    }
+
+
+
+
 }
 
 export function Tackle(user,target){
@@ -171,22 +189,30 @@ export function Tackle(user,target){
 
 export function Moonblast(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
     if(rngCheck(30)){
         ModifyStatStage(target,stage.spattack,-1)
     }   
-    return CalculateDamage(user,this,target)
+    return damage
 }
 
-export function DragonBreath(user,target){
+export async function DragonBreath(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
     if(rngCheck(30)){
         if(!target.type.includes(type.Electric)){
-            setStatusCondition(target,statusCondition.paralysis)
+            await setStatusCondition(target,statusCondition.paralysis)
         }
     }
-    return CalculateDamage(user,this,target)
+
+    return damage
 }
 
-export function CottonGuard(user,target){
+export async function CottonGuard(user,target){
+    if(target[stage.defense][0]==8){
+        await combatLogger.Log(`${user.name}'s defense won't go higher!`)
+        return
+    }
     ModifyStatStage(target,stage.defense,3)
+    await combatLogger.Log(`${user.name}'s defense rose drastically!`)
 }
