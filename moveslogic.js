@@ -246,10 +246,34 @@ export async function AncientPower(user,target){
 export async function Leer(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     ModifyStatStage(target,stage.defense,-1)
-    await combatLogger.Log(`${user.name}'s defense went down!`)
+    await combatLogger.Log(`${target.name}'s defense went down!`)
 }
 
 export async function DoubleTeam(user,target){
     ModifyStatStage(user,stage.evasion,1)
     await combatLogger.Log(`${user.name}'s evasion rose!`)
+}
+
+export async function Crunch(user,target){
+    const damage = CalculateDamage(user,this,target)
+    if(rngCheck(20)){
+        ModifyStatStage(target,stage.defense,1)
+        await combatLogger.Log(`${target.name}'s defense went down!`)
+    }
+    
+    return damage
+}
+
+export async function ScaryFace(user,target){
+    ModifyStatStage(target,stage.speed,-2)
+    await combatLogger.Log(`${target.name}'s speed went down!`)
+}
+
+export function Reversal(user,target){
+    const hpPercentage = (user.hp / user.maxhp)*100
+    if(hpPercentage > 70){
+        //TODO: calculate damage * 2; power = 20 in movesdata.js
+        //https://pokemondb.net/move/reversal
+        //pokemon black sprites
+    }
 }

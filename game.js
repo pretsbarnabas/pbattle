@@ -33,7 +33,7 @@ export class Game{
             }
             const bossmovenum = Math.floor(Math.random()*4)
             await combatLogger.Log(`${this.bossActive.name} used ${this.bossActive.moveset[bossmovenum].name}`)
-            dmg = await this.bossActive.Attack(this.bossActive,this.bossActive.moveset[0],this.playerActive)
+            dmg = await this.bossActive.Attack(this.bossActive,this.bossActive.moveset[bossmovenum],this.playerActive)
             if(dmg==-1){
                 await combatLogger.Log(`It missed!`)
             }
@@ -53,7 +53,7 @@ export class Game{
         else{
             const bossmovenum = Math.floor(Math.random()*4)
             await combatLogger.Log(`${this.bossActive.name} used ${this.bossActive.moveset[bossmovenum].name}`)
-            let dmg = await this.bossActive.Attack(this.bossActive,this.bossActive.moveset[0],this.playerActive)
+            let dmg = await this.bossActive.Attack(this.bossActive,this.bossActive.moveset[bossmovenum],this.playerActive)
             if(dmg==-1){
                 await combatLogger.Log(`It missed!`)
                 

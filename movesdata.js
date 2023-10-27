@@ -12,4 +12,7 @@ export const moves = {
     AncientPower: new Move("AncientPower",type.Rock,category.Special,60,100,5,movelogic.AncientPower),
     Leer: new Move("Leer",type.Normal,category.Status,0,100,30,movelogic.Leer),
     DoubleTeam: new Move("Leer",type.Normal,category.Status,0,0,15,movelogic.DoubleTeam),
+    Crunch: new Move("Crunch",type.Dark,category.Physical,80,100,15,movelogic.Crunch),
+    ScaryFace: new Move("ScaryFace",type.Normal,category.Status,0,100,10,movelogic.ScaryFace),
+    
 }

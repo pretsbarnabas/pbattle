@@ -21,6 +21,7 @@ export class Pokemon{
         this.spriteback = spriteback
         this.imgelement = undefined
         this.battlestatuselement = undefined
+        this.maxhp = stats[0]
     }
 
     Attack(user,move,target){
