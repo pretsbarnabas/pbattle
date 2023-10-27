@@ -182,14 +182,14 @@ export async function DragonDance(user,target){
 
 }
 
-export function Tackle(user,target){
+export async function Tackle(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    return CalculateDamage(user,this,target)
+    return await CalculateDamage(user,this,target)
 }
 
-export function Moonblast(user,target){
+export async function Moonblast(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     if(rngCheck(30)){
         ModifyStatStage(target,stage.spattack,-1)
     }   
@@ -198,7 +198,7 @@ export function Moonblast(user,target){
 
 export async function DragonBreath(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     if(rngCheck(30)){
         if(!target.type.includes(type.Electric)){
             await setStatusCondition(target,statusCondition.paralysis)
@@ -217,16 +217,16 @@ export async function CottonGuard(user,target){
     await combatLogger.Log(`${user.name}'s defense rose drastically!`)
 }
 
-export function Bonemerang(user,target) {
+export async function Bonemerang(user,target) {
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
-    damage += CalculateDamage(user,this,target)
+    let damage = await CalculateDamage(user,this,target)
+    damage += await CalculateDamage(user,this,target)
     return damage
 }
 
 export async function AncientPower(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     if(rngCheck(10)){
         ModifyStatStage(user,stage.attack,1)
         await combatLogger.Log(`${user.name}'s attack rose!`)
@@ -246,7 +246,7 @@ export async function AncientPower(user,target){
 export async function Leer(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     ModifyStatStage(target,stage.defense,-1)
-    await combatLogger.Log(`${user.name}'s defense went down!`)
+    await combatLogger.Log(`${target.name}'s defense went down!`)
 }
 
 export async function DoubleTeam(user,target){

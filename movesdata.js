@@ -11,5 +11,5 @@ export const moves = {
     Bonemerang: new Move("Bonemerang",type.Ground,category.Physical,50,90,10,movelogic.Bonemerang),
     AncientPower: new Move("AncientPower",type.Rock,category.Special,60,100,5,movelogic.AncientPower),
     Leer: new Move("Leer",type.Normal,category.Status,0,100,30,movelogic.Leer),
-    DoubleTeam: new Move("Leer",type.Normal,category.Status,0,0,15,movelogic.DoubleTeam),
+    DoubleTeam: new Move("Double Team",type.Normal,category.Status,0,0,15,movelogic.DoubleTeam),
 }
