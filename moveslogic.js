@@ -161,6 +161,7 @@ async function setStatusCondition(target,status){
 }
 
 export async function DragonDance(user,target){
+    ModifyStatStage(user,stage.attack,1)
     if(target[stage.attack][0]==8){
         await combatLogger.Log(`${user.name}'s attack won't go higher!`)
     }
@@ -183,7 +184,6 @@ export async function DragonDance(user,target){
 
 export function Tackle(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    combatLogger.Log(CalculateDamage(user,this,target))
     return CalculateDamage(user,this,target)
 }
 
@@ -215,4 +215,41 @@ export async function CottonGuard(user,target){
     }
     ModifyStatStage(target,stage.defense,3)
     await combatLogger.Log(`${user.name}'s defense rose drastically!`)
+}
+
+export function Bonemerang(user,target) {
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    damage += CalculateDamage(user,this,target)
+    return damage
+}
+
+export async function AncientPower(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    if(rngCheck(10)){
+        ModifyStatStage(user,stage.attack,1)
+        await combatLogger.Log(`${user.name}'s attack rose!`)
+        ModifyStatStage(user,stage.defense,1)
+        await combatLogger.Log(`${user.name}'s defense rose!`)
+        ModifyStatStage(user,stage.spattack,1)
+        await combatLogger.Log(`${user.name}'s special attack rose!`)
+        ModifyStatStage(user,stage.spdefense,1)
+        await combatLogger.Log(`${user.name}'s special defense rose!`)
+        ModifyStatStage(user,stage.speed,1)
+        await combatLogger.Log(`${user.name}'s speed rose!`)
+    }
+
+    return damage
+}
+
+export async function Leer(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    ModifyStatStage(target,stage.defense,-1)
+    await combatLogger.Log(`${user.name}'s defense went down!`)
+}
+
+export async function DoubleTeam(user,target){
+    ModifyStatStage(user,stage.evasion,1)
+    await combatLogger.Log(`${user.name}'s evasion rose!`)
 }
