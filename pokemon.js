@@ -1,4 +1,4 @@
-import { getTypeEffectiveness } from "./typechart"
+import { getTypeEffectiveness } from "./typechart.js"
 
 export class Pokemon{
     constructor(name, type, moveset, stats){

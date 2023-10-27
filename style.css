@@ -21,3 +21,39 @@ body{
     text-align: center;
     background-color: thistle;
 }
+.partycontainer{
+    position: absolute;
+    top: 20%;
+    left:30%;
+    display: flex;
+    background: red;
+    width: 60vw;
+    height: 70vh;
+
+}
+.partyelement{
+    width:33.333333333333%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: blue;
+    border-right: solid 3px black;
+}
+.pokemoncard{
+    display:flex;
+
+    height:15%;
+    width:100%
+}
+.pokemonimg{
+    width: 50%;
+}
+.pokemonname{
+    width: 50%;
+    font-size: 23px;
+    margin-top: 20%;
+    
+}
+.sectionTitle{
+    text-align: center;
+}

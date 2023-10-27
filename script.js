@@ -10,7 +10,6 @@ main()
 
 function main(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
-    document.querySelector(".menu-button:nth-child(2)").addEventListener("click", ()=>{alert(constantnumber)})
     party = [
         new Pokemon("Bulbasaur", ["Grass", "Poison"], [new Move("Leech Seed", "Grass","Physical",45,100,25), new Move("Tackle","Normal","Physical",40,100,35)], [45,49,65,65,45]),
         new Pokemon("Ivysaur", ["Grass", "Poison"], [new Move("Leech Seed", "Grass","Physical",45,100,25), new Move("Tackle","Normal","Physical",40,100,35)], [45,49,65,65,45])
@@ -38,10 +37,14 @@ function PartyOnclick(){
     const menucontainer = document.getElementById("menu");
     menucontainer.style.top = "50%";
     menucontainer.style.left = "5%";
-}
+//     let containerdiv = document.createElement('div')
+//     containerdiv.classList.add('partycontainer')
+//     document.body.appendChild('containerdiv')
+//     let partytable = document.createElement()
+// }
 
 const partyBtn = document.getElementById("partyButton")
 
-partyBtn.addEventListener("click",PartyOnclick)
+partyBtn.addEventListener("click",()=>{PartyOnclick()})
 
 
