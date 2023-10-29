@@ -46,94 +46,342 @@ async function CalculateDamage(user,move,target){
     } 
     if(damage>0){
         target.imgelement.classList.add("flicker-2")
-        await combatLogger.sleep(2000)
+        await combatLogger.sleep(1000)
         target.imgelement.classList.remove("flicker-2")
     }
     damage = Math.round(damage)
     return damage
 }
 
-function ModifyStatStage(target, stage, amount){
-    if(stage == stage.accuracy || stage == stage.evasion){
+async function ModifyStatStage(target, statstage, amount){
+    if(statstage[0] == stage.accuracy[0] || statstage[0] == stage.evasion[0]){
         if(amount>0){
-            if(target[stage][0] == 9) return
-            if(target[stage][1] > 3){
-                if(target[stage][1] - amount < 3){
-                    target[stage][0] += 3-(target[stage][1]-amount)
-                    target[stage][1] = 3
+            if(target[statstage[0]][0] == 9) {
+                await combatLogger.Log(`${target.name}'s ${statstage[1]} won't go any higher!`)
+            }
+            if(target[statstage[0]][1] > 3){
+                if(target[statstage[0]][1] - amount < 3){
+                    target[statstage[0]][0] += 3-(target[statstage[0]][1]-amount)
+                    target[statstage[0]][1] = 3
+                    target.imgelement.classList.add("buff_anim")
+                    await combatLogger.sleep(1200)
+                    target.imgelement.classList.remove("buff_anim")
+                    switch (amount) {
+                        case 1:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose!`)
+                            break;
+                        case 2:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose sharply!`)
+                            break;
+                        case 3:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose drastically!`)
+                        default:
+                            break;
+                    }
                     return
                 }
-                target[stage][1] -= amount
+                target[statstage[0]][1] -= amount
+                target.imgelement.classList.add("buff_anim")
+                await combatLogger.sleep(1200)
+                target.imgelement.classList.remove("buff_anim")
+                switch (amount) {
+                    case 1:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose!`)
+                        break;
+                    case 2:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose sharply!`)
+                        break;
+                    case 3:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose drastically!`)
+                    default:
+                        break;
+                }
             }
             else{
-                if(target[stage][0]+amount > 9){
-                    target[stage][0] = 9
+                if(target[statstage[0]][0]+amount > 9){
+                    target[statstage[0]][0] = 9
+                    target.imgelement.classList.add("buff_anim")
+                    await combatLogger.sleep(1200)
+                    target.imgelement.classList.remove("buff_anim")
+                    switch (amount) {
+                        case 1:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose!`)
+                            break;
+                        case 2:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose sharply!`)
+                            break;
+                        case 3:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose drastically!`)
+                        default:
+                            break;
+                    }
                     return
                 }
-                target[stage][0]+= amount
+                target[statstage[0]][0]+= amount
+                target.imgelement.classList.add("buff_anim")
+                await combatLogger.sleep(1200)
+                target.imgelement.classList.remove("buff_anim")
+                switch (amount) {
+                    case 1:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose!`)
+                        break;
+                    case 2:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose sharply!`)
+                        break;
+                    case 3:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose drastically!`)
+                    default:
+                        break;
+                }
             }
         }
         else{
-            if(target[stage][1] == 9) return
-            if(target[stage][0] > 3){
-                if(target[stage][0] - amount*-1 < 3){
-                    target[stage][1] += 3-(target[stage][1]-amount*-1)
-                    target[stage][0] = 3
+            if(target[statstage[0]][1] == 9){
+                await combatLogger.Log(`${target.name}'s ${statstage[1]} won't go any lower!`)
+            }
+            if(target[statstage[0]][0] > 3){
+                if(target[statstage[0]][0] - amount*-1 < 3){
+                    target[statstage[0]][1] += 3-(target[statstage[0]][1]-amount*-1)
+                    target[statstage[0]][0] = 3
+                    target.classList.add("debuff_anim")
+                    await combatLogger.sleep(1200)
+                    target.classList.remove("debuff_anim")
+                    switch (amount*-1) {
+                        case 1:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
+                            break;
+                        case 2:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} harshly fell!`)
+                            break;
+                        case 3:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} severely fell!`)
+                        default:
+                            break;
+                    }
                     return
                 }
-                target[stage][0] -= amount*-1
+                target[statstage[0]][0] -= amount*-1
+                target.classList.add("debuff_anim")
+                await combatLogger.sleep(1200)
+                target.classList.remove("debuff_anim")
+                switch (amount*-1) {
+                    case 1:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
+                        break;
+                    case 2:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} harshly fell!`)
+                        break;
+                    case 3:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} severely fell!`)
+                    default:
+                        break;
+                }
             }
             else{
-                if(target[stage][1]+amount*-1 > 9){
-                    target[stage][1] = 9
+                if(target[statstage[0]][1]+amount*-1 > 9){
+                    target[statstage[0]][1] = 9
+                    target.classList.add("debuff_anim")
+                    await combatLogger.sleep(1200)
+                    target.classList.remove("debuff_anim")
+                    switch (amount*-1) {
+                        case 1:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
+                            break;
+                        case 2:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} harshly fell!`)
+                            break;
+                        case 3:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} severely fell!`)
+                        default:
+                            break;
+                    }
                     return
                 }
-                target[stage][1]+= amount*-1
+                target[statstage[0]][1]+= amount*-1
+                target.classList.add("debuff_anim")
+                await combatLogger.sleep(1200)
+                target.classList.remove("debuff_anim")
+                switch (amount*-1) {
+                    case 1:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
+                        break;
+                    case 2:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} harshly fell!`)
+                        break;
+                    case 3:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} severely fell!`)
+                    default:
+                        break;
+                }
             }
         }
     }
     else{
         if(amount>0){
-            if(target[stage][0] == 8) return
-            if(target[stage][1] > 2){
-                if(target[stage][1] - amount < 2){
-                    target[stage][0] += 2-(target[stage][1]-amount)
-                    target[stage][1] = 2
+            if(target[statstage[0]][0] == 8){
+                await combatLogger.Log(`${target.name}'s ${statstage[1]} won't go any higher!`)
+            }
+            if(target[statstage[0]][1] > 2){
+                if(target[statstage[0]][1] - amount < 2){
+                    target[statstage[0]][0] += 2-(target[statstage[0]][1]-amount)
+                    target[statstage[0]][1] = 2
+                    target.imgelement.classList.add("buff_anim")
+                    await combatLogger.sleep(1200)
+                    target.imgelement.classList.remove("buff_anim")
+                    switch (amount) {
+                        case 1:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose!`)
+                            break;
+                        case 2:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose sharply!`)
+                            break;
+                        case 3:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose drastically!`)
+                        default:
+                            break;
+                    }
                     return
                 }
-                target[stage][1] -= amount
+                target[statstage[0]][1] -= amount
+                target.imgelement.classList.add("buff_anim")
+                await combatLogger.sleep(1200)
+                target.imgelement.classList.remove("buff_anim")
+                switch (amount) {
+                    case 1:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose!`)
+                        break;
+                    case 2:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose sharply!`)
+                        break;
+                    case 3:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose drastically!`)
+                    default:
+                        break;
+                }
             }
             else{
-                if(target[stage][0]+amount > 8){
-                    target[stage][0] = 8
+                if(target[statstage[0]][0]+amount > 8){
+                    target[statstage[0]][0] = 8
+                    target.imgelement.classList.add("buff_anim")
+                    await combatLogger.sleep(1200)
+                    target.imgelement.classList.remove("buff_anim")
+                    switch (amount) {
+                        case 1:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose!`)
+                            break;
+                        case 2:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose sharply!`)
+                            break;
+                        case 3:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} rose drastically!`)
+                        default:
+                            break;
+                    }
                     return
                 }
-                target[stage][0]+= amount
+                target[statstage[0]][0]+= amount
+                target.imgelement.classList.add("buff_anim")
+                await combatLogger.sleep(1200)
+                target.imgelement.classList.remove("buff_anim")
+                switch (amount) {
+                    case 1:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose!`)
+                        break;
+                    case 2:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose sharply!`)
+                        break;
+                    case 3:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} rose drastically!`)
+                    default:
+                        break;
+                }
             }
         }
         else{
-            if(target[stage][1] == 8) return
-            if(target[stage][0] > 2){
-                if(target[stage][0] - amount*-1 < 2){
-                    target[stage][1] += 2-(target[stage][1]-amount*-1)
-                    target[stage][0] = 2
+            if(target[statstage[0]][1] == 8){
+                await combatLogger.Log(`${target.name}'s ${statstage[1]} won't go any lower!`)
+            }
+            if(target[statstage[0]][0] > 2){
+                if(target[statstage[0]][0] - amount*-1 < 2){
+                    target[statstage[0]][1] += 2-(target[statstage[0]][1]-amount*-1)
+                    target[statstage[0]][0] = 2
+                    target.imgelement.classList.add("debuff_anim")
+                    await combatLogger.sleep(1200)
+                    target.imgelement.classList.remove("debuff_anim")
+                    switch (amount*-1) {
+                        case 1:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
+                            break;
+                        case 2:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} harshly fell!`)
+                            break;
+                        case 3:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} severely fell!`)
+                        default:
+                            break;
+                    }
                     return
                 }
-                target[stage][0] -= amount*-1
+                target[statstage[0]][0] -= amount*-1
+                target.imgelement.classList.add("debuff_anim")
+                await combatLogger.sleep(1200)
+                target.imgelement.classList.remove("debuff_anim")
+                switch (amount*-1) {
+                    case 1:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
+                        break;
+                    case 2:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} harshly fell!`)
+                        break;
+                    case 3:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} severely fell!`)
+                    default:
+                        break;
+                }
             }
             else{
-                if(target[stage][1]+amount*-1 > 8){
-                    target[stage][1] = 8
+                if(target[statstage[0]][1]+amount*-1 > 8){
+                    target[statstage[0]][1] = 8
+                    target.imgelement.classList.add("debuff_anim")
+                    await combatLogger.sleep(1200)
+                    target.imgelement.classList.remove("debuff_anim")
+                    switch (amount*-1) {
+                        case 1:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
+                            break;
+                        case 2:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} harshly fell!`)
+                            break;
+                        case 3:
+                            await combatLogger.Log(`${target.name}'s ${statstage[1]} severely fell!`)
+                        default:
+                            break;
+                    }
                     return
                 }
-                target[stage][1]+= amount*-1
+                target[statstage[0]][1]+= amount*-1
+                target.imgelement.classList.add("debuff_anim")
+                await combatLogger.sleep(1200)
+                target.imgelement.classList.remove("debuff_anim")
+                switch (amount*-1) {
+                    case 1:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
+                        break;
+                    case 2:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} harshly fell!`)
+                        break;
+                    case 3:
+                        await combatLogger.Log(`${target.name}'s ${statstage[1]} severely fell!`)
+                    default:
+                        break;
+                }
             }
         }
     }
 }
 
 function HitCheck(user,target,accuracy){
-    let combinedStatStages = (user[stage.accuracy][0]-user[stage.accuracy][1]) - (target[stage.accuracy][0]-target[stage.accuracy][1])
+    let combinedStatStages = (user[stage.accuracy[0]][0]-user[stage.accuracy[0]][1]) - (target[stage.evasion[0]][0]-target[stage.evasion[0]][1])
     if(combinedStatStages>6){
         combinedStatStages = 6
     }
@@ -161,25 +409,8 @@ async function setStatusCondition(target,status){
 }
 
 export async function DragonDance(user,target){
-    ModifyStatStage(user,stage.attack,1)
-    if(target[stage.attack][0]==8){
-        await combatLogger.Log(`${user.name}'s attack won't go higher!`)
-    }
-    else{
-        ModifyStatStage(target,stage.attack,1)
-        await combatLogger.Log(`${user.name}'s attack rose!`)
-    }
-    if(target[stage.speed][0]==8){
-        await combatLogger.Log(`${user.name}'s speed won't go higher!`)
-    }
-    else{
-        ModifyStatStage(target,stage.speed, 1)
-        await combatLogger.Log(`${user.name}'s speed rose!`)
-    }
-
-
-
-
+        await ModifyStatStage(user,stage.attack,1)
+        await ModifyStatStage(user,stage.speed, 1)
 }
 
 export async function Tackle(user,target){
@@ -191,7 +422,7 @@ export async function Moonblast(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     const damage = await CalculateDamage(user,this,target)
     if(rngCheck(30)){
-        ModifyStatStage(target,stage.spattack,-1)
+        await ModifyStatStage(target,stage.spattack,-1)
     }   
     return damage
 }
@@ -209,12 +440,7 @@ export async function DragonBreath(user,target){
 }
 
 export async function CottonGuard(user,target){
-    if(target[stage.defense][0]==8){
-        await combatLogger.Log(`${user.name}'s defense won't go higher!`)
-        return
-    }
-    ModifyStatStage(target,stage.defense,3)
-    await combatLogger.Log(`${user.name}'s defense rose drastically!`)
+    await ModifyStatStage(user,stage.defense,3)
 }
 
 export async function Bonemerang(user,target) {
@@ -228,16 +454,11 @@ export async function AncientPower(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     const damage = await CalculateDamage(user,this,target)
     if(rngCheck(10)){
-        ModifyStatStage(user,stage.attack,1)
-        await combatLogger.Log(`${user.name}'s attack rose!`)
-        ModifyStatStage(user,stage.defense,1)
-        await combatLogger.Log(`${user.name}'s defense rose!`)
-        ModifyStatStage(user,stage.spattack,1)
-        await combatLogger.Log(`${user.name}'s special attack rose!`)
-        ModifyStatStage(user,stage.spdefense,1)
-        await combatLogger.Log(`${user.name}'s special defense rose!`)
-        ModifyStatStage(user,stage.speed,1)
-        await combatLogger.Log(`${user.name}'s speed rose!`)
+        await ModifyStatStage(user,stage.attack,1)
+        await ModifyStatStage(user,stage.defense,1)
+        await ModifyStatStage(user,stage.spattack,1)
+        await ModifyStatStage(user,stage.spdefense,1)
+        await ModifyStatStage(user,stage.speed,1)
     }
 
     return damage
@@ -245,11 +466,12 @@ export async function AncientPower(user,target){
 
 export async function Leer(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    ModifyStatStage(target,stage.defense,-1)
-    await combatLogger.Log(`${target.name}'s defense went down!`)
+    console.log(target.defenseStage)
+    await ModifyStatStage(target,stage.defense,-1)
+    console.log(target.defenseStage)
+
 }
 
 export async function DoubleTeam(user,target){
-    ModifyStatStage(user,stage.evasion,1)
-    await combatLogger.Log(`${user.name}'s evasion rose!`)
+    await ModifyStatStage(user,stage.evasion,1)
 }

@@ -26,13 +26,13 @@ export const category = {
 }
 
 export const stage = {
-    attack: "attackStage",
-    defense: "defenseStage",
-    spattack: "spattackStage",
-    spdefense: "spdefenseStage",
-    accuracy: "accuracyStage",
-    evasion: "evasionStage",
-    speed: "speedStage"
+    attack: ["attackStage","attack"],
+    defense: ["defenseStage","defense"],
+    spattack: ["spattackStage","special attack"],
+    spdefense: ["spdefenseStage","special defense"],
+    accuracy: ["accuracyStage","accuracy"],
+    evasion: ["evasionStage","evasion"],
+    speed: ["speedStage","speed"]
 }
 
 export const statusCondition = {

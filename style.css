@@ -109,5 +109,60 @@ body{
     left: 80%;
 }
 
-.flicker-2{-webkit-animation:flicker-2 2s linear reverse both;animation:flicker-2 2s linear reverse both}
+.flicker-2{-webkit-animation:flicker-2 1s linear reverse both;animation:flicker-2 1s linear reverse both;animation-iteration-count: infinite;-webkit-animation-iteration-count: infinite;}
  @-webkit-keyframes flicker-2{0%,100%{opacity:1}41.99%{opacity:1}42%{opacity:0}43%{opacity:0}43.01%{opacity:1}45.99%{opacity:1}46%{opacity:0}46.9%{opacity:0}46.91%{opacity:1}51.99%{opacity:1}52%{opacity:0}52.8%{opacity:0}52.81%{opacity:1}}@keyframes flicker-2{0%,100%{opacity:1}41.99%{opacity:1}42%{opacity:0}43%{opacity:0}43.01%{opacity:1}45.99%{opacity:1}46%{opacity:0}46.9%{opacity:0}46.91%{opacity:1}51.99%{opacity:1}52%{opacity:0}52.8%{opacity:0}52.81%{opacity:1}}
+ .debuff_anim {
+    animation-name: debuff_anim_1, debuff_anim_2;
+    animation-duration: 104ms, 104ms;
+    animation-timing-function: linear, ease-out;
+    animation-delay: 0ms, 104ms;
+    animation-iteration-count: 3, 3;
+  }
+
+  .buff_anim{
+    animation-name: buff_anim_1, buff_anim_2;
+    animation-duration: 104ms, 104ms;
+    animation-timing-function: linear, ease-out;
+    animation-delay: 0ms, 104ms;
+    animation-iteration-count: 3, 3;
+  }
+  
+  @keyframes debuff_anim_1 {
+    from {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  
+    to {
+      background-color: rgba(32, 122, 232, 1);
+    }
+  }
+  
+  @keyframes debuff_anim_2 {
+    from {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  
+    to {
+      background-color: rgba(184, 218, 255, 1);
+    }
+  }
+
+  @keyframes buff_anim_1 {
+    from {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  
+    to {
+      background-color: rgb(235, 53, 53);
+    }
+  }
+  
+  @keyframes buff_anim_2 {
+    from {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  
+    to {
+      background-color: rgb(255, 199, 173);
+    }
+  }

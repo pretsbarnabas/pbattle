@@ -11,7 +11,7 @@ start_battle()
 
 function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
-    party = [pokemon.Altaria]
+    party = [pokemon.Marowak]
     bossparty = [pokemon.Typhlosion]
 }
 
