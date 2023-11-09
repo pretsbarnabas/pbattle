@@ -11,7 +11,7 @@ start_battle()
 
 function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
-    party = [pokemon.Marowak]
+    party = [pokemon.Altaria, pokemon.Typhlosion]
     bossparty = [pokemon.Typhlosion]
 }
 
@@ -35,13 +35,8 @@ function createBattleScreenElements(){
     let battleMenuContainer = document.createElement("div")
     battleMenuContainer.classList.add('battle-menu-container')
     document.querySelector("body").appendChild(battleMenuContainer)
-    for (let i = 0; i < 4; i++) {
-        let button = document.createElement("button")
-        button.innerText = `${game.playerActive.moveset[i].name}`
-        button.classList.add("battle-menu-button")
-        button.addEventListener("click",()=>{game.Turn(game.playerActive.moveset[i])})
-        document.querySelector(".battle-menu-container").appendChild(button)
-    }
+    createBattleButtons()
+    assignDefaultButtons()
     for (let i = 0; i < 2; i++) {
         let div = document.createElement("div")
         let img = document.createElement("img")
@@ -53,6 +48,77 @@ function createBattleScreenElements(){
         document.querySelector(".battle-main-container").appendChild(div)
         
     }
+
     game.updateElements()
+
+}
+
+function createBattleButtons(){
+    for (let i = 0; i < 4; i++) {
+        let button = document.createElement("button")
+        button.classList.add("battle-menu-button")
+        document.querySelector(".battle-menu-container").appendChild(button)
+    }
+}
+
+function assignDefaultButtons(){
+    removeBattleButtons()
+    createBattleButtons()
+    let backarrow = document.querySelector(".battle-menu-back")
+    if(backarrow) backarrow.remove()
+    const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
+    for (let i = 0; i < 4; i++) {
+        switch (i) {
+            case 0:
+                battleButtonsElement[i].innerText = "Fight"
+                battleButtonsElement[i].addEventListener("click",FightSelected)
+                break;
+            case 1:
+                battleButtonsElement[i].innerText = "Pokemon"
+                battleButtonsElement[i].addEventListener("click",PokemonSelected)
+                break;
+            case 2:
+                battleButtonsElement[i].innerText = "Pack"
+                battleButtonsElement[i].addEventListener("click",PackSelected)
+                break;
+            case 3:
+                battleButtonsElement[i].innerText = "Run"
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+function removeBattleButtons(){
+    const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
+    battleButtonsElement.forEach(element => {
+        element.remove()
+    });
+}
+function createBackArrowElement(){
+    let backArrow = document.createElement("button")
+    backArrow.classList.add("battle-menu-back")
+    backArrow.innerText = "←"
+    backArrow.addEventListener("click",()=>{assignDefaultButtons()})
+    document.querySelector(".battle-menu-container").appendChild(backArrow)
+}
+
+function FightSelected(){
+    removeBattleButtons()
+    createBattleButtons()
+    createBackArrowElement()
+    const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
+    for (let i = 0; i < 4; i++) {
+        battleButtonsElement[i].innerText = `${game.playerActive.moveset[i].name}`
+        battleButtonsElement[i].addEventListener("click",()=>{game.Turn(game.playerActive.moveset[i])})
+    }
+}
+
+function PokemonSelected(){
+
+}
+
+function PackSelected(){
 
 }

@@ -77,6 +77,14 @@ body{
     width: 200px;
     height: 200px;
 }
+.battle-menu-back{
+    position: absolute;
+    width: 7vw;
+    height: 4vh;
+    border-radius: 5%;
+    top: 86%;
+    left: 53%;
+}
 
 .battle-status-container{
     border: 2px solid black;
