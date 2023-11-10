@@ -78,3 +78,41 @@ body{
     width: 100%;
     height: 100%;
 }
+#Stats{
+    display: flex;
+    align-items: center;
+}
+
+.statsBox{
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    width:70%;
+    background-color: red;
+    height: 80%;
+}
+
+.pokemonInStatsImg{
+    align-self: center;
+    width: 30%;
+    height: 30%;
+}
+.statsPokemonName{
+    align-self: center;
+}
+.statsTypeBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 80%;
+    height: 5%;
+}
+.typeBox{
+    width: 50%;
+    height: 100%;
+    margin: 0 8% 0 8%  ;
+}
+#ghost{
+    background-color: blueviolet;
+}
