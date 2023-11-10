@@ -245,35 +245,74 @@ export async function AncientPower(user,target){
 
 export async function Leer(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    ModifyStatStage(target,stage.defense,-1)
-    await combatLogger.Log(`${target.name}'s defense went down!`)
+    await ModifyStatStage(target,stage.defense,-1)
 }
 
 export async function DoubleTeam(user,target){
-    ModifyStatStage(user,stage.evasion,1)
-    await combatLogger.Log(`${user.name}'s evasion rose!`)
+    await ModifyStatStage(user,stage.evasion,1)
 }
 
 export async function Crunch(user,target){
     const damage = CalculateDamage(user,this,target)
     if(rngCheck(20)){
-        ModifyStatStage(target,stage.defense,1)
-        await combatLogger.Log(`${target.name}'s defense went down!`)
+        await ModifyStatStage(target,stage.defense,1)
     }
     
     return damage
 }
 
 export async function ScaryFace(user,target){
-    ModifyStatStage(target,stage.speed,-2)
-    await combatLogger.Log(`${target.name}'s speed went down!`)
+    await ModifyStatStage(target,stage.speed,-2)
 }
 
 export function Reversal(user,target){
     const hpPercentage = (user.hp / user.maxhp)*100
+    const damage = CalculateDamage(user,this,target)
     if(hpPercentage > 70){
-        //TODO: calculate damage * 2; power = 20 in movesdata.js
-        //https://pokemondb.net/move/reversal
-        //pokemon black sprites
+        return damage
     }
+    else if(hpPercentage > 35.1){
+        return damage * 2
+    }
+    else if(hpPercentage > 20.1){
+        return damage * 4
+    }
+    else if(hpPercentage > 10.1){
+        return damage * 5
+    }
+    else if(hpPercentage > 4.1){
+        return damage * 7.5
+    }
+    else if(hpPercentage > 0){
+        return damage * 10
+    }
+}
+
+export async function Snarl(user,target){
+    const damage = CalculateDamage(user,this,target)
+    await ModifyStatStage(target,stage.spattack,-1)
+    return damage
+}
+
+export function HornAttack(user,target){
+    const damage = CalculateDamage(user,this,target)
+    return damage
+}
+
+export function Endeavor(user,target){
+    if(user.hp < target.hp){
+        target.hp = user.hp
+    }
+}
+
+export async function IcyWind(user,target){
+    const damage = CalculateDamage(user,this,target)
+    await ModifyStatStage(target,stage.speed,-1)
+    return damage
+}
+
+export async function CloseCombat(user,target){
+    const damage = CalculateDamage(user,this,target)
+    await ModifyStatStage(user,stage.defense,-1)
+    await ModifyStatStage(user,stage.spdefense,-1)
 }

@@ -14,5 +14,11 @@ export const moves = {
     DoubleTeam: new Move("Leer",type.Normal,category.Status,0,0,15,movelogic.DoubleTeam),
     Crunch: new Move("Crunch",type.Dark,category.Physical,80,100,15,movelogic.Crunch),
     ScaryFace: new Move("ScaryFace",type.Normal,category.Status,0,100,10,movelogic.ScaryFace),
+    Reversal: new Move("Reversal",type.Fighting,category.Physical,20,100,15,movelogic.Reversal),
+    Snarl: new Move("Snarl",type.Dark,category.Special,55,95,15,movelogic.Snarl),
+    HornAttack: new Move("HornAttack",type.Normal,category.Physical,65,100,25,movelogic.HornAttack),
+    Endeavor: new Move("Endeavor",type.Normal,category.Physical,0,100,5,movelogic.Endeavor),
+    IcyWind: new Move("IcyWind",type.Ice,category.Special,55,95,15,movelogic.IcyWind),
+    CloseCombat: new Move("CloseCombat",type.Fighting,category.Physical,120,100,5,movelogic.CloseCombat),
     
 }
