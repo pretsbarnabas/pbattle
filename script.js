@@ -11,7 +11,7 @@ start_battle()
 
 function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
-    party = [pokemon.Altaria, pokemon.Typhlosion]
+    party = [pokemon.Altaria, pokemon.Marowak]
     bossparty = [pokemon.Typhlosion]
 }
 
@@ -35,7 +35,6 @@ function createBattleScreenElements(){
     let battleMenuContainer = document.createElement("div")
     battleMenuContainer.classList.add('battle-menu-container')
     document.querySelector("body").appendChild(battleMenuContainer)
-    createBattleButtons()
     assignDefaultButtons()
     for (let i = 0; i < 2; i++) {
         let div = document.createElement("div")
@@ -48,12 +47,12 @@ function createBattleScreenElements(){
         document.querySelector(".battle-main-container").appendChild(div)
         
     }
-
     game.updateElements()
 
 }
 
 function createBattleButtons(){
+    removeBattleButtons()
     for (let i = 0; i < 4; i++) {
         let button = document.createElement("button")
         button.classList.add("battle-menu-button")
@@ -62,10 +61,11 @@ function createBattleButtons(){
 }
 
 function assignDefaultButtons(){
-    removeBattleButtons()
     createBattleButtons()
     let backarrow = document.querySelector(".battle-menu-back")
     if(backarrow) backarrow.remove()
+    let pokemonselectscreen = document.querySelector(".pokemon-select-menu")
+    if(pokemonselectscreen) pokemonselectscreen.remove()
     const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
     for (let i = 0; i < 4; i++) {
         switch (i) {
@@ -105,18 +105,34 @@ function createBackArrowElement(){
 }
 
 function FightSelected(){
-    removeBattleButtons()
     createBattleButtons()
     createBackArrowElement()
     const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
     for (let i = 0; i < 4; i++) {
         battleButtonsElement[i].innerText = `${game.playerActive.moveset[i].name}`
-        battleButtonsElement[i].addEventListener("click",()=>{game.Turn(game.playerActive.moveset[i])})
+        battleButtonsElement[i].addEventListener("click",()=>{
+            game.playerActive.selectedmove = game.playerActive.moveset[i]
+            game.Turn("action")    
+        })
     }
 }
 
 function PokemonSelected(){
-
+    removeBattleButtons()
+    createBackArrowElement()
+    const pokemonSelectElement = document.createElement("div")
+    pokemonSelectElement.classList.add("pokemon-select-menu")
+    game.player.party.forEach(p=>{
+        let pokemonImgElement = document.createElement("img")
+        pokemonImgElement.src = p.spritefront
+        pokemonImgElement.dataset.id = p.name
+        pokemonImgElement.addEventListener("click",()=>{
+            // game.playerActive = game.player.party[this.dataset.id]
+            // game.updateElements()
+        })
+        pokemonSelectElement.appendChild(pokemonImgElement)
+    })
+    document.querySelector("body").appendChild(pokemonSelectElement)
 }
 
 function PackSelected(){
