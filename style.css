@@ -51,9 +51,30 @@ body{
 .pokemonname{
     width: 50%;
     font-size: 23px;
-    margin-top: 20%;
+    margin-top: 15%;
     
 }
 .sectionTitle{
     text-align: center;
+}
+.pokemonBox{
+    height: 100%;
+}
+.availablePokemons{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+.pokemonInBox{
+    width: 20%;
+    height: 10%;
+    margin-top: 0;
+    margin-bottom: 0;
+    
+}
+.pokemonInBoxImg{
+    width: 100%;
+    height: 100%;
 }
