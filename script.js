@@ -51,9 +51,9 @@ function createBattleScreenElements(){
 
 }
 
-function createBattleButtons(){
+function createBattleButtons(num){
     removeBattleButtons()
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < num; i++) {
         let button = document.createElement("button")
         button.classList.add("battle-menu-button")
         document.querySelector(".battle-menu-container").appendChild(button)
@@ -61,13 +61,13 @@ function createBattleButtons(){
 }
 
 function assignDefaultButtons(){
-    createBattleButtons()
+    createBattleButtons(2)
     let backarrow = document.querySelector(".battle-menu-back")
     if(backarrow) backarrow.remove()
     let pokemonselectscreen = document.querySelector(".pokemon-select-menu")
     if(pokemonselectscreen) pokemonselectscreen.remove()
     const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 2; i++) {
         switch (i) {
             case 0:
                 battleButtonsElement[i].innerText = "Fight"
@@ -105,7 +105,7 @@ function createBackArrowElement(){
 }
 
 function FightSelected(){
-    createBattleButtons()
+    createBattleButtons(4)
     createBackArrowElement()
     const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
     for (let i = 0; i < 4; i++) {
