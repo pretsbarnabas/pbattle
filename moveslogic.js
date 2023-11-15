@@ -466,10 +466,7 @@ export async function AncientPower(user,target){
 
 export async function Leer(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    console.log(target.defenseStage)
     await ModifyStatStage(target,stage.defense,-1)
-    console.log(target.defenseStage)
-
 }
 
 export async function DoubleTeam(user,target){

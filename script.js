@@ -7,7 +7,6 @@ let game
 let party
 let bossparty
 setup()
-start_battle()
 
 function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
@@ -19,8 +18,8 @@ function start_battle(){
     let player = new Player(party)
     let boss = new Player(bossparty)
     game = new Game(player,boss)
-    toggleMenuItems()
     createBattleScreenElements()
+    toggleMenuItems()
 }
 
 function toggleMenuItems(){
@@ -37,16 +36,35 @@ function createBattleScreenElements(){
     document.querySelector("body").appendChild(battleMenuContainer)
     assignDefaultButtons()
     for (let i = 0; i < 2; i++) {
-        let div = document.createElement("div")
+        let imgdiv = document.createElement("div")
         let img = document.createElement("img")
         img.classList.add("battle-pokemon-img")
-        if(i==0) img.src = `${game.playerActive.spriteback}`
-        else img.src = `${game.bossActive.spritefront}`
-        div.classList.add("battle-pokemon-container")
-        div.appendChild(img)
-        document.querySelector(".battle-main-container").appendChild(div)
-        
+        imgdiv.classList.add("battle-pokemon-container")
+        imgdiv.appendChild(img)
+        document.querySelector(".battle-main-container").appendChild(imgdiv)
+
     }
+    for (let i = 0; i < 2; i++) {
+        let battlestatuscontainer = document.createElement("div")
+        battlestatuscontainer.classList.add("battle-status-container")
+        let battlestatusname = document.createElement("div")
+        battlestatusname.classList.add("battle-status-name")
+        let battlestatuslvl = document.createElement("div")
+        battlestatuslvl.classList.add("battle-status-lvl")
+        battlestatuslvl.innerText = "Lv.50"
+        let battlestatushp = document.createElement("div")
+        battlestatushp.classList.add("battle-status-hp")
+        let battlestatusailment = document.createElement("div")
+        battlestatusailment.classList.add("battle-status-ailment")
+        battlestatuscontainer.appendChild(battlestatusname)
+        battlestatuscontainer.appendChild(battlestatuslvl)
+        battlestatuscontainer.appendChild(battlestatushp)
+        battlestatuscontainer.appendChild(battlestatusailment)
+        document.querySelector(".battle-main-container").appendChild(battlestatuscontainer)
+    }
+    let combatlogger=document.createElement("div")
+    combatlogger.classList.add("combat-log-container")
+    document.querySelector("body").appendChild(combatlogger)
     game.updateElements()
 
 }
@@ -110,9 +128,10 @@ function FightSelected(){
     const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
     for (let i = 0; i < 4; i++) {
         battleButtonsElement[i].innerText = `${game.playerActive.moveset[i].name}`
-        battleButtonsElement[i].addEventListener("click",()=>{
+        battleButtonsElement[i].addEventListener("click",async function(){
             game.playerActive.selectedmove = game.playerActive.moveset[i]
-            game.Turn("action")    
+            await game.Turn("action")
+            assignDefaultButtons()    
         })
     }
 }
@@ -122,17 +141,19 @@ function PokemonSelected(){
     createBackArrowElement()
     const pokemonSelectElement = document.createElement("div")
     pokemonSelectElement.classList.add("pokemon-select-menu")
+    let index = 0
     game.player.party.forEach(p=>{
         let pokemonImgElement = document.createElement("img")
         pokemonImgElement.src = p.spritefront
-        pokemonImgElement.dataset.id = p.name
-        pokemonImgElement.addEventListener("click",()=>{
-            // game.playerActive = game.player.party[this.dataset.id]
-            // game.updateElements()
+        pokemonImgElement.dataset.id = index++
+        pokemonImgElement.addEventListener("click",async function(){
+            game.playerActive = game.player.party[pokemonImgElement.dataset.id]
+            await game.Turn("switch")
+            assignDefaultButtons()
         })
         pokemonSelectElement.appendChild(pokemonImgElement)
     })
-    document.querySelector("body").appendChild(pokemonSelectElement)
+    document.querySelector(".battle-menu-container").appendChild(pokemonSelectElement)
 }
 
 function PackSelected(){

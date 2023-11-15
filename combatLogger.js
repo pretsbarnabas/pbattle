@@ -1,11 +1,15 @@
 export class combatLogger{
-    static htmlelement = document.querySelector(".combat-log-container")
-    
+
     static async Log(text){
-        this.htmlelement.innerHTML = ""
-        let log = document.createElement("p")
-        log.innerText = text
-        this.htmlelement.appendChild(log)
+        let htmlelement = document.querySelector(".combat-log-container")
+        htmlelement.innerHTML = ""
+        for (let i = 0; i < text.length; i++) {
+            if(text[i]==' '){
+                htmlelement.innerText+="\xa0"
+            }    
+            htmlelement.innerText += text[i]
+            await this.sleep(10)
+        }
         await this.sleep(2000)
     }
     static sleep(ms) {
