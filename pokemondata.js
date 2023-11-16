@@ -8,5 +8,7 @@ export const pokemon = {
     Marowak: new Pokemon("Marowak",[type.Ground],[moves.Bonemerang,moves.AncientPower,moves.Leer,moves.DoubleTeam],[120,85,115,55,85,50],"https://archives.bulbagarden.net/media/upload/f/f4/Spr_5b_105.png","https://archives.bulbagarden.net/media/upload/1/10/Spr_b_5b_105.png"),
     Houndoom: new Pokemon("Houndoom",[type.Dark,type.Fire],[moves.Crunch,moves.ScaryFace,moves.Reversal,moves.Snarl],[135,95,55,115,85,100],"https://archives.bulbagarden.net/media/upload/6/6b/Spr_5b_229_f.png","https://archives.bulbagarden.net/media/upload/c/c2/Spr_b_5b_229_f.png"),
     Tauros: new Pokemon("Tauros",[type.Normal],[moves.HornAttack,moves.Endeavor,moves.IcyWind,moves.CloseCombat],[135,105,100,45,75,115],"https://archives.bulbagarden.net/media/upload/8/80/Spr_5b_128.png","https://archives.bulbagarden.net/media/upload/9/9b/Spr_b_5b_128.png"),
-    Swellow: new Pokemon("Swellow",[type.Normal,type.Flying],[moves])
+    Swellow: new Pokemon("Swellow",[type.Normal,type.Flying],[moves.Endeavor,moves.WorkUp,moves.Peck,moves.Reversal],[120,90,65,80,55,125],"sprites/front/swellow","sprites/back/swellow"),
+    Rhydon: new Pokemon("Rhydon",[type.Ground,type.Rock],[moves.ScaryFace,moves.Earthquake,moves.CockPolish,moves.PoisonJab],[165,135,125,50,50,45],"sprites/front/rhydon","sprites/back/rhydon"),
+    
 }
