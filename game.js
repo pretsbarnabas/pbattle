@@ -54,20 +54,44 @@ export class Game{
 
     async switchPokemon(){
         if(this.playerActive.hp == 0){
+            let pokemonleft = 0
+            this.player.party.forEach(p=>{
+                if(p.hp>0) pokemonleft++
+            })
+            if(pokemonleft==0){
+                await this.GameOver(this.boss,this.player)
+                return
+            }
             PokemonSelected()
             this.player.skipturn = true
         }
         else{
-            this.boss.skipturn = true
+            let pokemonleft = 0
+            this.boss.party.forEach(p=>{
+                if(p.hp>0) pokemonleft++
+            })
+            if(pokemonleft==0){
+                await this.GameOver(this.player,this.boss)
+                return
+            }
             this.boss.party.forEach(p=>{
                 if(p.hp>0){
                     this.bossActive = p
                     return
                 }
             })
+            this.boss.skipturn = true
             await combatLogger.Log(`Opponent switched to ${this.bossActive.name}`)
+            if(this.playerActive.speed>=this.bossActive.speed){
+                await combatLogger.Log("What will you do now?")
+                assignDefaultButtons()
+            }
         }
         if(document.querySelector(".battle-menu-back")) document.querySelector(".battle-menu-back").remove()
+    }
+    
+    async GameOver(winner,loser){
+        
     }
 
     async useItem(user,item){
@@ -105,6 +129,7 @@ export class Game{
                             else{
                                 this.player.skipturn = false
                                 this.boss.skipturn = false
+                                return
                             }
                         }
                         
@@ -154,6 +179,7 @@ export class Game{
         }
         this.player.skipturn = false
         this.boss.skipturn = false
+        if(this.playerActive.speed>=this.bossActive.speed && this.playerActive.hp == 0){return}
         await combatLogger.Log("What will you do now?")
         assignDefaultButtons()
     }

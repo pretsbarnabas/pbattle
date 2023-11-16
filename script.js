@@ -1,7 +1,7 @@
 import { combatLogger } from "./combatLogger.js"
 import {Game} from "./game.js"
 import {Player} from "./player.js"
-import {pokemon} from "./pokemondata.js"
+import {pokemon,bossPokemon, generatePokemon, generateBoss} from "./pokemondata.js"
 
 
 let game
@@ -10,9 +10,22 @@ let bossparty
 setup()
 
 function setup(){
+    let menuContainer = document.createElement("div")
+    menuContainer.classList.add("menu-container")
+    for (let i = 0; i < 3; i++) {
+        let menuButton = document.createElement("div")
+        menuButton.classList.add("menu-button")
+        if(i==0)menuButton.innerText = "Start"
+        else if(i==1)menuButton.innerText = "Party"
+        else if(i==2)menuButton.innerText = "Other"       
+        menuContainer.appendChild(menuButton) 
+    }
+    document.querySelector("body").appendChild(menuContainer)
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
-    party = [pokemon.Marowak]
-    bossparty = [pokemon.Typhlosion,pokemon.Altaria]
+    generatePokemon()
+    generateBoss()
+    party = [pokemon.Typhlosion, pokemon.Marowak, pokemon.Altaria]
+    bossparty = [bossPokemon.Marowak,bossPokemon.Typhlosion,bossPokemon.Altaria]
 }
 
 function start_battle(){
@@ -20,12 +33,12 @@ function start_battle(){
     let boss = new Player(bossparty)
     game = new Game(player,boss)
     createBattleScreenElements()
-    toggleMenuItems()
+    destroyMenuItems()
 }
 
-function toggleMenuItems(){
-    document.querySelector(".menu-container").style.display = "none"
-    document.querySelector(".combat-log-container").style.display = "block"
+function destroyMenuItems(){
+    document.querySelector(".menu-container").remove()
+
 }
 
 function createBattleScreenElements(){
@@ -148,14 +161,16 @@ export function PokemonSelected(){
         pokemonImgElement.dataset.id = index++
         pokemonImgElement.addEventListener("click",async function(){
             if(game.player.party[pokemonImgElement.dataset.id].hp == 0) return
+            if(game.player.party[pokemonImgElement.dataset.id] == game.playerActive) return
+            document.querySelector(".pokemon-select-menu").remove()
             if(game.playerActive.hp == 0){
                 game.playerActive = game.player.party[pokemonImgElement.dataset.id]
-                document.querySelector(".pokemon-select-menu").remove()
                 await combatLogger.Log(`Player switched to ${game.playerActive.name}`)
                 await combatLogger.Log("What will you do now?")
                 assignDefaultButtons()
                 return
             }
+            game.playerActive = game.player.party[pokemonImgElement.dataset.id]
             await game.Turn("switch")
         })
         pokemonSelectElement.appendChild(pokemonImgElement)

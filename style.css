@@ -29,7 +29,7 @@ body{
     position: absolute;
     left: 10%;
     top: 80%;
-    display: none;
+    display: block;
     overflow-y: scroll;
     overflow-wrap: break-word;
     font-size: 12pt;
