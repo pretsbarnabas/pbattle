@@ -12,4 +12,18 @@ export const moves = {
     AncientPower: new Move("AncientPower",type.Rock,category.Special,60,100,5,movelogic.AncientPower),
     Leer: new Move("Leer",type.Normal,category.Status,0,100,30,movelogic.Leer),
     DoubleTeam: new Move("Double Team",type.Normal,category.Status,0,0,15,movelogic.DoubleTeam),
+    Crunch: new Move("Crunch",type.Dark,category.Physical,80,100,15,movelogic.Crunch),
+    ScaryFace: new Move("ScaryFace",type.Normal,category.Status,0,100,10,movelogic.ScaryFace),
+    Reversal: new Move("Reversal",type.Fighting,category.Physical,20,100,15,movelogic.Reversal),
+    Snarl: new Move("Snarl",type.Dark,category.Special,55,95,15,movelogic.Snarl),
+    HornAttack: new Move("HornAttack",type.Normal,category.Physical,65,100,25,movelogic.HornAttack),
+    Endeavor: new Move("Endeavor",type.Normal,category.Physical,0,100,5,movelogic.Endeavor),
+    IcyWind: new Move("IcyWind",type.Ice,category.Special,55,95,15,movelogic.IcyWind),
+    CloseCombat: new Move("CloseCombat",type.Fighting,category.Physical,120,100,5,movelogic.CloseCombat),
+    WorkUp: new Move("WorkUp",type.Normal,category.Status,0,100,30,movelogic.WorkUp),
+    Peck: new Move("Peck",type.Flying,category.Physical,35,100,35,movelogic.Peck),
+    Earthquake: new Move("Earthquake",type.Grass,category.Physical,100,100,10,movelogic.Earthquake),
+    CockPolish: new Move("CockPolish",type.Rock,category.Status,0,100,20,movelogic.CockPolish),
+    PoisonJab: new Move("PoisonJab",type.Poison,category.Physical,80,100,20,movelogic.PoisonJab),
+    
 }

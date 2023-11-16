@@ -476,3 +476,111 @@ export async function Leer(user,target){
 export async function DoubleTeam(user,target){
     await ModifyStatStage(user,stage.evasion,1)
 }
+
+export async function Crunch(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    if(rngCheck(20)){
+        await ModifyStatStage(target,stage.defense,1)
+    }
+    
+    return damage
+}
+
+export async function ScaryFace(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    await ModifyStatStage(target,stage.speed,-2)
+}
+
+export function Reversal(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const hpPercentage = (user.hp / user.maxhp)*100
+    const damage = CalculateDamage(user,this,target)
+    if(hpPercentage > 70){
+        return damage
+    }
+    else if(hpPercentage > 35.1){
+        return damage * 2
+    }
+    else if(hpPercentage > 20.1){
+        return damage * 4
+    }
+    else if(hpPercentage > 10.1){
+        return damage * 5
+    }
+    else if(hpPercentage > 4.1){
+        return damage * 7.5
+    }
+    else if(hpPercentage > 0){
+        return damage * 10
+    }
+}
+
+export async function Snarl(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    await ModifyStatStage(target,stage.spattack,-1)
+    return damage
+}
+
+export function HornAttack(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    return damage
+}
+
+export function Endeavor(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    if(user.hp < target.hp){
+        target.hp = user.hp
+    }
+}
+
+export async function IcyWind(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    await ModifyStatStage(target,stage.speed,-1)
+    return damage
+}
+
+export async function CloseCombat(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    await ModifyStatStage(user,stage.defense,-1)
+    await ModifyStatStage(user,stage.spdefense,-1)
+    return damage
+}
+
+export async function WorkUp(user,target){
+    await ModifyStatStage(user,stage.attack,1)
+    await ModifyStatStage(user,stage.spattack,1)
+}
+
+export function Peck(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    return damage
+}
+
+export function Earthquake(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    if(rngCheck(35)){
+        return damage*2
+    }
+    return damage/2
+}
+
+export async function CockPolish(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    await ModifyStatStage(user,stage.speed,2)
+}
+
+export async function PoisonJab(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    if(rngCheck(30)){
+        await setStatusCondition(target,statusCondition.poison)
+    }
+    return damage
+}

@@ -22,6 +22,7 @@ export class Pokemon{
         this.imgelement = undefined
         this.battlestatuselement = undefined
         this.selectedmove = this.moveset[0]
+        this.maxhp = stats[0]
     }
 
     Attack(user,move,target){
