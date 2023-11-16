@@ -1,7 +1,5 @@
-import { getTypeEffectiveness } from "./typechart.js"
-
 export class Pokemon{
-    constructor(name, type, moveset, stats){
+    constructor(name, type, moveset, stats,spritefront,spriteback){
         this.name = name
         this.type = type
         this.moveset = moveset
@@ -11,32 +9,41 @@ export class Pokemon{
         this.spattack = stats[3]
         this.spdefense = stats[4]
         this.speed = stats[5]
+        this.attackStage = [2,2]
+        this.spattackStage = [2,2]
+        this.defenseStage = [2,2]
+        this.spdefenseStage = [2,2]
+        this.speedStage = [2,2]
+        this.accuracyStage = [3,3]
+        this.evasionStage = [3,3]
+        this._statusCondition = "NRM"
+        this.spritefront = spritefront
+        this.spriteback = spriteback
+        this.imgelement = undefined
+        this.battlestatuselement = undefined
     }
 
-    Attack(move,target){
-        let damage
-        if(move.category == "Physical"){
-            if(this.type.includes(move.type)){
-                damage = ((22*move.power*(this.attack/target.defense))/50 + 2)*(Math.floor(Math.random()*101)/100)*1.5*getTypeEffectiveness(move.type,target.type)
-            }
-            else{
-                damage = ((22*move.power*(this.attack/target.defense))/50 + 2)*(Math.floor(Math.random()*101)/100)*getTypeEffectiveness(move.type,target.type)
-            }
-            if(damage<0) damage = 1
-            target.hp = target.hp - damage
-        }
-        else if(move.category == "Special"){
-            if(this.type.includes(move.type)){
-                damage = ((22*move.power*(this.spattack/target.spdefense))/50 + 2)*(Math.floor(Math.random()*101)/100)*1.5*getTypeEffectiveness(move.type,target.type)
-            }
-            else{
-                damage = ((22*move.power*(this.spattack/target.spdefense))/50 + 2)*(Math.floor(Math.random()*101)/100)*getTypeEffectiveness(move.type,target.type)
-            }
-            if(damage<0) damage = 1
-            target.hp = target.hp - damage
-        }
-        else{
+    Attack(user,move,target){
+        return move.Action(user,target)
+    }
 
+    get statusCondition(){
+        return this._statusCondition
+    }
+    set statusCondition(value){
+        this._statusCondition = value
+        this.battlestatuselement.children[3].textContent = this._statusCondition
+    }
+
+    get hp(){
+        return this._hp
+    }
+    set hp(value){
+        this._hp = value
+        if(this.battlestatuselement){
+            this.battlestatuselement.children[2].textContent = this._hp
         }
     }
+
+
 }

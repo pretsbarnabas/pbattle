@@ -1,36 +1,60 @@
 import {Game} from "./game.js"
-import {Pokemon} from "./pokemon.js"
-import {Move} from "./move.js"
 import {Player} from "./player.js"
+import {pokemon} from "./pokemondata.js"
 
 
 let game
 let party
-main()
+let bossparty
+setup()
+start_battle()
 
-function main(){
+function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
-    party = [
-        new Pokemon("Bulbasaur", ["Grass", "Poison"], [new Move("Leech Seed", "Grass","Physical",45,100,25), new Move("Tackle","Normal","Physical",40,100,35)], [45,49,65,65,45]),
-        new Pokemon("Ivysaur", ["Grass", "Poison"], [new Move("Leech Seed", "Grass","Physical",45,100,25), new Move("Tackle","Normal","Physical",40,100,35)], [45,49,65,65,45])
-    ]
+    party = [pokemon.Altaria]
+    bossparty = [pokemon.Typhlosion]
 }
 
 function start_battle(){
-    toggle_menu_items()
     let player = new Player(party)
-    let boss = player
+    let boss = new Player(bossparty)
     game = new Game(player,boss)
-    console.log(game.player.party[0].name)
+    toggleMenuItems()
+    createBattleScreenElements()
 }
 
-function toggle_menu_items(){
+function toggleMenuItems(){
     document.querySelector(".menu-container").style.display = "none"
+    document.querySelector(".combat-log-container").style.display = "block"
 }
 
-function backgroundzoom(){
-    const background = document.getElementById("bg")
-    
+function createBattleScreenElements(){
+    let battleMainContainer = document.createElement("div")
+    battleMainContainer.classList.add("battle-main-container")
+    document.querySelector("body").append(battleMainContainer)
+    let battleMenuContainer = document.createElement("div")
+    battleMenuContainer.classList.add('battle-menu-container')
+    document.querySelector("body").appendChild(battleMenuContainer)
+    for (let i = 0; i < 4; i++) {
+        let button = document.createElement("button")
+        button.innerText = `${game.playerActive.moveset[i].name}`
+        button.classList.add("battle-menu-button")
+        button.addEventListener("click",()=>{game.Turn(game.playerActive.moveset[i])})
+        document.querySelector(".battle-menu-container").appendChild(button)
+    }
+    for (let i = 0; i < 2; i++) {
+        let div = document.createElement("div")
+        let img = document.createElement("img")
+        img.classList.add("battle-pokemon-img")
+        if(i==0) img.src = `${game.playerActive.spriteback}`
+        else img.src = `${game.bossActive.spritefront}`
+        div.classList.add("battle-pokemon-container")
+        div.appendChild(img)
+        document.querySelector(".battle-main-container").appendChild(div)
+        
+    }
+    game.updateElements()
+
 }
 function PartyOnclick(){
     console.log("asj");
@@ -46,5 +70,34 @@ function PartyOnclick(){
 const partyBtn = document.getElementById("partyButton")
 
 partyBtn.addEventListener("click",()=>{PartyOnclick()})
+}
 
 
+function createBattleScreenElements(){
+    let battleMainContainer = document.createElement("div")
+    battleMainContainer.classList.add("battle-main-container")
+    document.querySelector("body").append(battleMainContainer)
+    let battleMenuContainer = document.createElement("div")
+    battleMenuContainer.classList.add('battle-menu-container')
+    document.querySelector("body").appendChild(battleMenuContainer)
+    for (let i = 0; i < 4; i++) {
+        let button = document.createElement("button")
+        button.innerText = `${game.playerActive.moveset[i].name}`
+        button.classList.add("battle-menu-button")
+        button.addEventListener("click",()=>{game.Turn(game.playerActive.moveset[i])})
+        document.querySelector(".battle-menu-container").appendChild(button)
+    }
+    for (let i = 0; i < 2; i++) {
+        let div = document.createElement("div")
+        let img = document.createElement("img")
+        img.classList.add("battle-pokemon-img")
+        if(i==0) img.src = `${game.playerActive.spriteback}`
+        else img.src = `${game.bossActive.spritefront}`
+        div.classList.add("battle-pokemon-container")
+        div.appendChild(img)
+        document.querySelector(".battle-main-container").appendChild(div)
+        
+    }
+    game.updateElements()
+
+}

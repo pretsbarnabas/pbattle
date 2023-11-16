@@ -1,107 +1,72 @@
+import {type} from "./enum.js"
+
 export function getTypeEffectiveness(moveType, targetType){
     let effectiveness = 1
     for (let i = 0; i < targetType.length; i++) {
-        switch (targetType[i]) {
-            case "Normal":
-                switch (moveType) {
-                    case "Rock":
+        switch (moveType) {
+            case type.Normal:
+                switch (targetType[i]) {
+                    case type.Rock:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Ghost":
+                    case type.Ghost:
                         effectiveness = effectiveness*0
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
                     default:
                         break;
                 }
                 break;
-            case "Fire":
-                switch (moveType) {
-                    case "Fire":
+            case type.Fire:
+                switch (targetType[i]) {
+                    case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Water":
+                    case type.Water:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Grass":
+                    case type.Grass:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ice":
+                    case type.Ice:
                         effectiveness = effectiveness*2
                         break;
-                    case "Rock":
+                    case type.Rock:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Bug":
+                    case type.Bug:
                         effectiveness = effectiveness*2
                         break;
-                    case "Dragon":
+                    case type.Dragon:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*2
                         break;
                 
                     default:
                         break;
                 }
-            case "Water":
-                switch (moveType) {
-                    case "Fire":
+            case type.Water:
+                switch (targetType[i]) {
+                    case type.Fire:
                         effectiveness = effectiveness*2
                         break;
-                    case "Water":
+                    case type.Water:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Grass":
+                    case type.Grass:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Ground":
+                    case type.Ground:
                         effectiveness = effectiveness*2
                         break;
-                    case "Rock":
+                    case type.Rock:
                         effectiveness = effectiveness*2
                         break;
-                    case "Dragon":
-                        effectiveness = effectiveness*0.5
-                        break;
-                
-                    default:
-                        break;
-                }
-                break;
-            case "Grass":
-                switch (moveType) {
-                    case "Fire":
-                        effectiveness = effectiveness*0.5
-                        break;
-                    case "Water":
-                        effectiveness = effectiveness*2
-                        break;
-                    case "Grass":
-                        effectiveness = effectiveness*0.5
-                        break;
-                    case "Poison":
-                        effectiveness = effectiveness*0.5
-                        break;
-                    case "Ground":
-                        effectiveness = effectiveness*2
-                        break;
-                    case "Flying":
-                        effectiveness = effectiveness*0.5
-                        break;
-                    case "Bug":
-                        effectiveness = effectiveness*0.5
-                        break;
-                    case "Rock":
-                        effectiveness = effectiveness*2
-                        break;
-                    case "Dragon":
-                        effectiveness = effectiveness*0.5
-                        break;
-                    case "Steel":
+                    case type.Dragon:
                         effectiveness = effectiveness*0.5
                         break;
                 
@@ -109,24 +74,61 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Electric":
-                switch (moveType) {
-                    case "Water":
+            case type.Grass:
+                switch (targetType[i]) {
+                    case type.Fire:
+                        effectiveness = effectiveness*0.5
+                        break;
+                    case type.Water:
                         effectiveness = effectiveness*2
                         break;
-                    case "Grass":
+                    case type.Grass:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Electric":
+                    case type.Poison:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Ground":
+                    case type.Ground:
+                        effectiveness = effectiveness*2
+                        break;
+                    case type.Flying:
+                        effectiveness = effectiveness*0.5
+                        break;
+                    case type.Bug:
+                        effectiveness = effectiveness*0.5
+                        break;
+                    case type.Rock:
+                        effectiveness = effectiveness*2
+                        break;
+                    case type.Dragon:
+                        effectiveness = effectiveness*0.5
+                        break;
+                    case type.Steel:
+                        effectiveness = effectiveness*0.5
+                        break;
+                
+                    default:
+                        break;
+                }
+                break;
+            case type.Electric:
+                switch (targetType[i]) {
+                    case type.Water:
+                        effectiveness = effectiveness*2
+                        break;
+                    case type.Grass:
+                        effectiveness = effectiveness*0.5
+                        break;
+                    case type.Electric:
+                        effectiveness = effectiveness*0.5
+                        break;
+                    case type.Ground:
                         effectiveness = effectiveness*0
                         break;
-                    case "Flying":
+                    case type.Flying:
                         effectiveness = effectiveness*2
                         break;
-                    case "Dragon":
+                    case type.Dragon:
                         effectiveness = effectiveness*0.5
                         break;
                 
@@ -134,30 +136,30 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Ice":
-                switch (moveType) {
-                    case "Fire":
+            case type.Ice:
+                switch (targetType[i]) {
+                    case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Water":
+                    case type.Water:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Grass":
+                    case type.Grass:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ice":
+                    case type.Ice:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Ground":
+                    case type.Ground:
                         effectiveness = effectiveness*2
                         break;
-                    case "Flying":
+                    case type.Flying:
                         effectiveness = effectiveness*2
                         break;
-                    case "Dragon":
+                    case type.Dragon:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
                 
@@ -165,66 +167,66 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Fighting":
-                switch (moveType) {
-                    case "Normal":
+            case type.Fighting:
+                switch (targetType[i]) {
+                    case type.Normal:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ice":
+                    case type.Ice:
                         effectiveness = effectiveness*2
                         break;
-                    case "Poison":
+                    case type.Poison:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Flying":
+                    case type.Flying:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Psychic":
+                    case type.Psychic:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Bug":
+                    case type.Bug:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Rock":
+                    case type.Rock:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ghost":
+                    case type.Ghost:
                         effectiveness = effectiveness*0
                         break;
-                    case "Dark":
+                    case type.Dark:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*2
                         break;
-                    case "Fairy":
+                    case type.Fairy:
                         effectiveness = effectiveness*0.5
                         break;
                     default:
                         break;
                 }
                 break;
-            case "Poison":
-                switch (moveType) {
-                    case "Grass":
+            case type.Poison:
+                switch (targetType[i]) {
+                    case type.Grass:
                         effectiveness = effectiveness*2
                         break;
-                    case "Poison":
+                    case type.Poison:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Ground":
+                    case type.Ground:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Rock":
+                    case type.Rock:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Ghost":
+                    case type.Ghost:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0
                         break;
-                    case "Fairy":
+                    case type.Fairy:
                         effectiveness = effectiveness*2
                         break;
                 
@@ -232,30 +234,30 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Ground":
-                switch (moveType) {
-                    case "Fire":
+            case type.Ground:
+                switch (targetType[i]) {
+                    case type.Fire:
                         effectiveness = effectiveness*2
                         break;
-                    case "Grass":
+                    case type.Grass:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Electric":
+                    case type.Electric:
                         effectiveness = effectiveness*2
                         break;
-                    case "Poison":
+                    case type.Poison:
                         effectiveness = effectiveness*2
                         break;
-                    case "Flying":
+                    case type.Flying:
                         effectiveness = effectiveness*0
                         break;
-                    case "Bug":
+                    case type.Bug:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Rock":
+                    case type.Rock:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*2
                         break;
                 
@@ -263,24 +265,24 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Flying":
-                switch (moveType) {
-                    case "Grass":
+            case type.Flying:
+                switch (targetType[i]) {
+                    case type.Grass:
                         effectiveness = effectiveness*2
                         break;
-                    case "Electric":
+                    case type.Electric:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Fighting":
+                    case type.Fighting:
                         effectiveness = effectiveness*2
                         break;
-                    case "Bug":
+                    case type.Bug:
                         effectiveness = effectiveness*2
                         break;
-                    case "Rock":
+                    case type.Rock:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
                 
@@ -288,21 +290,21 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Psychic":
-                switch (moveType) {
-                    case "Fighting":
+            case type.Psychic:
+                switch (targetType[i]) {
+                    case type.Fighting:
                         effectiveness = effectiveness*2
                         break;
-                    case "Poison":
+                    case type.Poison:
                         effectiveness = effectiveness*2
                         break;
-                    case "Psychic":
+                    case type.Psychic:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Dark":
+                    case type.Dark:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
                 
@@ -310,63 +312,63 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Bug":
-                switch (moveType) {
-                    case "Fire":
+            case type.Bug:
+                switch (targetType[i]) {
+                    case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Grass":
+                    case type.Grass:
                         effectiveness = effectiveness*2
                         break;
-                    case "Fighting":
+                    case type.Fighting:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Poison":
+                    case type.Poison:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Flying":
+                    case type.Flying:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Psychic":
+                    case type.Psychic:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ghost":
+                    case type.Ghost:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Dark":
+                    case type.Dark:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Fairy":
+                    case type.Fairy:
                         effectiveness = effectiveness*0.5
                         break;
                     default:
                         break;
                 }
                 break;
-            case "Rock":
-                switch (moveType) {
-                    case "Fire":
+            case type.Rock:
+                switch (targetType[i]) {
+                    case type.Fire:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ice":
+                    case type.Ice:
                         effectiveness = effectiveness*2
                         break;
-                    case "Fighting":
+                    case type.Fighting:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Ground":
+                    case type.Ground:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Bug":
+                    case type.Bug:
                         effectiveness = effectiveness*2
                         break;
-                    case "Flying":
+                    case type.Flying:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
                 
@@ -374,21 +376,21 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Ghost":
-                switch (moveType) {
-                    case "Normal":
+            case type.Ghost:
+                switch (targetType[i]) {
+                    case type.Normal:
                         effectiveness = effectiveness*0
                         break;
-                    case "Psychic":
+                    case type.Psychic:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ghost":
+                    case type.Ghost:
                         effectiveness = effectiveness*2
                         break;
-                    case "Dark":
+                    case type.Dark:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
 
@@ -396,36 +398,36 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Dragon":
-                switch (moveType) {
-                    case "Dragon":
+            case type.Dragon:
+                switch (targetType[i]) {
+                    case type.Dragon:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Fairy":
+                    case type.Fairy:
                         effectiveness = effectiveness*0
                         break;
                     default:
                         break;
                 }
                 break;
-            case "Dark":
-                switch (moveType) {
-                    case "Fighting":
+            case type.Dark:
+                switch (targetType[i]) {
+                    case type.Fighting:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Psychic":
+                    case type.Psychic:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ghost":
+                    case type.Ghost:
                         effectiveness = effectiveness*2
                         break;
-                    case "Dragon":
+                    case type.Dragon:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Fairy":
+                    case type.Fairy:
                         effectiveness = effectiveness*0.5
                         break;
                 
@@ -433,27 +435,27 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Steel":
-                switch (moveType) {
-                    case "Fire":
+            case type.Steel:
+                switch (targetType[i]) {
+                    case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Water":
+                    case type.Water:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Electric":
+                    case type.Electric:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Rock":
+                    case type.Rock:
                         effectiveness = effectiveness*2
                         break;
-                    case "Ice":
+                    case type.Ice:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Fairy":
+                    case type.Fairy:
                         effectiveness = effectiveness*2
                         break;
                 
@@ -461,24 +463,24 @@ export function getTypeEffectiveness(moveType, targetType){
                         break;
                 }
                 break;
-            case "Fairy":
-                switch (moveType) {
-                    case "Fire":
+            case type.Fairy:
+                switch (targetType[i]) {
+                    case type.Fire:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Fighting":
+                    case type.Fighting:
                         effectiveness = effectiveness*2
                         break;
-                    case "Poison":
+                    case type.Poison:
                         effectiveness = effectiveness*0.5
                         break;
-                    case "Dragon":
+                    case type.Dragon:
                         effectiveness = effectiveness*2
                         break;
-                    case "Dark":
+                    case type.Dark:
                         effectiveness = effectiveness*2
                         break;
-                    case "Steel":
+                    case type.Steel:
                         effectiveness = effectiveness*0.5
                         break;
                 
