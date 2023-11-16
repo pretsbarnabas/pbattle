@@ -145,9 +145,9 @@ async function ModifyStatStage(target, statstage, amount){
                 if(target[statstage[0]][0] - amount*-1 < 3){
                     target[statstage[0]][1] += 3-(target[statstage[0]][1]-amount*-1)
                     target[statstage[0]][0] = 3
-                    target.classList.add("debuff_anim")
+                    target.imgelement.classList.add("debuff_anim")
                     await combatLogger.sleep(1200)
-                    target.classList.remove("debuff_anim")
+                    target.imgelement.classList.remove("debuff_anim")
                     switch (amount*-1) {
                         case 1:
                             await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
@@ -163,9 +163,9 @@ async function ModifyStatStage(target, statstage, amount){
                     return
                 }
                 target[statstage[0]][0] -= amount*-1
-                target.classList.add("debuff_anim")
+                target.imgelement.classList.add("debuff_anim")
                 await combatLogger.sleep(1200)
-                target.classList.remove("debuff_anim")
+                target.imgelement.classList.remove("debuff_anim")
                 switch (amount*-1) {
                     case 1:
                         await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
@@ -182,9 +182,9 @@ async function ModifyStatStage(target, statstage, amount){
             else{
                 if(target[statstage[0]][1]+amount*-1 > 9){
                     target[statstage[0]][1] = 9
-                    target.classList.add("debuff_anim")
+                    target.imgelement.classList.add("debuff_anim")
                     await combatLogger.sleep(1200)
-                    target.classList.remove("debuff_anim")
+                    target.imgelement.classList.remove("debuff_anim")
                     switch (amount*-1) {
                         case 1:
                             await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
@@ -200,9 +200,9 @@ async function ModifyStatStage(target, statstage, amount){
                     return
                 }
                 target[statstage[0]][1]+= amount*-1
-                target.classList.add("debuff_anim")
+                target.imgelement.classList.add("debuff_anim")
                 await combatLogger.sleep(1200)
-                target.classList.remove("debuff_anim")
+                target.imgelement.classList.remove("debuff_anim")
                 switch (amount*-1) {
                     case 1:
                         await combatLogger.Log(`${target.name}'s ${statstage[1]} fell!`)
@@ -492,10 +492,10 @@ export async function ScaryFace(user,target){
     await ModifyStatStage(target,stage.speed,-2)
 }
 
-export function Reversal(user,target){
+export async function Reversal(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     const hpPercentage = (user.hp / user.maxhp)*100
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     if(hpPercentage > 70){
         return damage
     }
@@ -529,10 +529,11 @@ export function HornAttack(user,target){
     return damage
 }
 
-export function Endeavor(user,target){
+export async function Endeavor(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     if(user.hp < target.hp){
         target.hp = user.hp
+        await combatLogger.Log(`${target.name}'s hp was set to ${user.name}'s hp!`)
     }
 }
 
@@ -565,12 +566,8 @@ export function Peck(user,target){
 export function Earthquake(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     const damage = CalculateDamage(user,this,target)
-    if(rngCheck(35)){
-        return damage*2
-    }
-    return damage/2
+    return damage
 }
-
 export async function CockPolish(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     await ModifyStatStage(user,stage.speed,2)
@@ -579,8 +576,36 @@ export async function CockPolish(user,target){
 export async function PoisonJab(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     const damage = CalculateDamage(user,this,target)
-    if(rngCheck(30)){
+    if(rngCheck(30)&&!target.type.includes(type.Poison)&&!target.type.includes(type.Steel)){
         await setStatusCondition(target,statusCondition.poison)
     }
     return damage
+}
+
+export async function Flamethrower(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    if(rngCheck(10)&&!target.type.includes(type.Fire)){
+        await setStatusCondition(target,statusCondition.burn)
+    }
+    return CalculateDamage(user,this,target)
+}
+
+export async function ThunderPunch(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    if(rngCheck(10)&&!target.type.includes(type.Electric)){
+        await setStatusCondition(target,statusCondition.paralysis)
+    }
+    return CalculateDamage(user,this,target)
+}
+
+export async function WilloWisp(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    if(!target.type.includes(type.Fire)){
+        await setStatusCondition(target,statusCondition.burn)
+    }
+}
+
+export async function Smokescreen(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    await ModifyStatStage(target,stage.accuracy,-1)
 }

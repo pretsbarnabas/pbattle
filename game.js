@@ -82,10 +82,9 @@ export class Game{
             })
             this.boss.skipturn = true
             await combatLogger.Log(`Opponent switched to ${this.bossActive.name}`)
-            if(this.playerActive.speed>=this.bossActive.speed){
-                await combatLogger.Log("What will you do now?")
-                assignDefaultButtons()
-            }
+            await combatLogger.Log("What will you do now?")
+            assignDefaultButtons()
+
         }
         if(document.querySelector(".battle-menu-back")) document.querySelector(".battle-menu-back").remove()
     }
@@ -179,7 +178,7 @@ export class Game{
         }
         this.player.skipturn = false
         this.boss.skipturn = false
-        if(this.playerActive.speed>=this.bossActive.speed && this.playerActive.hp == 0){return}
+        if(document.querySelector(".battle-menu-container").children.length) return
         await combatLogger.Log("What will you do now?")
         assignDefaultButtons()
     }

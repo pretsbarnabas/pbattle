@@ -24,7 +24,7 @@ function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
     generatePokemon()
     generateBoss()
-    party = [pokemon.Typhlosion, pokemon.Marowak, pokemon.Altaria]
+    party = [pokemon.Rhydon, pokemon.Swellow, pokemon.Houndoom]
     bossparty = [bossPokemon.Marowak,bossPokemon.Typhlosion,bossPokemon.Altaria]
 }
 
