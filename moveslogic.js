@@ -58,6 +58,7 @@ async function ModifyStatStage(target, statstage, amount){
         if(amount>0){
             if(target[statstage[0]][0] == 9) {
                 await combatLogger.Log(`${target.name}'s ${statstage[1]} won't go any higher!`)
+                return
             }
             if(target[statstage[0]][1] > 3){
                 if(target[statstage[0]][1] - amount < 3){
@@ -138,6 +139,7 @@ async function ModifyStatStage(target, statstage, amount){
         else{
             if(target[statstage[0]][1] == 9){
                 await combatLogger.Log(`${target.name}'s ${statstage[1]} won't go any lower!`)
+                return
             }
             if(target[statstage[0]][0] > 3){
                 if(target[statstage[0]][0] - amount*-1 < 3){
@@ -220,6 +222,7 @@ async function ModifyStatStage(target, statstage, amount){
         if(amount>0){
             if(target[statstage[0]][0] == 8){
                 await combatLogger.Log(`${target.name}'s ${statstage[1]} won't go any higher!`)
+                return
             }
             if(target[statstage[0]][1] > 2){
                 if(target[statstage[0]][1] - amount < 2){
@@ -300,6 +303,7 @@ async function ModifyStatStage(target, statstage, amount){
         else{
             if(target[statstage[0]][1] == 8){
                 await combatLogger.Log(`${target.name}'s ${statstage[1]} won't go any lower!`)
+                return
             }
             if(target[statstage[0]][0] > 2){
                 if(target[statstage[0]][0] - amount*-1 < 2){

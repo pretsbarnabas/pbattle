@@ -3,6 +3,7 @@ export class Player{
         this.party = party
         this.items = "undefined"
         this.pokemonimg = undefined
+        this.skipturn = false
     }
 
 }

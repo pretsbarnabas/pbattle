@@ -1,3 +1,4 @@
+import { combatLogger } from "./combatLogger.js"
 import {Game} from "./game.js"
 import {Player} from "./player.js"
 import {pokemon} from "./pokemondata.js"
@@ -10,8 +11,8 @@ setup()
 
 function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
-    party = [pokemon.Altaria, pokemon.Marowak]
-    bossparty = [pokemon.Typhlosion]
+    party = [pokemon.Marowak]
+    bossparty = [pokemon.Typhlosion,pokemon.Altaria]
 }
 
 function start_battle(){
@@ -78,7 +79,7 @@ function createBattleButtons(num){
     }
 }
 
-function assignDefaultButtons(){
+export function assignDefaultButtons(){
     createBattleButtons(2)
     let backarrow = document.querySelector(".battle-menu-back")
     if(backarrow) backarrow.remove()
@@ -131,12 +132,11 @@ function FightSelected(){
         battleButtonsElement[i].addEventListener("click",async function(){
             game.playerActive.selectedmove = game.playerActive.moveset[i]
             await game.Turn("action")
-            assignDefaultButtons()    
         })
     }
 }
 
-function PokemonSelected(){
+export function PokemonSelected(){
     removeBattleButtons()
     createBackArrowElement()
     const pokemonSelectElement = document.createElement("div")
@@ -147,9 +147,16 @@ function PokemonSelected(){
         pokemonImgElement.src = p.spritefront
         pokemonImgElement.dataset.id = index++
         pokemonImgElement.addEventListener("click",async function(){
-            game.playerActive = game.player.party[pokemonImgElement.dataset.id]
+            if(game.player.party[pokemonImgElement.dataset.id].hp == 0) return
+            if(game.playerActive.hp == 0){
+                game.playerActive = game.player.party[pokemonImgElement.dataset.id]
+                document.querySelector(".pokemon-select-menu").remove()
+                await combatLogger.Log(`Player switched to ${game.playerActive.name}`)
+                await combatLogger.Log("What will you do now?")
+                assignDefaultButtons()
+                return
+            }
             await game.Turn("switch")
-            assignDefaultButtons()
         })
         pokemonSelectElement.appendChild(pokemonImgElement)
     })

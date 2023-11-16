@@ -1,5 +1,6 @@
 import { combatLogger } from "./combatLogger.js"
 import { getTypeEffectiveness } from "./typechart.js"
+import { PokemonSelected, assignDefaultButtons } from "./script.js"
 
 export class Game{
     constructor(player, boss){
@@ -18,8 +19,10 @@ export class Game{
             await combatLogger.Log(`It missed!`)
             
         }
+        if(dmg==0){
+            await combatLogger.Log(`It doesn't affect ${target.name}`)
+        }
         if(dmg>0){
-            target.hp -= dmg
             const effectiveness = getTypeEffectiveness(move.type,target.type)
             if(effectiveness>1){
                 await combatLogger.Log("It's super effective!")
@@ -29,11 +32,42 @@ export class Game{
                 await combatLogger.Log("It's not very effective")
                 
             }
+            await this.handleDamage(target,dmg)
         }
     }
 
-    async switchPokemon(user,pokemon){
+    async handleDamage(target,dmg){
+        for (let i = 0; i < dmg; i++) {
+            if(target.hp-1>-1){
+                target.hp -= 1
+                await combatLogger.sleep(10)
+            }            
+            else{
+                target.hp = 0
+                await combatLogger.Log(`${target.name} has fainted!`)
+                await this.switchPokemon()
+                await combatLogger.sleep(5)
+                return
+            }
+        }
+    }
 
+    async switchPokemon(){
+        if(this.playerActive.hp == 0){
+            PokemonSelected()
+            this.player.skipturn = true
+        }
+        else{
+            this.boss.skipturn = true
+            this.boss.party.forEach(p=>{
+                if(p.hp>0){
+                    this.bossActive = p
+                    return
+                }
+            })
+            await combatLogger.Log(`Opponent switched to ${this.bossActive.name}`)
+        }
+        if(document.querySelector(".battle-menu-back")) document.querySelector(".battle-menu-back").remove()
     }
 
     async useItem(user,item){
@@ -47,6 +81,7 @@ export class Game{
 
     async Turn(playerTurnOption){
         // let bossTurnOption = this.boss.chooseAction()
+
         this.destroyBattleMenu()
         let bossTurnOption = "action"
         this.bossActive.selectedmove = this.bossActive.moveset[Math.floor(Math.random()*4)]
@@ -55,12 +90,22 @@ export class Game{
                 switch (bossTurnOption) {
                     case "action":
                         if(this.playerActive.speed>=this.bossActive.speed){
-                            await this.useAction(this.playerActive,this.bossActive,this.playerActive.selectedmove)
-                            await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                            if(!this.player.skipturn) await this.useAction(this.playerActive,this.bossActive,this.playerActive.selectedmove)
+                            if(!this.boss.skipturn) await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                            else{
+                                this.player.skipturn = false
+                                this.boss.skipturn = false
+                                return
+                            }
+
                         }
                         else{
-                            await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
-                            await this.useAction(this.playerActive,this.bossActive,this.playerActive.selectedmove)
+                            if(!this.boss.skipturn) await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                            if(!this.player.skipturn) await this.useAction(this.playerActive,this.bossActive,this.playerActive.selectedmove)
+                            else{
+                                this.player.skipturn = false
+                                this.boss.skipturn = false
+                            }
                         }
                         
                         break;
@@ -75,7 +120,13 @@ export class Game{
             case "switch":
                 switch (bossTurnOption) {
                     case "action":
-                        await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                        await combatLogger.Log(`Player switched to ${this.playerActive.name}`)
+                        if(!this.boss.skipturn) await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                        else{
+                            this.player.skipturn = false
+                            this.boss.skipturn = false
+                            return
+                        }
                         break;
                     case "switch":
                         break;
@@ -101,7 +152,10 @@ export class Game{
             default:
                 break;
         }
+        this.player.skipturn = false
+        this.boss.skipturn = false
         await combatLogger.Log("What will you do now?")
+        assignDefaultButtons()
     }
 
     updateElements(){
