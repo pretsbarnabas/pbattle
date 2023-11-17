@@ -337,9 +337,9 @@ export function Peck(user,target){
     return damage
 }
 
-export function Earthquake(user,target){
+export async function Earthquake(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     if(rngCheck(35)){
         return damage*2
     }
@@ -356,6 +356,37 @@ export async function PoisonJab(user,target){
     const damage = CalculateDamage(user,this,target)
     if(rngCheck(30)){
         await setStatusCondition(target,statusCondition.poison)
+    }
+    return damage
+}
+
+export async function AcidSpray(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    await ModifyStatStage(target,stage.spdefense,-2)
+    return damage
+}
+
+export async function PainSplit(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let averageHP = (user.hp + target.hp)/2
+    user.hp = averageHP
+    target.hp = averageHP
+    await combatLogger.Log(`${target.name}'s and ${user.name}'s HP was set to the average of both!`)
+}
+
+export async function GunkShot(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    if(rngCheck(30)){
+        await setStatusCondition(target,statusCondition.poison)
+    }
+    return damage
+}
+
+export async function BodySlam(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    if(rngCheck(30)){
+        await setStatusCondition(target,statusCondition.paralysis)
     }
     return damage
 }

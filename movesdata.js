@@ -25,5 +25,9 @@ export const moves = {
     Earthquake: new Move("Earthquake",type.Grass,category.Physical,100,100,10,movelogic.Earthquake),
     CockPolish: new Move("CockPolish",type.Rock,category.Status,0,100,20,movelogic.CockPolish),
     PoisonJab: new Move("PoisonJab",type.Poison,category.Physical,80,100,20,movelogic.PoisonJab),
+    AcidSpray: new Move("AcidSpray",type.Poison,category.Special,40,100,20,movelogic.AcidSpray),
+    PainSplit: new Move("PainSplit",type.Normal,category.Status,0,100,20,movelogic.PainSplit),
+    GunkShot: new Move("GunkShot",type.Poison,category.Physical,120,80,5,movelogic.GunkShot),
+    BodySlam: new Move("BodySlam",type.Normal,category.Physical,85,100,15,movelogic.BodySlam),
     
 }
