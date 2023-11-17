@@ -61,12 +61,51 @@ function PartyOnclick(){
     const menucontainer = document.getElementById("menu");
     menucontainer.style.top = "50%";
     menucontainer.style.left = "5%";
-    let partycontainer = document.createElement('div')
-    partycontainer.classList.add('partycontainer')
-    let partyelement = document.createElement('div')
-    partyelement.classList.add('partyelement')
-    partycontainer.appendChild(partyelement)
-    let pokemonName = document.createElement('h1')
+    let partycontainer = document.createElement('div');
+    partycontainer.classList.add('partycontainer');
+    document.body.appendChild(partycontainer)
+    let partyelement = document.createElement('div');
+    partyelement.classList.add('partyelement');
+    partycontainer.appendChild(partyelement);
+    let partytitle = document.createElement('h1');
+    partytitle.classList.add('sectionTitle');
+    partytitle.innerHTML += "Party"
+    partyelement.appendChild(partytitle);
+    let pokemoncard = document.createElement('div');
+    pokemoncard.classList.add('pokemoncard');
+    partyelement.appendChild(pokemoncard);
+    // let cardimg = document.createElement('img');
+    // cardimg.classList.add('pokemonimg');
+    // cardimg.src = "https://archives.bulbagarden.net/media/upload/d/dc/Spr_5b_003_f.png"
+    // pokemoncard.appendChild(cardimg);
+    // let cardName = document.createElement('h1');
+    // cardName.classList.add('pokemonname');    
+    // pokemonName.innerHTML += //clicked pokemonname;
+    // pokemoncard.appendChild(cardName);
+    let partyelement2 = document.createElement('div');
+    partyelement2.classList.add('partyelement');
+    partycontainer.appendChild(partyelement2);
+    let pokemonbox = document.createElement('div');
+    pokemonbox.classList.add('pokemonBox');
+    partyelement2.appendChild(pokemonbox)
+    let Boxtitle = document.createElement('h1');
+    Boxtitle.classList.add('sectionTitle');
+    Boxtitle.innerHTML += "Box"
+    partyelement2.appendChild(Boxtitle);
+    pokemon.forEach(element => {
+        let pokemoninBox = documen.createElement('div')
+        pokemoninBox.classList.add('pokemonInBox')
+        partyelement.appendChild(pokemoninBox);
+        let pokemoninBoxImg = document.createElement('img');
+        pokemoninBoxImg.classList.add('pokemonInBoxImg');
+        pokemoninBoxImg.src = element.spritefront
+        pokemoninBox.appendChild(pokemoninBoxImg)
+    });
+
+
+
+
+
     
     
 //     let partytable = document.createElement()
