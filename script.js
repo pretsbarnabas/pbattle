@@ -101,6 +101,13 @@ function PartyOnclick(){
         pokemoninBoxImg.src = element.spritefront
         pokemoninBox.appendChild(pokemoninBoxImg)
     });
+    let partyelement3 = document.createElement('div');
+    partyelement3.classList.add('partyelement');
+    partycontainer.appendChild(partyelement3);
+    let Statstitle = document.createElement('h1');
+    Statstitle.classList.add('sectionTitle');
+    Statstitle.innerHTML += "Stats";
+
 
 
 
