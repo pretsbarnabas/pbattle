@@ -377,6 +377,7 @@ export async function PainSplit(user,target){
 
 export async function GunkShot(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
     if(rngCheck(30)){
         await setStatusCondition(target,statusCondition.poison)
     }
@@ -385,8 +386,25 @@ export async function GunkShot(user,target){
 
 export async function BodySlam(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
     if(rngCheck(30)){
         await setStatusCondition(target,statusCondition.paralysis)
     }
-    return damage
+    return [damage]
 }
+
+export async function IceFang(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    const damage = CalculateDamage(user,this,target)
+    if(rngCheck(10)){
+        await setStatusCondition(target,statusCondition.freeze)
+    }
+    if(rngCheck(10)){
+        return [damage,statusCondition.flinch]
+    }
+    return [damage]
+}
+
+export async function Snowscape(user,target){
+    await ModifyStatStage(user,stage.defense,1)
+} 

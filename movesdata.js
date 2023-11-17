@@ -29,5 +29,7 @@ export const moves = {
     PainSplit: new Move("PainSplit",type.Normal,category.Status,0,100,20,movelogic.PainSplit),
     GunkShot: new Move("GunkShot",type.Poison,category.Physical,120,80,5,movelogic.GunkShot),
     BodySlam: new Move("BodySlam",type.Normal,category.Physical,85,100,15,movelogic.BodySlam),
+    IceFang: new Move("IceFang",type.Ice,category.Physical,65,95,15,movelogic.IceFang),
+    Snowscape: new Move("Snowscape",type.Ice,category.Status,0,100,10,movelogic.Snowscape),
     
 }

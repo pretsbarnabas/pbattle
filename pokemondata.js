@@ -10,5 +10,7 @@ export const pokemon = {
     Tauros: new Pokemon("Tauros",[type.Normal],[moves.HornAttack,moves.Endeavor,moves.IcyWind,moves.CloseCombat],[135,105,100,45,75,115],"https://archives.bulbagarden.net/media/upload/8/80/Spr_5b_128.png","https://archives.bulbagarden.net/media/upload/9/9b/Spr_b_5b_128.png"),
     Swellow: new Pokemon("Swellow",[type.Normal,type.Flying],[moves.Endeavor,moves.WorkUp,moves.Peck,moves.Reversal],[120,90,65,80,55,125],"sprites/front/swellow","sprites/back/swellow"),
     Rhydon: new Pokemon("Rhydon",[type.Ground,type.Rock],[moves.ScaryFace,moves.Earthquake,moves.CockPolish,moves.PoisonJab],[165,135,125,50,50,45],"sprites/front/rhydon","sprites/back/rhydon"),
-    Gulpin: new Pokemon("Gulpin",[type.Poison],[moves.AcidSpray,moves.PainSplit,moves.GunkShot,moves.BodySlam],[130,48,58,48,58,45],"sprites/front/gulpin","sprites/back/gulpin")
+    Gulpin: new Pokemon("Gulpin",[type.Poison],[moves.AcidSpray,moves.PainSplit,moves.GunkShot,moves.BodySlam],[130,48,58,48,58,45],"sprites/front/gulpin","sprites/back/gulpin"),
+    Glalie: new Pokemon("Glalie",[type.Ice],[moves.IceFang,moves.BodySlam,moves.Snowscape,moves.Crunch],[140,85,85,85,85,85],"sprites/front/glalie","sprites/back/glalie"),
+    
 }
