@@ -9,7 +9,7 @@ let party
 let bossparty
 setup()
 
-function setup(){
+export function setup(){
     let menuContainer = document.createElement("div")
     menuContainer.classList.add("menu-container")
     for (let i = 0; i < 3; i++) {
@@ -24,8 +24,8 @@ function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
     generatePokemon()
     generateBoss()
-    party = [pokemon.Rhydon, pokemon.Swellow, pokemon.Houndoom]
-    bossparty = [bossPokemon.Marowak,bossPokemon.Typhlosion,bossPokemon.Altaria]
+    party = [pokemon.Altaria, pokemon.Swellow, pokemon.Houndoom]
+    bossparty = [bossPokemon.Typhlosion,bossPokemon.Rhydon,bossPokemon.Altaria]
 }
 
 function start_battle(){
@@ -159,6 +159,8 @@ export function PokemonSelected(){
         let pokemonImgElement = document.createElement("img")
         pokemonImgElement.src = p.spritefront
         pokemonImgElement.dataset.id = index++
+        if(p==game.playerActive)pokemonImgElement.style.backgroundColor = "blue"
+        if(p.hp==0)pokemonImgElement.style.backgroundColor = "red"
         pokemonImgElement.addEventListener("click",async function(){
             if(game.player.party[pokemonImgElement.dataset.id].hp == 0) return
             if(game.player.party[pokemonImgElement.dataset.id] == game.playerActive) return

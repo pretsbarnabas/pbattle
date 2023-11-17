@@ -23,6 +23,8 @@ export class Pokemon{
         this.battlestatuselement = undefined
         this.selectedmove = this.moveset[0]
         this.maxhp = stats[0]
+        this.basespeed = stats[5]
+        this.baseattack = stats[1]
     }
 
     Attack(user,move,target){

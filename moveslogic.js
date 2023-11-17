@@ -401,11 +401,11 @@ function HitCheck(user,target,accuracy){
     return Math.floor(Math.random()*101) <= accuracy
 }
 
-function rngCheck(chance){
+export function rngCheck(chance){
     return Math.floor(Math.random()*101) <= chance
 }
 
-async function setStatusCondition(target,status){
+export async function setStatusCondition(target,status){
     if(target.statusCondition == statusCondition.normal){
         target.statusCondition = status
         await combatLogger.Log(`${target.name} got ${status}`)
@@ -434,13 +434,13 @@ export async function Moonblast(user,target){
 export async function DragonBreath(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     const damage = await CalculateDamage(user,this,target)
-    if(rngCheck(30)){
+    if(rngCheck(100)){
         if(!target.type.includes(type.Electric)){
             await setStatusCondition(target,statusCondition.paralysis)
         }
     }
 
-    return damage
+    return [damage,0]
 }
 
 export async function CottonGuard(user,target){
@@ -484,7 +484,7 @@ export async function Crunch(user,target){
         await ModifyStatStage(target,stage.defense,1)
     }
     
-    return damage
+    return [damage,1]
 }
 
 export async function ScaryFace(user,target){

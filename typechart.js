@@ -3,6 +3,9 @@ import {type} from "./enum.js"
 export function getTypeEffectiveness(moveType, targetType){
     let effectiveness = 1
     for (let i = 0; i < targetType.length; i++) {
+        console.log(moveType==type.Water)
+        console.log(moveType)
+        console.log(targetType[i])
         switch (moveType) {
             case type.Normal:
                 switch (targetType[i]) {
@@ -49,6 +52,7 @@ export function getTypeEffectiveness(moveType, targetType){
                     default:
                         break;
                 }
+                break;
             case type.Water:
                 switch (targetType[i]) {
                     case type.Fire:
