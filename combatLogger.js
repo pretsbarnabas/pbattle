@@ -10,7 +10,7 @@ export class combatLogger{
             htmlelement.innerText += text[i]
             await this.sleep(10)
         }
-        await this.sleep(10)
+        await this.sleep(1000)
     }
     static sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

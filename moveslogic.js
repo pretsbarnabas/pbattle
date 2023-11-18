@@ -5,6 +5,7 @@ import {stage, category,type,statusCondition} from "./enum.js"
 
 async function CalculateDamage(user,move,target){
     let damage
+    user.critsuccess = false
     if(move.category == category.Physical){
         if(user.type.includes(move.type)){
             damage = ((22*move.power*((user.attack*user.attackStage[0]/user.attackStage[1])/(target.defense*(target.defenseStage[0]/target.defenseStage[1]))))/50 + 2)*((Math.floor(Math.random()*26)+85)/100)*1.5*getTypeEffectiveness(move.type,target.type)
@@ -26,6 +27,7 @@ async function CalculateDamage(user,move,target){
     }
     if(Math.floor(Math.random()*24) == 23){
         console.log("bap")
+        user.critsuccess = true
         damage = damage * 1.5
         if(move.category == category.Physical){
             if(target.defenseStage[0]>target.defenseStage[1]){
@@ -406,6 +408,15 @@ export function rngCheck(chance){
 }
 
 export async function setStatusCondition(target,status){
+    let unaffected = false
+    if(target.type.includes(type.Fire)&&status == statusCondition.burn) unaffected = true
+    if(target.type.includes(type.Poison)&&status == statusCondition.poison) unaffected = true
+    if(target.type.includes(type.Electric)&&status == statusCondition.paralysis) unaffected = true
+    if(target.type.includes(type.Ice)&&status == statusCondition.freeze) unaffected = true
+    if(unaffected){
+        await combatLogger.Log(`${target.name} is unaffected!`)
+        return
+    }
     if(target.statusCondition == statusCondition.normal){
         target.statusCondition = status
         await combatLogger.Log(`${target.name} got ${status}`)
@@ -434,13 +445,11 @@ export async function Moonblast(user,target){
 export async function DragonBreath(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     const damage = await CalculateDamage(user,this,target)
-    if(rngCheck(100)){
-        if(!target.type.includes(type.Electric)){
-            await setStatusCondition(target,statusCondition.paralysis)
-        }
+    if(rngCheck(30)){
+        await setStatusCondition(target,statusCondition.paralysis)
     }
 
-    return [damage,0]
+    return damage
 }
 
 export async function CottonGuard(user,target){
@@ -479,12 +488,14 @@ export async function DoubleTeam(user,target){
 
 export async function Crunch(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
+    let flinch = false
     if(rngCheck(20)){
-        await ModifyStatStage(target,stage.defense,1)
+        await ModifyStatStage(target,stage.defense,-1)
+        flinch = true
     }
     
-    return [damage,1]
+    return [damage,flinch]
 }
 
 export async function ScaryFace(user,target){
@@ -584,7 +595,7 @@ export async function PoisonJab(user,target){
 
 export async function Flamethrower(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    if(rngCheck(10)&&!target.type.includes(type.Fire)){
+    if(rngCheck(10)){
         await setStatusCondition(target,statusCondition.burn)
     }
     return CalculateDamage(user,this,target)
@@ -592,7 +603,7 @@ export async function Flamethrower(user,target){
 
 export async function ThunderPunch(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    if(rngCheck(10)&&!target.type.includes(type.Electric)){
+    if(rngCheck(10)){
         await setStatusCondition(target,statusCondition.paralysis)
     }
     return CalculateDamage(user,this,target)

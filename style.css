@@ -2,6 +2,7 @@ body{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    overflow: hidden;
 }
 
 .menu-container{
@@ -30,7 +31,6 @@ body{
     left: 10%;
     top: 80%;
     display: block;
-    overflow-y: scroll;
     overflow-wrap: break-word;
     font-size: 12pt;
     z-index: -1;

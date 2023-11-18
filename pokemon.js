@@ -25,6 +25,8 @@ export class Pokemon{
         this.maxhp = stats[0]
         this.basespeed = stats[5]
         this.baseattack = stats[1]
+        this.basehp = this.maxhp
+        this.critsuccess = false
     }
 
     Attack(user,move,target){
