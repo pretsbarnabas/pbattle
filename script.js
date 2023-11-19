@@ -101,25 +101,38 @@ function PartyOnclick(){
         pokemoninBoxImg.src = element.spritefront
         pokemoninBox.appendChild(pokemoninBoxImg)
     });
-    
     let partyelement3 = document.createElement('div');
     partyelement3.classList.add('partyelement');
+    partyelement3.id = 'Stats';
     partycontainer.appendChild(partyelement3);
     let Statstitle = document.createElement('h1');
     Statstitle.classList.add('sectionTitle');
     Statstitle.innerHTML += "Stats";
+    partyelement3.appendChild(Statstitle);
 
-
-
-
-
-
-    
-    
 //     let partytable = document.createElement()
+}
+
+function pokemonHover(){
+    console.log("hablaty")
+    let statsBox = document.createElement('div');
+    statsBox.classList.add('statsBox');
+    partyelement3.appendChild(statsBox);
 }
 
 const partyBtn = document.getElementById("partyButton")
 
 partyBtn.addEventListener("click",()=>{PartyOnclick()})
+
+
+const hoveredPokemonBox = document.querySelectorAll(".pokemonInBoxImg")
+
+if(hoveredPokemonBox){
+    hoveredPokemonBox.forEach(element => {
+        element.addEventListener("click",()=>{pokemonHover()})
+
+    });
+
+
+}
 
