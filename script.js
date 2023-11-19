@@ -113,7 +113,13 @@ function PartyOnclick(){
     let statsBox = document.createElement('div');
     statsBox.classList.add('statsBox');
     partyelement3.appendChild(statsBox)
-    
+    let statsPokemonName = document.createElement('h1');
+    statsPokemonName.classList.add('statsPokemonName');
+    statsBox.appendChild(statsPokemonName);
+    let pokemonInStatsImg = document.createElement('img')
+    pokemonInStatsImg.classList.add('pokemonInStatsImg');
+    pokemonInStatsImg.src  = "https://media.sketchfab.com/models/831f3531aef44c24817b58effff570f3/thumbnails/c68f677774164a42950d10588979efda/230ee30f0ad14b6dae1844ed1d1e9cbf.jpeg"
+    statsBox.appendChild(pokemonInStatsImg)
     pokemonbox.addEventListener("click",()=>{
         console.log("hablaty")
         ;})
