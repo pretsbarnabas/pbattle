@@ -57,7 +57,7 @@ function createBattleScreenElements(){
 
 }
 function PartyOnclick(){
-    console.log("asj");
+    console.log();
     const menucontainer = document.getElementById("menu");
     menucontainer.style.top = "50%";
     menucontainer.style.left = "5%";
@@ -85,22 +85,23 @@ function PartyOnclick(){
     let partyelement2 = document.createElement('div');
     partyelement2.classList.add('partyelement');
     partycontainer.appendChild(partyelement2);
-    let pokemonbox = document.createElement('div');
-    pokemonbox.classList.add('pokemonBox');
-    partyelement2.appendChild(pokemonbox)
     let Boxtitle = document.createElement('h1');
     Boxtitle.classList.add('sectionTitle');
     Boxtitle.innerHTML += "Box"
     partyelement2.appendChild(Boxtitle);
-    pokemon.forEach(element => {
-        let pokemoninBox = documen.createElement('div')
+    let pokemonbox = document.createElement('div');
+    pokemonbox.classList.add('availablePokemons');
+    partyelement2.appendChild(pokemonbox)
+    Object.values(pokemon).forEach(element => {
+        let pokemoninBox = document.createElement('div')
         pokemoninBox.classList.add('pokemonInBox')
-        partyelement.appendChild(pokemoninBox);
+        pokemonbox.appendChild(pokemoninBox);
         let pokemoninBoxImg = document.createElement('img');
         pokemoninBoxImg.classList.add('pokemonInBoxImg');
         pokemoninBoxImg.src = element.spritefront
         pokemoninBox.appendChild(pokemoninBoxImg)
     });
+    
     let partyelement3 = document.createElement('div');
     partyelement3.classList.add('partyelement');
     partycontainer.appendChild(partyelement3);
