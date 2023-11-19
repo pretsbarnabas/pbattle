@@ -123,9 +123,6 @@ export class Game{
             })
             this.boss.skipturn = true
             await combatLogger.Log(`Opponent switched to ${this.bossActive.name}`)
-            await combatLogger.Log("What will you do now?")
-            assignDefaultButtons()
-
         }
         if(document.querySelector(".battle-menu-back")) document.querySelector(".battle-menu-back").remove()
     }
