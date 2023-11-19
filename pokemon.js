@@ -1,3 +1,4 @@
+import { statusCondition } from "./enum.js"
 export class Pokemon{
     constructor(name, type, moveset, stats,spritefront,spriteback){
         this.name = name
@@ -40,7 +41,33 @@ export class Pokemon{
     }
     set statusCondition(value){
         this._statusCondition = value
-        this.battlestatuselement.children[3].textContent = this._statusCondition
+        let element = this.battlestatuselement.children[3]
+        element.textContent = this._statusCondition
+        switch (value) {
+            case statusCondition.burn:
+                element.style.backgroundColor = "rgb(255,156,84)"
+                break;
+            case statusCondition.freeze:
+                element.style.backgroundColor = "rgb(116,206,192)"
+                break;
+            case statusCondition.confusion:
+                element.style.backgroundColor = "rgb(249,113,118)"
+                break;
+            case statusCondition.normal:
+                element.style.backgroundColor = "none"
+                break;
+            case statusCondition.paralysis:
+                element.style.backgroundColor = "rgb(243,210,59)"
+                break;
+            case statusCondition.poison:
+                element.style.backgroundColor = "rgb(171,106,200)"
+                break;   
+            case statusCondition.sleep:
+                element.style.backgroundColor = "rgb(143,168,221)"
+                break;   
+            default:
+                break;
+        }
     }
 
     get hp(){

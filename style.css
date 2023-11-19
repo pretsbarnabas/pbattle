@@ -1,8 +1,11 @@
 body{
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
     overflow: hidden;
+}
+*{
+  font-family: pokemonFont;
+  font-size: 16pt;
 }
 
 .menu-container{
@@ -12,6 +15,11 @@ body{
     height: auto;
     width: auto;
 
+}
+
+@font-face {
+  font-family: "pokemonFont";
+  src: url(pokemon-b-w.ttf);
 }
 
 .menu-button{
@@ -24,15 +32,16 @@ body{
 }
 
 .combat-log-container{
-    height: 16vh;
+    height: 11vh;
     border: solid 1px black;
     width: 80vw;
     position: absolute;
     left: 10%;
     top: 80%;
+    padding-top: 5vh;
     display: block;
     overflow-wrap: break-word;
-    font-size: 12pt;
+    font-size: 28pt;
     z-index: -1;
 }
 
@@ -68,15 +77,18 @@ body{
     position: absolute;
     left: 20%;
     top: 60%;
+    z-index: -2;
 }
 .battle-pokemon-container:nth-child(2){
     position: absolute;
     top: 10%;
     left: 60%;
+    z-index: -2;
 }
 .battle-pokemon-img{
     width: 200px;
     height: 200px;
+    z-index: -2;
 }
 .battle-menu-back{
     position: absolute;
@@ -89,8 +101,8 @@ body{
 
 .battle-status-container{
     border: 2px solid black;
-    width: 20vw;
-    height: 5vh;
+    width: 15vw;
+    height: 7vh;
     margin-top: 50px;
     margin-left: 30px;
 
@@ -100,22 +112,30 @@ body{
 }
 .battle-status-name{
     position: relative;
+    height: fit-content;
+    width: fit-content;
     left: 10%;
 }
 .battle-status-lvl{
     position: relative;
+    height: fit-content;
+    width: fit-content;
     left: 75%;
     bottom: 40%;
 }
 .battle-status-hp{
     position: relative;
-    bottom: 15%;
+    height: fit-content;
+    width: fit-content;
+    bottom: 30%;
     left: 9%;
 }
 .battle-status-ailment{
     position: relative;
-    bottom: 55%;
-    left: 80%;
+    height: fit-content;
+    width: fit-content;
+    bottom: 80%;
+    left: 75%;
 }
 
 .pokemon-select-menu{
