@@ -118,10 +118,38 @@ function PartyOnclick(){
     statsBox.appendChild(statsPokemonName);
     let pokemonInStatsImg = document.createElement('img')
     pokemonInStatsImg.classList.add('pokemonInStatsImg');
-    pokemonInStatsImg.src  = "https://media.sketchfab.com/models/831f3531aef44c24817b58effff570f3/thumbnails/c68f677774164a42950d10588979efda/230ee30f0ad14b6dae1844ed1d1e9cbf.jpeg"
+    pokemonInStatsImg.src  = ""
     statsBox.appendChild(pokemonInStatsImg)
-    pokemonbox.addEventListener("click",()=>{
+    let statsTypeBox = document.createElement('div')
+    statsTypeBox.classList.add('statsTypeBox');
+    statsBox.appendChild(statsTypeBox)
+    let typeBox = document.createElement('div')
+    typeBox.classList.add('typeBox');
+    statsTypeBox.appendChild(typeBox);
+    let type = document.createElement('h1');
+    type.classList.add('type')
+    typeBox.appendChild(type)
+    let typeBox2 = document.createElement('div')
+    typeBox2.classList.add('typeBox');
+    statsTypeBox.appendChild(typeBox2);
+    let type2 = document.createElement('h1');
+    type2.classList.add('type')
+    typeBox2.appendChild(type2)
+    let abilities = document.createElement('div')
+    abilities.classList.add('abilities')
+    statsBox.appendChild(abilities)
+    let ability = document.createElement('div');
+    ability.classList.add('ability');
+    abilities.appendChild(ability);
+    let abilityName = document.createElement('h1')
+    abilityName.classList.add('abilityName')
+    ability.appendChild(abilityName)
+    let abilityType = document.createElement('h1')
+    abilityType.classList.add('abilityType')
+    ability.appendChild(abilityType)
+    pokemonbox.addEventListener("mouseover",()=>{
         console.log("hablaty")
+        statsPokemonName.innerHTML = pokemonbox.id
         ;})
 //     let partytable = document.createElement()
 }
