@@ -1,7 +1,7 @@
 import { combatLogger } from "./combatLogger.js"
 import { getTypeEffectiveness } from "./typechart.js"
 import { PokemonSelected, assignDefaultButtons, setup} from "./script.js"
-import { statusCondition } from "./enum.js"
+import { statusCondition, category } from "./enum.js"
 import { rngCheck } from "./moveslogic.js"
 
 export class Game{
@@ -19,6 +19,7 @@ export class Game{
         let outcome = await user.Attack(user,move,target)
         let dmg = undefined
         let flinch = false
+        let recoil = false
         console.log(typeof outcome)
         if(typeof outcome == "undefined") return
         if(typeof outcome == "number"){
@@ -27,6 +28,13 @@ export class Game{
         if(typeof outcome == "object"){
             dmg = outcome[0]
             if(outcome.length>1) flinch = outcome[1]
+            if(outcome.length>2) recoil = outcome[2]
+        }
+        if(typeof outcome == "string"){
+            if(outcome == "lightscreen"){
+                if(target==this.playerActive) this.player.lightscreen = 5
+                else this.boss.lightscreen = 5
+            }
         }
         if(dmg==-1){
             await combatLogger.Log(`It missed!`)
@@ -37,6 +45,13 @@ export class Game{
         }
         if(dmg>0){
             const effectiveness = getTypeEffectiveness(move.type,target.type)
+            let alive = await this.handleDamage(target,dmg)
+            if(target==this.playerActive&&this.player.lightscreen>0&&move.category==category.Special){
+                dmg = dmg * 0.5
+            }
+            else if(target==this.bossActive&&this.player.lightscreen>0&&move.category==category.Special){
+                dmg = dmg * 0.5
+            }
             if(user.critsuccess) await combatLogger.Log("Critical hit!")
             if(effectiveness>1){
                 await combatLogger.Log("It's super effective!")
@@ -46,8 +61,15 @@ export class Game{
                 await combatLogger.Log("It's not very effective")
                 
             }
-            let alive = await this.handleDamage(target,dmg)
-            if(alive&&flinch){
+            if(!alive){
+                await combatLogger.Log(`${target.name} has fainted!`)
+                await this.switchPokemon()
+            }
+            if(alive&&recoil){
+                await combatLogger.Log(`${user.name} is damaged by recoil!`)
+                await this.handleDamage(user,dmg*recoil)
+            }
+            if(alive&&flinch&&!target.movedThisTurn){
                 await combatLogger.Log(`${target.name} flinched!`)
                 if(target==this.playerActive) this.player.skipturn = true
                 else this.boss.skipturn = true
@@ -63,8 +85,6 @@ export class Game{
             }            
             else{
                 target.hp = 0
-                await combatLogger.Log(`${target.name} has fainted!`)
-                await this.switchPokemon()
                 await combatLogger.sleep(5)
                 return 0
             }
@@ -96,6 +116,7 @@ export class Game{
             }
             this.boss.party.forEach(p=>{
                 if(p.hp>0){
+                    this.bossActive.recharge = false
                     this.bossActive = p
                     return
                 }
@@ -155,7 +176,7 @@ export class Game{
                         player.skipturn = true
                     }
                     break;
-                case "confusion":
+                case statusCondition.confusion:
                     if(rngCheck(30)){
                         await combatLogger.Log(`${pokemon.name} is no longer confused!`)
                         pokemon.statusCondition = statusCondition.normal
@@ -197,38 +218,58 @@ export class Game{
         battlemenu.innerHTML = ""
     }
 
+    async rechargeCheck(){
+        if(this.playerActive.recharge){
+            await combatLogger.Log(`${this.playerActive.name} has to recharge!`)
+            this.playerActive.recharge = false
+            this.player.skipturn = true
+        }
+        if(this.bossActive.recharge){
+            await combatLogger.Log(`${this.bossActive.name} has to recharge!`)
+            this.bossActive.recharge = false
+            this.boss.skipturn = true
+        }
+    }
+
     async Turn(playerTurnOption){
         // let bossTurnOption = this.boss.chooseAction()
 
         this.destroyBattleMenu()
         let bossTurnOption = "action"
         this.bossActive.selectedmove = this.bossActive.moveset[Math.floor(Math.random()*4)]
+        this.bossActive.movedThisTurn = false
+        this.playerActive.movedThisTurn = false
+        await this.rechargeCheck()
         switch (playerTurnOption) {
             case "action":
                 switch (bossTurnOption) {
                     case "action":
-                        if((this.playerActive.speed*(this.playerActive.speedStage[0]/this.playerActive.speedStage[1]))>=(this.bossActive.speed*(this.bossActive.speedStage[0]/this.bossActive.speedStage[1]))){
+                        if((this.playerActive.speed*(this.playerActive.speedStage[0]/this.playerActive.speedStage[1])+(this.playerActive.selectedmove.priority*1000))>=(this.bossActive.speed*(this.bossActive.speedStage[0]/this.bossActive.speedStage[1])+(this.bossActive.selectedmove.priority*1000))){
                             await this.handleStatusConditions("start",this.playerActive,this.player)
-                            if(!this.player.skipturn) await this.useAction(this.playerActive,this.bossActive,this.playerActive.selectedmove)
+                            if(!this.player.skipturn){
+                                await this.useAction(this.playerActive,this.bossActive,this.playerActive.selectedmove)
+                                this.playerActive.movedThisTurn = true
+                            }    
                             await this.handleStatusConditions("end",this.playerActive,this.player)
                             await this.handleStatusConditions("start",this.bossActive,this.boss)
-                            if(!this.boss.skipturn) await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
-                            else{
-                                this.player.skipturn = false
-                                this.boss.skipturn = false
+                            if(!this.boss.skipturn) {
+                                await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                                this.bossActive.movedThisTurn = true
                             }
                             await this.handleStatusConditions("end",this.bossActive,this.boss)
 
                         }
                         else{
                             await this.handleStatusConditions("start",this.bossActive,this.boss)
-                            if(!this.boss.skipturn) await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                            if(!this.boss.skipturn){
+                                await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                                this.bossActive.movedThisTurn = true
+                            }
                             await this.handleStatusConditions("end",this.bossActive,this.boss)
                             await this.handleStatusConditions("start",this.playerActive,this.player)
-                            if(!this.player.skipturn) await this.useAction(this.playerActive,this.bossActive,this.playerActive.selectedmove)
-                            else{
-                                this.player.skipturn = false
-                                this.boss.skipturn = false
+                            if(!this.player.skipturn){
+                                await this.useAction(this.playerActive,this.bossActive,this.playerActive.selectedmove)
+                                this.playerActive.movedThisTurn = true
                             }
                             await this.handleStatusConditions("end",this.playerActive,this.player)
                         }
@@ -247,7 +288,10 @@ export class Game{
                     case "action":
                         await combatLogger.Log(`Player switched to ${this.playerActive.name}`)
                         await this.handleStatusConditions("start",this.bossActive,this.boss)
-                        if(!this.boss.skipturn) await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                        if(!this.boss.skipturn){
+                            await this.useAction(this.bossActive,this.playerActive,this.bossActive.selectedmove)
+                            this.bossActive.movedThisTurn = true
+                        }    
                         else{
                             this.player.skipturn = false
                             this.boss.skipturn = false
@@ -280,6 +324,8 @@ export class Game{
         }
         this.player.skipturn = false
         this.boss.skipturn = false
+        this.player.lightscreen-=1
+        this.boss.lightscreen-=1
         if(document.querySelector(".battle-menu-container").children.length) return
         await combatLogger.Log("What will you do now?")
         assignDefaultButtons()

@@ -2,6 +2,7 @@ import { combatLogger } from "./combatLogger.js"
 import {Game} from "./game.js"
 import {Player} from "./player.js"
 import {pokemon,bossPokemon, generatePokemon, generateBoss} from "./pokemondata.js"
+import { type } from "./enum.js"
 
 
 let game
@@ -24,8 +25,8 @@ export function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
     generatePokemon()
     generateBoss()
-    party = [pokemon.Altaria, pokemon.Swellow, pokemon.Houndoom,pokemon.Rhydon,pokemon.Tauros,pokemon.Typhlosion]
-    bossparty = [bossPokemon.Marowak,bossPokemon.Rhydon,bossPokemon.Altaria]
+    party = [pokemon.Accelgor,pokemon.Bouffalant,pokemon.Druddigon,pokemon.Vanilluxe,pokemon.Escavalier,pokemon.Volcarona]
+    bossparty = [bossPokemon.Typhlosion,bossPokemon.Rhydon,bossPokemon.Altaria]
 }
 
 function start_battle(){
@@ -142,6 +143,7 @@ function FightSelected(){
     const battleButtonsElement = document.querySelectorAll(".battle-menu-button")
     for (let i = 0; i < 4; i++) {
         battleButtonsElement[i].innerText = `${game.playerActive.moveset[i].name}`
+        battleButtonsElement[i].style.backgroundColor = ColorPicker(game.playerActive.moveset[i].type)
         battleButtonsElement[i].addEventListener("click",async function(){
             game.playerActive.selectedmove = game.playerActive.moveset[i]
             await game.Turn("action")
@@ -166,6 +168,7 @@ export function PokemonSelected(){
             if(game.player.party[pokemonImgElement.dataset.id] == game.playerActive) return
             document.querySelector(".pokemon-select-menu").remove()
             if(game.playerActive.hp == 0){
+                game.playerActive.recharge = false
                 game.playerActive = game.player.party[pokemonImgElement.dataset.id]
                 await combatLogger.Log(`Player switched to ${game.playerActive.name}`)
                 await combatLogger.Log("What will you do now?")
@@ -182,4 +185,47 @@ export function PokemonSelected(){
 
 function PackSelected(){
 
+}
+
+function ColorPicker(Type){
+    switch (Type) {
+        case type.Fire:
+            return "rgb(255,156,84)"
+        case type.Water:
+            return "rgb(77,144,213)"
+        case type.Grass:
+            return "rgb(99,187,91)"
+        case type.Fighting:
+            return "rgb(206,64,105)"
+        case type.Psychic:
+            return "rgb(249,113,118)"
+        case type.Poison:
+            return "rgb(171,106,200)"
+        case type.Ground:
+            return "rgb(217,119,70)"
+        case type.Fairy:
+            return "rgb(236,143,230)"
+        case type.Rock:
+            return "rgb(199,183,139)"
+        case type.Electric:
+            return "rgb(243,210,59)"
+        case type.Bug:
+            return "rgb(144,193,44)"
+        case type.Dragon:
+            return "rgb(10,109,196)"
+        case type.Ghost:
+            return "rgb(82,105,172)"
+        case type.Dark:
+            return "rgb(90,83,102)"
+        case type.Flying:
+            return "rgb(143,168,221)"
+        case type.Normal:
+            return "rgb(144,153,161)"
+        case type.Ice:
+            return "rgb(116,206,192)"
+        case type.Steel:
+            return "rgb(90,142,161)"
+        default:
+            break;
+    }
 }

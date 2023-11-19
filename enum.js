@@ -41,5 +41,6 @@ export const statusCondition = {
     freeze: "FRZ",
     paralysis: "PRZ",
     poison: "PSN",
-    sleep: "SLP"
+    sleep: "SLP",
+    confusion: "CFN"
 }

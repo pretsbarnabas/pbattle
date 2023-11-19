@@ -3,7 +3,7 @@ import { getTypeEffectiveness } from "./typechart.js"
 import {stage, category,type,statusCondition} from "./enum.js"
 
 
-async function CalculateDamage(user,move,target){
+async function CalculateDamage(user,move,target,critratio = 4){
     let damage
     user.critsuccess = false
     if(move.category == category.Physical){
@@ -25,7 +25,7 @@ async function CalculateDamage(user,move,target){
         }
         if(damage<0) damage = 1
     }
-    if(Math.floor(Math.random()*24) == 23){
+    if(rngCheck(critratio)){
         console.log("bap")
         user.critsuccess = true
         damage = damage * 1.5
@@ -529,14 +529,14 @@ export async function Reversal(user,target){
 
 export async function Snarl(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     await ModifyStatStage(target,stage.spattack,-1)
     return damage
 }
 
-export function HornAttack(user,target){
+export async function HornAttack(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     return damage
 }
 
@@ -550,14 +550,14 @@ export async function Endeavor(user,target){
 
 export async function IcyWind(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     await ModifyStatStage(target,stage.speed,-1)
     return damage
 }
 
 export async function CloseCombat(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     await ModifyStatStage(user,stage.defense,-1)
     await ModifyStatStage(user,stage.spdefense,-1)
     return damage
@@ -568,15 +568,15 @@ export async function WorkUp(user,target){
     await ModifyStatStage(user,stage.spattack,1)
 }
 
-export function Peck(user,target){
+export async function Peck(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     return damage
 }
 
-export function Earthquake(user,target){
+export async function Earthquake(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
+    const damage = await CalculateDamage(user,this,target)
     return damage
 }
 export async function CockPolish(user,target){
@@ -586,8 +586,8 @@ export async function CockPolish(user,target){
 
 export async function PoisonJab(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    const damage = CalculateDamage(user,this,target)
-    if(rngCheck(30)&&!target.type.includes(type.Poison)&&!target.type.includes(type.Steel)){
+    const damage = await CalculateDamage(user,this,target)
+    if(rngCheck(30)){
         await setStatusCondition(target,statusCondition.poison)
     }
     return damage
@@ -598,7 +598,7 @@ export async function Flamethrower(user,target){
     if(rngCheck(10)){
         await setStatusCondition(target,statusCondition.burn)
     }
-    return CalculateDamage(user,this,target)
+    return await CalculateDamage(user,this,target)
 }
 
 export async function ThunderPunch(user,target){
@@ -606,17 +606,170 @@ export async function ThunderPunch(user,target){
     if(rngCheck(10)){
         await setStatusCondition(target,statusCondition.paralysis)
     }
-    return CalculateDamage(user,this,target)
+    return await CalculateDamage(user,this,target)
 }
 
 export async function WilloWisp(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
-    if(!target.type.includes(type.Fire)){
-        await setStatusCondition(target,statusCondition.burn)
-    }
+    await setStatusCondition(target,statusCondition.burn)
 }
 
 export async function Smokescreen(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     await ModifyStatStage(target,stage.accuracy,-1)
+}
+
+export async function FocusBlast(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(10)){
+        await ModifyStatStage(target,stage.spdefense,-1)
+    }
+    return damage
+}
+
+export async function BugBuzz(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(10)){
+        await ModifyStatStage(target,stage.spdefense,-1)
+    }
+    return damage
+}
+
+export async function MeFirst(user,target){
+    if(!HitCheck(user,target,target.selectedmove.accuracy)) return -1
+    if(target.selectedmove.power<1) return -1
+    let damage = await target.selectedmove.Action(user,target)*1.5
+    return damage
+}
+
+export async function EnergyBall(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(10)){
+        await ModifyStatStage(target,stage.spdefense,-1)
+    }
+    return damage
+}
+
+export async function HeadCharge(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    return [damage,0,(1/4)]
+}
+
+export async function MegaHorn(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return await CalculateDamage(user,this,target)
+}
+
+export async function StoneEdge(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return await CalculateDamage(user,this,target,12)
+}
+
+export async function Payback(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(target.movedThisTurn){
+        damage = damage*1.5
+    }
+    return damage
+}
+
+export async function Outrage(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(30)){
+        await setStatusCondition(user,statusCondition.confusion)
+    }
+    return damage
+}
+
+export async function Superpower(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    await ModifyStatStage(user,stage.attack,-1)
+    await ModifyStatStage(user,stage.defense,-1)
+    return damage
+}
+
+export async function NightSlash(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target,12)
+    return damage
+} 
+
+export async function LightScreen(user,target){
+    return "lightscreen"
+}
+
+export async function Blizzard(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(10)){
+        await setStatusCondition(target,statusCondition.freeze)
+    }
+    return damage
+}
+
+export async function FlashCannon(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(10)){
+        await ModifyStatStage(target,stage.spdefense,-1)
+    }
+    return damage
+}
+
+export async function AcidArmor(user,target){
+    await ModifyStatStage(user,stage.defense,2)
+}
+
+export async function XScissor(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return await CalculateDamage(user,this,target)
+}
+
+export async function IronHead(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    let flinch = false
+    if(rngCheck(30)&&target.movedThisTurn){
+        flinch = true
+    }
+    return [damage,flinch]
+}
+
+export async function AerialAce(user,target){
+    let damage = await CalculateDamage(user,this,target)
+    return damage
+}
+
+export async function GigaImpact(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    user.recharge = true
+    return damage
+}
+
+export async function Overheat(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    await ModifyStatStage(user,stage.spattack,-2)
+    return damage
+}
+
+export async function QuiverDance(user,target){
+    await ModifyStatStage(user,stage.spattack,1)
+    await ModifyStatStage(user,stage.spdefense,1)
+    await ModifyStatStage(user,stage.speed,1)
+}
+
+export async function HyperBeam(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    user.recharge = true
+    return damage
 }

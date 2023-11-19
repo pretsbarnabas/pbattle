@@ -425,7 +425,7 @@ export function getTypeEffectiveness(moveType, targetType){
                     case type.Ghost:
                         effectiveness = effectiveness*2
                         break;
-                    case type.Dragon:
+                    case type.Dark:
                         effectiveness = effectiveness*0.5
                         break;
                     case type.Fairy:

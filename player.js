@@ -4,6 +4,7 @@ export class Player{
         this.items = "undefined"
         this.pokemonimg = undefined
         this.skipturn = false
+        this.lightscreen = 0
     }
 
 }
