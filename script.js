@@ -95,6 +95,7 @@ function PartyOnclick(){
     Object.values(pokemon).forEach(element => {
         let pokemoninBox = document.createElement('div')
         pokemoninBox.classList.add('pokemonInBox')
+        pokemoninBox.id = element.name;
         pokemonbox.appendChild(pokemoninBox);
         let pokemoninBoxImg = document.createElement('img');
         pokemoninBoxImg.classList.add('pokemonInBoxImg');
@@ -118,6 +119,7 @@ function pokemonHover(){
     let statsBox = document.createElement('div');
     statsBox.classList.add('statsBox');
     partyelement3.appendChild(statsBox);
+
 }
 
 const partyBtn = document.getElementById("partyButton")
