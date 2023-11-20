@@ -92,21 +92,26 @@ function PartyOnclick(){
     let pokemonbox = document.createElement('div');
     pokemonbox.classList.add('availablePokemons');
     partyelement2.appendChild(pokemonbox)
-    
-    Object.values(pokemon).forEach(element => {
+    let typelist = [];
+    Object.entries(pokemon).forEach(element => {
         let pokemoninBox = document.createElement('div')
         pokemoninBox.classList.add('pokemonInBox')
-        pokemoninBox.dataset.name = element.name;
-        pokemoninBox.dataset.type1 = element.type[0];
-        pokemoninBox.dataset.type2 = element.type[1];
-        pokemoninBox.dataset.move1type = element.moveset[0].type;
-        pokemoninBox.dataset.move1name = element.moveset[0].name;
-        pokemoninBox.dataset.move2type = element.moveset[1].type;
-        pokemoninBox.dataset.move2name = element.moveset[1].name;
-        pokemoninBox.dataset.move3type = element.moveset[2].type;
-        pokemoninBox.dataset.move3name = element.moveset[2].name;
-        pokemoninBox.dataset.move4type = element.moveset[3].type;
-        pokemoninBox.dataset.move4name = element.moveset[3].name;
+        pokemoninBox.dataset.name = element[1].name;
+        element[1].type.forEach(type =>{
+            typelist.push(type)
+        })
+        console.log(typelist)
+        pokemoninBox.dataset.type1 = typelist[0];
+        pokemoninBox.dataset.type2 = typelist[1];
+       
+        pokemoninBox.dataset.move1type = element[1].moveset[0].type;
+        pokemoninBox.dataset.move1name = element[1].moveset[0].name;
+        pokemoninBox.dataset.move2type = element[1].moveset[1].type;
+        pokemoninBox.dataset.move2name = element[1].moveset[1].name;
+        pokemoninBox.dataset.move3type = element[1].moveset[2].type;
+        pokemoninBox.dataset.move3name = element[1].moveset[2].name;
+        pokemoninBox.dataset.move4type = element[1].moveset[3].type;
+        pokemoninBox.dataset.move4name = element[1].moveset[3].name;
         pokemonbox.appendChild(pokemoninBox);
         let pokemoninBoxImg = document.createElement('img');
         pokemoninBoxImg.classList.add('pokemonInBoxImg');
@@ -149,24 +154,35 @@ function PartyOnclick(){
     let abilities = document.createElement('div')
     abilities.classList.add('abilities')
     statsBox.appendChild(abilities)
-    let ability = document.createElement('div');
-    ability.classList.add('ability');
-    abilities.appendChild(ability);
-    let abilityName = document.createElement('h1')
-    abilityName.classList.add('abilityName')
-    ability.appendChild(abilityName)
-    let abilityType = document.createElement('h1')
-    abilityType.classList.add('abilityType')
-    ability.appendChild(abilityType)
+    for (let i = 0; i < 4; i++) {
+        let ability = document.createElement('div');
+        ability.classList.add('ability');
+        abilities.appendChild(ability);
+        let abilityName = document.createElement('h1')
+        abilityName.classList.add('abilityName')
+        ability.appendChild(abilityName)
+        let abilityType = document.createElement('h1')
+        abilityType.classList.add('abilityType')
+        ability.appendChild(abilityType) 
+        
+    }
     let availablePokemon = document.querySelector(".availablePokemons").children
+    let abilityList = document.querySelector(".abilities").children
     console.log(availablePokemon)
+    console.log(abilityList[0].children[0])
+    
     for (let i = 0; i < availablePokemon.length; i++) {
         availablePokemon[i].addEventListener("mouseover",()=>{
-            console.log("hablaty")
             Object.entries(pokemon).forEach( entry =>{
                 if(entry[1].name == availablePokemon[i].dataset.name)
                 {
                     statsPokemonName.innerHTML = entry[1].name;
+                    pokemonInStatsImg.src = entry[1].spritefront; 
+                    for (let i = 0; i < abilityList.length; i++) {
+                        
+                        abilityList[i].children[0].innerHTML = entry[1].move1name
+                        abilityList[i].children[1].innerHTML = entry[1].move1type
+                    }
                     
     
                 }
