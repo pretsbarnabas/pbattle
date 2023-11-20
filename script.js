@@ -74,14 +74,6 @@ function PartyOnclick(){
     let pokemoncard = document.createElement('div');
     pokemoncard.classList.add('pokemoncard');
     partyelement.appendChild(pokemoncard);
-    // let cardimg = document.createElement('img');
-    // cardimg.classList.add('pokemonimg');
-    // cardimg.src = "https://archives.bulbagarden.net/media/upload/d/dc/Spr_5b_003_f.png"
-    // pokemoncard.appendChild(cardimg);
-    // let cardName = document.createElement('h1');
-    // cardName.classList.add('pokemonname');    
-    // pokemonName.innerHTML += //clicked pokemonname;
-    // pokemoncard.appendChild(cardName);
     let partyelement2 = document.createElement('div');
     partyelement2.classList.add('partyelement');
     partycontainer.appendChild(partyelement2);
@@ -110,7 +102,7 @@ function PartyOnclick(){
         pokemonbox.appendChild(pokemoninBox);
         let pokemoninBoxImg = document.createElement('img');
         pokemoninBoxImg.classList.add('pokemonInBoxImg');
-        pokemoninBoxImg.src = element.spritefront
+        pokemoninBoxImg.src = element[1].spritefront
         pokemoninBox.appendChild(pokemoninBoxImg)
     });
     const partyelement3 = document.createElement('div');
@@ -161,17 +153,27 @@ function PartyOnclick(){
         ability.appendChild(abilityType) 
         
     }
-    console.log(pokemon[1])
     let availablePokemon = document.querySelector(".availablePokemons").children
     let abilityList = document.querySelector(".abilities").children
+
     
     
     
     for (let i = 0; i < availablePokemon.length; i++) {
         availablePokemon[i].addEventListener("mouseover",()=>{
             Object.entries(pokemon).forEach( entry =>{
+
                 if(entry[1].name == availablePokemon[i].dataset.name)
                 {
+                    type.classList = `type ${entry[1].type[0]}`
+                    type.innerHTML = `${entry[1].type[0]}`
+                    type2.innerHTML = ` `
+                    type2.classList = ' '
+                    if(entry[1].type[1] != undefined){
+                        type2.classList = `type ${entry[1].type[1]}`
+                        type2.innerHTML = `${entry[1].type[1]}`
+                    }
+
                     statsPokemonName.innerHTML = entry[1].name;
                     pokemonInStatsImg.src = entry[1].spritefront; 
                     for (let i = 0; i < abilityList.length; i++) {
@@ -184,10 +186,12 @@ function PartyOnclick(){
                 }
             })
         })
+        availablePokemon[i].addEventListener("click",()=>{
+                partyelement.appendChild(availablePokemon[i])
+        })
         
     }
-0        
-//     let partytable = document.createElement()
+       
 }
 
 
