@@ -92,10 +92,21 @@ function PartyOnclick(){
     let pokemonbox = document.createElement('div');
     pokemonbox.classList.add('availablePokemons');
     partyelement2.appendChild(pokemonbox)
+    
     Object.values(pokemon).forEach(element => {
         let pokemoninBox = document.createElement('div')
         pokemoninBox.classList.add('pokemonInBox')
-        pokemoninBox.id = element.name;
+        pokemoninBox.dataset.name = element.name;
+        pokemoninBox.dataset.type1 = element.type[0];
+        pokemoninBox.dataset.type2 = element.type[1];
+        pokemoninBox.dataset.move1type = element.moveset[0].type;
+        pokemoninBox.dataset.move1name = element.moveset[0].name;
+        pokemoninBox.dataset.move2type = element.moveset[1].type;
+        pokemoninBox.dataset.move2name = element.moveset[1].name;
+        pokemoninBox.dataset.move3type = element.moveset[2].type;
+        pokemoninBox.dataset.move3name = element.moveset[2].name;
+        pokemoninBox.dataset.move4type = element.moveset[3].type;
+        pokemoninBox.dataset.move4name = element.moveset[3].name;
         pokemonbox.appendChild(pokemoninBox);
         let pokemoninBoxImg = document.createElement('img');
         pokemoninBoxImg.classList.add('pokemonInBoxImg');
@@ -147,10 +158,23 @@ function PartyOnclick(){
     let abilityType = document.createElement('h1')
     abilityType.classList.add('abilityType')
     ability.appendChild(abilityType)
-    pokemonbox.addEventListener("mouseover",()=>{
-        console.log("hablaty")
-        statsPokemonName.innerHTML = pokemonbox.id
-        ;})
+    let availablePokemon = document.querySelector(".availablePokemons").children
+    console.log(availablePokemon)
+    for (let i = 0; i < availablePokemon.length; i++) {
+        availablePokemon[i].addEventListener("mouseover",()=>{
+            console.log("hablaty")
+            Object.entries(pokemon).forEach( entry =>{
+                if(entry[1].name == availablePokemon[i].dataset.name)
+                {
+                    statsPokemonName.innerHTML = entry[1].name;
+                    
+    
+                }
+            })
+        })
+        
+    }
+0        
 //     let partytable = document.createElement()
 }
 
