@@ -92,17 +92,12 @@ function PartyOnclick(){
     let pokemonbox = document.createElement('div');
     pokemonbox.classList.add('availablePokemons');
     partyelement2.appendChild(pokemonbox)
-    let typelist = [];
     Object.entries(pokemon).forEach(element => {
         let pokemoninBox = document.createElement('div')
         pokemoninBox.classList.add('pokemonInBox')
         pokemoninBox.dataset.name = element[1].name;
-        element[1].type.forEach(type =>{
-            typelist.push(type)
-        })
-        console.log(typelist)
-        pokemoninBox.dataset.type1 = typelist[0];
-        pokemoninBox.dataset.type2 = typelist[1];
+        pokemoninBox.dataset.type1 = element[1].type[0];
+        pokemoninBox.dataset.type2 = element[1].type[1];
        
         pokemoninBox.dataset.move1type = element[1].moveset[0].type;
         pokemoninBox.dataset.move1name = element[1].moveset[0].name;
@@ -166,10 +161,11 @@ function PartyOnclick(){
         ability.appendChild(abilityType) 
         
     }
+    console.log(pokemon[1])
     let availablePokemon = document.querySelector(".availablePokemons").children
     let abilityList = document.querySelector(".abilities").children
-    console.log(availablePokemon)
-    console.log(abilityList[0].children[0])
+    
+    
     
     for (let i = 0; i < availablePokemon.length; i++) {
         availablePokemon[i].addEventListener("mouseover",()=>{
@@ -180,8 +176,8 @@ function PartyOnclick(){
                     pokemonInStatsImg.src = entry[1].spritefront; 
                     for (let i = 0; i < abilityList.length; i++) {
                         
-                        abilityList[i].children[0].innerHTML = entry[1].move1name
-                        abilityList[i].children[1].innerHTML = entry[1].move1type
+                        abilityList[i].children[0].innerHTML = entry[1].moveset[0].name
+                        abilityList[i].children[1].innerHTML = entry[1].moveset[0].type
                     }
                     
     
