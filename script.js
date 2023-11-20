@@ -176,8 +176,8 @@ function PartyOnclick(){
                     pokemonInStatsImg.src = entry[1].spritefront; 
                     for (let i = 0; i < abilityList.length; i++) {
                         
-                        abilityList[i].children[0].innerHTML = entry[1].moveset[0].name
-                        abilityList[i].children[1].innerHTML = entry[1].moveset[0].type
+                        abilityList[i].children[0].innerHTML = entry[1].moveset[i].name
+                        abilityList[i].children[1].innerHTML = entry[1].moveset[i].type
                     }
                     
     
