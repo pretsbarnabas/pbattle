@@ -29,6 +29,8 @@ body{
     background: red;
     width: 60vw;
     height: 70vh;
+    border: solid 1px white;
+    
 
 }
 .partyelement{
@@ -38,6 +40,7 @@ body{
     height: 100%;
     background-color: blue;
     border-right: solid 3px black;
+
 }
 .pokemoncard{
     display:flex;

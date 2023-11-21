@@ -187,6 +187,7 @@ function PartyOnclick(){
             })
         })
         availablePokemon[i].addEventListener("click",()=>{
+            
                 partyelement.appendChild(availablePokemon[i])
         })
         
