@@ -1,4 +1,5 @@
-import { statusCondition } from "./enum.js"
+import { statusCondition, category } from "./enum.js"
+import { getTypeEffectiveness } from "./typechart.js"
 export class Pokemon{
     constructor(name, type, moveset, stats,spritefront,spriteback){
         this.name = name
@@ -81,5 +82,37 @@ export class Pokemon{
         }
     }
 
+    chooseMove(turnNumber,target){
+        let moveweights = [100,100,100,100]
+        for (let i = 0; i < this.moveset.length; i++) {
+            const move = this.moveset[i]
+            if(move.category == category.Status){
+                moveweights[i]+=30
+                moveweights[i]-=turnNumber*10
+            }
+            else{
+                const effectiveness = getTypeEffectiveness(move.type,target.type)
+                if(effectiveness==0){
+                    moveweights[i]=0
+                }
+                else if(effectiveness==0.5){
+                    moveweights[i]-=10
+                }
+                else if(effectiveness==2){
+                    moveweights[i]+=20
+                }
+                else if(effectiveness==4){
+                    moveweights[i]+=40
+                }
+            }
+        }
+        let highestindex = 0
+        for (let i = 0; i < moveweights.length; i++) {
+            if(moveweights[i]>moveweights[highestindex]){
+                highestindex = i
+            }
+        }
+        return this.moveset[highestindex]
+    }
 
 }

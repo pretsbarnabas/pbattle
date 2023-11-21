@@ -10,7 +10,7 @@ export class Game{
         this.boss = boss
         this._playerActive = player.party[0]
         this._bossActive = boss.party[0]
-
+        this.turnNumber = 0
     }
 
     
@@ -233,7 +233,8 @@ export class Game{
 
         this.destroyBattleMenu()
         let bossTurnOption = "action"
-        this.bossActive.selectedmove = this.bossActive.moveset[Math.floor(Math.random()*4)]
+        this.bossActive.selectedmove = this.bossActive.chooseMove(this.turnNumber,this.playerActive)
+        // this.bossActive.selectedmove = this.bossActive.moveset[Math.floor(Math.random()*4)]
         this.bossActive.movedThisTurn = false
         this.playerActive.movedThisTurn = false
         await this.rechargeCheck()
@@ -323,6 +324,7 @@ export class Game{
         this.boss.skipturn = false
         this.player.lightscreen-=1
         this.boss.lightscreen-=1
+        this.turnNumber++
         if(document.querySelector(".battle-menu-container").children.length) return
         await combatLogger.Log("What will you do now?")
         assignDefaultButtons()
@@ -343,6 +345,7 @@ export class Game{
         this.playerActive.statusCondition = this.playerActive.statusCondition 
         this.playerActive.imgelement.src = this.playerActive.spriteback
         this.bossActive.imgelement.src = this.bossActive.spritefront
+        this.turnNumber = 0
     }
 
     get playerActive(){

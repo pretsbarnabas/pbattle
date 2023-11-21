@@ -595,10 +595,11 @@ export async function PoisonJab(user,target){
 
 export async function Flamethrower(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
     if(rngCheck(10)){
         await setStatusCondition(target,statusCondition.burn)
     }
-    return await CalculateDamage(user,this,target)
+    return damage
 }
 
 export async function ThunderPunch(user,target){
