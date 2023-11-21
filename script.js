@@ -35,7 +35,37 @@ function start_battle(){
     let boss = new Player(bossparty)
     game = new Game(player,boss)
     createBattleScreenElements()
+    createBackground()
     destroyMenuItems()
+}
+
+function createBackground(){
+    let bg = document.createElement("img")
+    bg.classList.add("bgimg")
+    let random = Math.floor((Math.random()*4))
+    console.log(random)
+    let body = document.querySelector("body")
+    switch (random) {
+        case 0:
+            bg.src = "bg1.jpg"
+            body.style.backgroundColor = "rgb(0,57,114)"
+            break;
+        case 1:
+            bg.src = "bg2.jpg"
+            body.style.backgroundColor = "rgb(255,149,117)"
+            break;
+        case 2:
+            bg.src = "bg3.jpg"
+            body.style.backgroundColor = "rgb(16,14,31)"
+            break;
+        case 3:
+            bg.src = "bg4.jpg"
+            body.style.backgroundColor = "rgb(128,177,255)"
+            break;
+        default:
+            break;
+    }
+    document.querySelector("body").appendChild(bg)
 }
 
 function destroyMenuItems(){
@@ -78,7 +108,7 @@ function createBattleScreenElements(){
         battlestatuscontainer.appendChild(battlestatusailment)
         if(i==0)battlestatuscontainer.style.left = "10%"
         if(i==0) battlestatuscontainer.style.top = "10%"
-        if(i==1)battlestatuscontainer.style.left = "68%"
+        if(i==1)battlestatuscontainer.style.left = "75%"
         if(i==1)battlestatuscontainer.style.top = "65%"
         document.querySelector(".battle-main-container").appendChild(battlestatuscontainer)
     }

@@ -20,7 +20,6 @@ export class Game{
         let dmg = undefined
         let flinch = false
         let recoil = false
-        console.log(typeof outcome)
         if(typeof outcome == "undefined") return
         if(typeof outcome == "number"){
             dmg = outcome
@@ -339,13 +338,8 @@ export class Game{
         document.querySelectorAll(".battle-status-name")[0].textContent = this.bossActive.name
         document.querySelectorAll(".battle-status-ailment")[1].textContent = this.playerActive.statusCondition
         document.querySelectorAll(".battle-status-ailment")[0].textContent = this.bossActive.statusCondition
-        if(this.playerActive.statusCondition==statusCondition.normal){
-            document.querySelectorAll(".battle-status-ailment")[1].textContent = ""
-        }
-        if(this.bossActive.statusCondition==statusCondition.normal){
-            document.querySelectorAll(".battle-status-ailment")[0].textContent = ""
-        }
-
+        this.bossActive.statusCondition = this.bossActive.statusCondition
+        this.playerActive.statusCondition = this.playerActive.statusCondition 
         this.playerActive.imgelement.src = this.playerActive.spriteback
         this.bossActive.imgelement.src = this.bossActive.spritefront
     }

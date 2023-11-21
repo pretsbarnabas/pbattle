@@ -6,11 +6,13 @@ body{
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background-color: #252c32;
 }
 *{
   font-family: pokemonFont;
-  font-size: 16pt;
 }
+
+
 
 .menu-container{
     top: 40vh;
@@ -36,7 +38,9 @@ body{
 }
 
 .combat-log-container{
-    border-radius: 15px;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
     height: 11vh;
     border: solid 1px black;
     width: 80vw;
@@ -57,6 +61,7 @@ body{
     width: 15vw;
     height: 8vh;
     border-radius: 5%;
+    font-size: 16pt;
 }
 
 .battle-menu-button:nth-child(1){
@@ -82,12 +87,12 @@ body{
 .battle-pokemon-container:nth-child(1){
     position: absolute;
     left: 20%;
-    top: 60%;
+    top: 55%;
     z-index: -2;
 }
 .battle-pokemon-container:nth-child(2){
     position: absolute;
-    top: 10%;
+    top: 35%;
     left: 60%;
     z-index: -2;
 }
@@ -105,18 +110,27 @@ body{
     left: 53%;
 }
 
+.bgimg{
+  position: absolute;
+  left: 10%;
+  bottom: 20%;
+  z-index: -10;
+  width: 80vw;
+  height: 80vh;
+}
+
 .battle-status-container{
   border: 2px solid black;
   border-radius: 15px;
   display: flex;
   position: absolute;
-  width: 10vw;
-  height: 5vh;
-  margin-top: 50px;
-  margin-left: 30px;
+  width: 15vw;
+  height: 8vh;
   flex-direction: column;
   justify-content: space-between;
   line-height: 80%;
+  background-color: whitesmoke;
+  font-size: 24pt;
 }
 .battle-status-container:nth-child(1){
   position: absolute;
@@ -246,5 +260,9 @@ body{
   }
   .battle-status-container{
     width: 25vw;
+  }
+  .bgimg{
+    width: 100vw;
+    left: 0;
   }
 }

@@ -54,7 +54,7 @@ export class Pokemon{
                 element.style.backgroundColor = "rgb(249,113,118)"
                 break;
             case statusCondition.normal:
-                element.style.backgroundColor = "none"
+                element.style.backgroundColor = "unset"
                 break;
             case statusCondition.paralysis:
                 element.style.backgroundColor = "rgb(243,210,59)"
