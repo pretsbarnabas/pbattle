@@ -34,9 +34,9 @@ function start_battle(){
     let player = new Player(party)
     let boss = new Player(bossparty)
     game = new Game(player,boss)
+    destroyMenuItems()
     createBattleScreenElements()
     createBackground()
-    destroyMenuItems()
 }
 
 function createBackground(){
@@ -62,6 +62,9 @@ function createBackground(){
             bg.src = "bg4.jpg"
             body.style.backgroundColor = "rgb(128,177,255)"
             break;
+        case 4:
+            bg.src = "tilted.png"
+            break;
         default:
             break;
     }
@@ -69,7 +72,7 @@ function createBackground(){
 }
 
 function destroyMenuItems(){
-    document.querySelector(".menu-container").remove()
+    document.querySelector("body").innerHTML = ""
 
 }
 
@@ -210,6 +213,7 @@ export function PokemonSelected(){
                 assignDefaultButtons()
                 return
             }
+            game.playerActive.recharge = false
             game.playerActive = game.player.party[pokemonImgElement.dataset.id]
             await game.Turn("switch")
         })

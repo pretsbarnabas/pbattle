@@ -143,6 +143,7 @@ export class Game{
 
     async handleStatusConditions(turnstatus, pokemon, player){
         if(pokemon.hp==0) return
+        let alive = true
         if(turnstatus=="start"){
             switch (pokemon.statusCondition) {
                 case statusCondition.paralysis:
@@ -181,7 +182,7 @@ export class Game{
                         await combatLogger.Log(`${pokemon.name} is confused...`)
                         if(rngCheck(50)){
                             await combatLogger.Log(`${pokemon.name} hurt itself in it's confusion!`)
-                            await this.handleDamage(pokemon,(pokemon.basehp*(1/8)))
+                            alive = await this.handleDamage(pokemon,(pokemon.basehp*(1/8)))
                             player.skipturn = true
                         }
                     }
@@ -194,15 +195,19 @@ export class Game{
                 case statusCondition.burn:
                     pokemon.attack = pokemon.baseattack * 0.5
                     await combatLogger.Log(`${pokemon.name} is hurt by the burn!`)
-                    await this.handleDamage(pokemon,(pokemon.basehp*(1/8)))
+                    alive = await this.handleDamage(pokemon,(pokemon.basehp*(1/8)))
                     break;
                 case statusCondition.poison:
                     await combatLogger.Log(`${pokemon.name} is hurt by the poison!`)
-                    await this.handleDamage(pokemon,(pokemon.basehp*(1/8)))
+                    alive = await this.handleDamage(pokemon,(pokemon.basehp*(1/8)))
                     break;
                 default:
                     break;
             }
+        }
+        if(!alive){
+            await combatLogger.Log(`${pokemon.name} has fainted!`)
+            await this.switchPokemon()
         }
     }
 
@@ -234,7 +239,6 @@ export class Game{
         this.destroyBattleMenu()
         let bossTurnOption = "action"
         this.bossActive.selectedmove = this.bossActive.chooseMove(this.turnNumber,this.playerActive)
-        // this.bossActive.selectedmove = this.bossActive.moveset[Math.floor(Math.random()*4)]
         this.bossActive.movedThisTurn = false
         this.playerActive.movedThisTurn = false
         await this.rechargeCheck()
@@ -345,7 +349,6 @@ export class Game{
         this.playerActive.statusCondition = this.playerActive.statusCondition 
         this.playerActive.imgelement.src = this.playerActive.spriteback
         this.bossActive.imgelement.src = this.bossActive.spritefront
-        this.turnNumber = 0
     }
 
     get playerActive(){
@@ -362,5 +365,6 @@ export class Game{
     set bossActive(value){
         this._bossActive = value
         this.updateElements()
+        this.turnNumber = 0
     }
 }

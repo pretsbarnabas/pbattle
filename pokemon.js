@@ -87,7 +87,8 @@ export class Pokemon{
         for (let i = 0; i < this.moveset.length; i++) {
             const move = this.moveset[i]
             if(move.category == category.Status){
-                moveweights[i]+=30
+                if(this.selectedmove==move) moveweights[i]-=20
+                moveweights[i]+=20
                 moveweights[i]-=turnNumber*10
             }
             else{
