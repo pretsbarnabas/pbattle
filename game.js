@@ -182,6 +182,7 @@ export class Game{
                         if(rngCheck(50)){
                             await combatLogger.Log(`${pokemon.name} hurt itself in it's confusion!`)
                             await this.handleDamage(pokemon,(pokemon.basehp*(1/8)))
+                            player.skipturn = true
                         }
                     }
                 default:
