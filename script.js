@@ -9,6 +9,7 @@ let bossparty
 setup()
 
 
+
 function setup(){
     document.querySelector(".menu-button:nth-child(1)").addEventListener("click", start_battle)
     party = [pokemon.Altaria]
@@ -56,6 +57,68 @@ function createBattleScreenElements(){
     game.updateElements()
 
 }
+function LoadParty(){
+    let partyelement = document.querySelector('.partyelement')
+    Object.entries(pokemon).forEach(entry => {
+        party.forEach(element => {
+            if(entry[1] == element){
+                let pokemoninParty = document.createElement('div')
+                pokemoninParty.classList.add('pokemonInBox')
+                pokemoninParty.dataset.name = entry[1].name;
+                partyelement.appendChild(pokemoninParty);
+                let pokemoninPartyImg = document.createElement('img');
+                pokemoninPartyImg.classList.add('pokemonInBoxImg');
+                pokemoninPartyImg.src = entry[1].spritefront
+                pokemoninParty.appendChild(pokemoninPartyImg)
+                let availablePokemon = document.querySelector(".availablePokemons").children
+                let type = document.querySelector(".type")
+                let type2 = document.querySelectorAll(".type")[1]
+                let statsPokemonName = document.querySelector(".statsPokemonName")
+                let pokemonInStatsImg = document.querySelector(".pokemonInStatsImg")
+                let abilityList = document.querySelector(".abilities").children
+                for (let i = 0; i < party.length; i++) {
+                    pokemoninParty.addEventListener("mouseover",()=>{
+                        Object.entries(pokemon).forEach( entry =>{
+                        
+                            if(entry[1].name == party[i].name)
+                            {
+                                type.classList = `type ${entry[1].type[0]}`
+                                type.innerHTML = `${entry[1].type[0]}`
+                                type2.innerHTML = ` `
+                                type2.classList = ' '
+                                if(entry[1].type[1] != undefined){
+                                    type2.classList = `type ${entry[1].type[1]}`
+                                    type2.innerHTML = `${entry[1].type[1]}`
+                                }
+                            
+                                statsPokemonName.innerHTML = entry[1].name;
+                                pokemonInStatsImg.src = entry[1].spritefront; 
+                                for (let i = 0; i < abilityList.length; i++) {
+
+                                    abilityList[i].children[0].innerHTML = entry[1].moveset[i].name
+                                    abilityList[i].children[1].innerHTML = entry[1].moveset[i].type
+                                }
+                            }
+                        })
+                    })
+                }
+            pokemoninParty.addEventListener("click", ()=> {
+               for (let index = 0; index < partyelement.children.length; index++) {
+                   if(partyelement.children[index].dataset.name == pokemoninParty.dataset.name){
+                        let nameofpokemon = partyelement.children[index].dataset.name
+                        Object.entries(pokemon).forEach( entry =>{
+                            if(entry[1].name == nameofpokemon){
+                            party.splice(entry[1])
+                            partyelement.children[index].remove()
+                        }
+                        })
+                    }
+                }
+            })
+        }
+    });
+})
+}
 function PartyOnclick(){
     console.log();
     const menucontainer = document.getElementById("menu");
@@ -84,6 +147,7 @@ function PartyOnclick(){
     let pokemonbox = document.createElement('div');
     pokemonbox.classList.add('availablePokemons');
     partyelement2.appendChild(pokemonbox)
+
     Object.entries(pokemon).forEach(element => {
         let pokemoninBox = document.createElement('div')
         pokemoninBox.classList.add('pokemonInBox')
@@ -155,7 +219,7 @@ function PartyOnclick(){
     }
     let availablePokemon = document.querySelector(".availablePokemons").children
     let abilityList = document.querySelector(".abilities").children
-
+    LoadParty()
     
     
     
@@ -186,9 +250,64 @@ function PartyOnclick(){
                 }
             })
         })
+        
         availablePokemon[i].addEventListener("click",()=>{
-            
-                partyelement.appendChild(availablePokemon[i])
+            Object.entries(pokemon).forEach(entry => {
+                if(entry[1].name == availablePokemon[i].dataset.name)
+                {
+                    if(!party.includes(entry[1]))
+                    {
+                        party.push(entry[1])
+                        let pokemoninParty = document.createElement('div')
+                        pokemoninParty.classList.add('pokemonInBox')
+                        pokemoninParty.dataset.name = entry[1].name;
+                        partyelement.appendChild(pokemoninParty);
+                        let pokemoninPartyImg = document.createElement('img');
+                        pokemoninPartyImg.classList.add('pokemonInBoxImg');
+                        pokemoninPartyImg.src = entry[1].spritefront
+                        pokemoninParty.appendChild(pokemoninPartyImg)
+
+                        pokemoninParty.addEventListener("mouseover",()=>{
+                            Object.entries(pokemon).forEach( entry =>{
+                            
+                                if(entry[1].name == availablePokemon[i].dataset.name)
+                                {
+                                    type.classList = `type ${entry[1].type[0]}`
+                                    type.innerHTML = `${entry[1].type[0]}`
+                                    type2.innerHTML = ` `
+                                    type2.classList = ' '
+                                    if(entry[1].type[1] != undefined){
+                                        type2.classList = `type ${entry[1].type[1]}`
+                                        type2.innerHTML = `${entry[1].type[1]}`
+                                    }
+                                
+                                    statsPokemonName.innerHTML = entry[1].name;
+                                    pokemonInStatsImg.src = entry[1].spritefront; 
+                                    for (let i = 0; i < abilityList.length; i++) {
+
+                                        abilityList[i].children[0].innerHTML = entry[1].moveset[i].name
+                                        abilityList[i].children[1].innerHTML = entry[1].moveset[i].type
+                                    }
+                                }
+                            })
+                        })
+                        pokemoninParty.addEventListener("click", ()=> {
+                           for (let index = 0; index < partyelement.children.length; index++) {
+                               if(partyelement.children[index].dataset.name == pokemoninParty.dataset.name){
+                                    let nameofpokemon = partyelement.children[index].dataset.name
+                                    Object.entries(pokemon).forEach( entry =>{
+                                        if(entry[1].name == nameofpokemon){
+                                        party.splice(entry[1])
+                                        partyelement.children[index].remove()
+                                    }
+                                    })
+                                }
+                            }
+                        })
+                    }     
+                }
+            })
+            console.log(party)
         })
         
     }
