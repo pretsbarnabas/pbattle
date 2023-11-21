@@ -68,6 +68,7 @@ export class Pokemon{
             default:
                 break;
         }
+        if(value == statusCondition.normal) element.textContent = ""
     }
 
     get hp(){

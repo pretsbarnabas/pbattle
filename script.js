@@ -9,6 +9,7 @@ let game
 let party
 let bossparty
 setup()
+start_battle()
 
 export function setup(){
     let menuContainer = document.createElement("div")
@@ -75,6 +76,10 @@ function createBattleScreenElements(){
         battlestatuscontainer.appendChild(battlestatuslvl)
         battlestatuscontainer.appendChild(battlestatushp)
         battlestatuscontainer.appendChild(battlestatusailment)
+        if(i==0)battlestatuscontainer.style.left = "10%"
+        if(i==0) battlestatuscontainer.style.top = "10%"
+        if(i==1)battlestatuscontainer.style.left = "68%"
+        if(i==1)battlestatuscontainer.style.top = "65%"
         document.querySelector(".battle-main-container").appendChild(battlestatuscontainer)
     }
     let combatlogger=document.createElement("div")

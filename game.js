@@ -339,6 +339,13 @@ export class Game{
         document.querySelectorAll(".battle-status-name")[0].textContent = this.bossActive.name
         document.querySelectorAll(".battle-status-ailment")[1].textContent = this.playerActive.statusCondition
         document.querySelectorAll(".battle-status-ailment")[0].textContent = this.bossActive.statusCondition
+        if(this.playerActive.statusCondition==statusCondition.normal){
+            document.querySelectorAll(".battle-status-ailment")[1].textContent = ""
+        }
+        if(this.bossActive.statusCondition==statusCondition.normal){
+            document.querySelectorAll(".battle-status-ailment")[0].textContent = ""
+        }
+
         this.playerActive.imgelement.src = this.playerActive.spriteback
         this.bossActive.imgelement.src = this.bossActive.spritefront
     }
