@@ -339,6 +339,8 @@ export class Game{
         document.querySelectorAll(".battle-status-name")[0].textContent = this.bossActive.name
         document.querySelectorAll(".battle-status-ailment")[1].textContent = this.playerActive.statusCondition
         document.querySelectorAll(".battle-status-ailment")[0].textContent = this.bossActive.statusCondition
+        this.bossActive.statusCondition = this.bossActive.statusCondition
+        this.playerActive.statusCondition = this.playerActive.statusCondition 
         this.playerActive.imgelement.src = this.playerActive.spriteback
         this.bossActive.imgelement.src = this.bossActive.spritefront
     }
