@@ -61,5 +61,16 @@ export const moves = {
     HydroPump: new Move("Hydro Pump",type.Water,category.Special,110,80,5,movelogic.HydroPump),
     Thunder: new Move("Thunder",type.Electric,category.Special,110,70,10,movelogic.Thunder),
     Sing: new Move("Sing",type.Normal,category.Status,0,0,15,movelogic.Sing),
-    Guillotine: new Move("Guillotine",type.Normal,category.Physical,100,30,5,movelogic.Guillotine)
+    Guillotine: new Move("Guillotine",type.Normal,category.Physical,100,30,5,movelogic.Guillotine),
+    AerialAce: new Move("Aerial Ace",type.Flying,category.Physical,60,100,20,movelogic.AerialAce),
+    SuckerPunch: new Move("Sucked Punch",type.Dark,category.Physical,70,100,5,movelogic.SuckerPunch,1),
+    ShadowBall: new Move("Shadow Ball",type.Ghost,category.Special,80,100,15,movelogic.ShadowBall),
+    WildCharge: new Move("Wild Charge",type.Electric,category.Physical,90,100,15,movelogic.WildCharge),
+    Bulldoze: new Move("Bulldoze",type.Ground,category.Physical,60,100,20,movelogic.Bulldoze),
+    BraveBird: new Move("Brave Bird",type.Flying,category.Physical,120,100,15,movelogic.BraveBird),
+    CrushClaw: new Move("Crush Claw",type.Normal,category.Physical,75,95,10,movelogic.CrushClaw),
+    ShadowClaw: new Move("Shadow Claw",type.Ghost,category.Physical,70,100,15,movelogic.ShadowClaw),
+    ExtremeSpeed: new Move("Extreme Speed",type.Normal,category.Physical,80,100,5,movelogic.ExtremeSpeed,2),
+    AuraSphere: new Move("Aura Sphere",type.Fighting,category.Special,80,100,20,movelogic.AuraSphere),
+    DragonRush: new Move("Dragon Rush",type.Dragon,category.Physical,100,75,10,movelogic.DragonRush)
 }

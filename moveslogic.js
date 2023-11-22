@@ -836,3 +836,77 @@ export async function Guillotine(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     return target.hp
 }
+
+export async function AerialAce(user,target){
+    return await CalculateDamage(user,this,target)
+}
+
+export async function SuckerPunch(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    if(!target.selectedmove.power) return -1
+    return await CalculateDamage(user,this,target)
+}
+
+export async function ShadowBall(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(20)){
+        await ModifyStatStage(target,stage.spdefense,-1)
+    }
+    return damage
+}
+
+export async function WildCharge(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    return [damage,0,(1/4)]
+}
+
+export async function WildCharge(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    await ModifyStatStage(target,stage.speed,-1)
+    return damage
+}
+
+export async function BraveBird(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    return [damage,0,(1/3)]
+}
+
+export async function CrushClaw(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(50)){
+        await ModifyStatStage(target,stage.defense,-1)
+    }
+    return damage
+}
+
+export async function ShadowClaw(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target,12)
+    return damage
+}
+
+export async function ExtremeSpeed(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    return damage
+
+}
+
+export async function AuraSphere(user,target){
+    return await CalculateDamage(user,this,target)
+}
+
+export async function DragonRush(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    let flinch = false
+    if(rngCheck(20)){
+        flinch = true
+    }
+    return [damage,flinch]
+}
