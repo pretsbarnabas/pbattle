@@ -31,6 +31,7 @@ export function setup(){
 }
 
 function start_battle(){
+    document.body.style.backgroundImage = "none"
     console.log(party.length)
     if(party.length<1){
         if(document.querySelector(".errormessage")) return
@@ -301,13 +302,16 @@ function LoadParty(){
                         
                             if(entry[1].name == element.name)
                             {
-                                type.classList = `type ${entry[1].type[0]}`
+                                type.classList = `type `
                                 type.innerHTML = `${entry[1].type[0]}`
+                                type.style.backgroundColor = ColorPicker(entry[1].type)
                                 type2.innerHTML = ` `
                                 type2.classList = ' '
                                 if(entry[1].type[1] != undefined){
-                                    type2.classList = `type ${entry[1].type[1]}`
+                                    type2.classList = `type `
                                     type2.innerHTML = `${entry[1].type[1]}`
+                                    type2.style.backgroundColor = ColorPicker(entry[1].type[1])
+
                                 }
                             
                                 statsPokemonName.innerHTML = entry[1].name;
@@ -448,20 +452,24 @@ function PartyOnclick(){
 
                 if(entry[1].name == availablePokemon[i].dataset.name)
                 {
-                    type.classList = `type ${entry[1].type[0]}`
+                    type.classList = `type`
+                    type.style.backgroundColor= ColorPicker(entry[1].type[0])
                     type.innerHTML = `${entry[1].type[0]}`
                     type2.innerHTML = ` `
                     type2.classList = ' '
                     if(entry[1].type[1] != undefined){
-                        type2.classList = `type ${entry[1].type[1]}`
+                        type2.classList = `type`
+                        type2.style.backgroundColor= ColorPicker(entry[1].type[1])
                         type2.innerHTML = `${entry[1].type[1]}`
                     }
+                    
 
                     statsPokemonName.innerHTML = entry[1].name;
                     pokemonInStatsImg.src = entry[1].spritefront; 
                     for (let i = 0; i < abilityList.length; i++) {
                         
                         abilityList[i].children[0].innerHTML = entry[1].moveset[i].name
+                        abilityList[i].style.backgroundColor = ColorPicker(entry[1].moveset[i].type)
                         abilityList[i].children[1].innerHTML = entry[1].moveset[i].type
                     }
                     
