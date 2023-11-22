@@ -50,6 +50,16 @@ export const moves = {
     XScissor: new Move("X-Scissor",type.Bug,category.Physical,80,100,15,movelogic.XScissor),
     HyperBeam: new Move("Hyper Beam",type.Normal,category.Special,150,90,5,movelogic.HyperBeam),
     QuiverDance: new Move("Quiver Dance",type.Bug,category.Status,0,0,20,movelogic.QuiverDance),
-    Overheat: new Move("Overheat",type.Fire,category.Special,130,90,5,movelogic.Overheat)
-    
+    Overheat: new Move("Overheat",type.Fire,category.Special,130,90,5,movelogic.Overheat),
+    FireBlast: new Move("Fire Blast",type.Fire,category.Special,110,85,5,movelogic.FireBlast),
+    DragonPulse: new Move("Dragon Pulse",type.Dragon,category.Special,85,100,10,movelogic.DragonPulse),
+    Surf: new Move("Surf",type.Water,category.Special,90,100,15,movelogic.Surf),
+    Acrobatics: new Move("Acrobatics",type.Flying,category.Physical,110,100,15,movelogic.Acrobatics),
+    DragonClaw: new Move("Dragon Claw",type.Dragon,category.Physical,80,100,15,movelogic.DragonClaw),
+    DoubleEdge: new Move("Double-Edge",type.Normal,category.Physical,120,100,15,movelogic.DoubleEdge),
+    Autotomize: new Move("Autotomize",type.Steel,category.Status,0,0,15,movelogic.Autotomize),
+    HydroPump: new Move("Hydro Pump",type.Water,category.Special,110,80,5,movelogic.HydroPump),
+    Thunder: new Move("Thunder",type.Electric,category.Special,110,70,10,movelogic.Thunder),
+    Sing: new Move("Sing",type.Normal,category.Status,0,0,15,movelogic.Sing),
+    Guillotine: new Move("Guillotine",type.Normal,category.Physical,100,30,5,movelogic.Guillotine)
 }

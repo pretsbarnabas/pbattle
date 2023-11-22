@@ -773,3 +773,66 @@ export async function HyperBeam(user,target){
     user.recharge = true
     return damage
 }
+
+export async function FireBlast(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(rngCheck(10)){
+        await setStatusCondition(target,statusCondition.burn)
+    }
+    return damage
+}
+
+
+export async function DragonPulse(user,target) {
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return await CalculateDamage(user,this,target)
+}
+
+export async function Surf(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return await CalculateDamage(user,this,target)
+}
+
+export async function Acrobatics(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return await CalculateDamage(user,this,target)
+}
+
+export async function DragonClaw(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return await CalculateDamage(user,this,target)
+}
+
+export async function DoubleEdge(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    return [damage,0,(1/3)]
+}
+
+export async function Autotomize(user,target){
+    await ModifyStatStage(user,stage.speed,2)
+}
+
+export async function HydroPump(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return await CalculateDamage(user,this,target)
+}
+
+export async function Thunder(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage =  await CalculateDamage(user,this,target)
+    if(rngCheck(30)){
+        await setStatusCondition(target,statusCondition.paralysis)
+    }
+    return damage
+}
+
+export async function Sing(user,target){
+    await setStatusCondition(target,statusCondition.sleep)
+}
+
+export async function Guillotine(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    return target.hp
+}
