@@ -13,7 +13,7 @@ setup()
 export function setup(){
     let menuContainer = document.createElement("div")
     menuContainer.classList.add("menu-container")
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
         let menuButton = document.createElement("div")
         menuButton.classList.add("menu-button")
         if(i==0)menuButton.innerText = "Start"
@@ -27,12 +27,10 @@ export function setup(){
     generatePokemon()
     generateBoss()
     party = []
-    bossparty = [bossPokemon.Typhlosion,bossPokemon.Rhydon,bossPokemon.Altaria]
+    bossparty = [bossPokemon.Garchomp,bossPokemon.Haxorus,bossPokemon.Houndoom,bossPokemon.Spiritomb,bossPokemon.Volcarona,bossPokemon.Aggron]
 }
 
 function start_battle(){
-    document.body.style.backgroundImage = "none"
-    console.log(party.length)
     if(party.length<1){
         if(document.querySelector(".errormessage")) return
         let errormessage = document.createElement("p")
@@ -41,6 +39,7 @@ function start_battle(){
         document.querySelector("body").appendChild(errormessage)
         return
     }
+    document.body.style.backgroundImage = "none"
     let player = new Player(party)
     let boss = new Player(bossparty)
     game = new Game(player,boss)

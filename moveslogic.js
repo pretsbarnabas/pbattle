@@ -743,11 +743,6 @@ export async function IronHead(user,target){
     return [damage,flinch]
 }
 
-export async function AerialAce(user,target){
-    let damage = await CalculateDamage(user,this,target)
-    return damage
-}
-
 export async function GigaImpact(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     let damage = await CalculateDamage(user,this,target)
@@ -863,7 +858,7 @@ export async function WildCharge(user,target){
     return [damage,0,(1/4)]
 }
 
-export async function WildCharge(user,target){
+export async function Bulldoze(user,target){
     if(!HitCheck(user,target,this.accuracy)) return -1
     let damage = await CalculateDamage(user,this,target)
     await ModifyStatStage(target,stage.speed,-1)

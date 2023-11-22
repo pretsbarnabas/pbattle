@@ -36,12 +36,12 @@ export function generatePokemon(){
 
 export function generateBoss(){
     bossPokemon = {
-        Altaria: new Pokemon("Altaria",[type.Dragon,type.Flying],[moves.DragonBreath,moves.Moonblast,moves.DragonDance,moves.CottonGuard],[135,75,95,75,110,85],"sprites/front/altaria.png","sprites/back/altaria.png"),
-        Typhlosion: new Pokemon("Typhlosion",[type.Fire],[moves.Flamethrower,moves.Thunderpunch,moves.WilloWisp,moves.Smokescreen],[138,89,83,114,90,105],"sprites/front/typhlosion.png","sprites/back/typhlosion.png"),
-        Marowak: new Pokemon("Marowak",[type.Ground],[moves.Bonemerang,moves.AncientPower,moves.Leer,moves.DoubleTeam],[120,85,115,55,85,50],"sprites/front/marowak.png","sprites/back/marowak.png"),
-        Tauros: new Pokemon("Tauros",[type.Normal],[moves.HornAttack,moves.Endeavor,moves.IcyWind,moves.CloseCombat],[135,105,100,45,75,115],"https://archives.bulbagarden.net/media/upload/8/80/Spr_5b_128.png","https://archives.bulbagarden.net/media/upload/9/9b/Spr_b_5b_128.png"),
-        Swellow: new Pokemon("Swellow",[type.Normal,type.Flying],[moves.Endeavor,moves.WorkUp,moves.Peck,moves.Reversal],[120,90,65,80,55,125],"sprites/front/swellow.png","sprites/back/swellow.png"),
-        Rhydon: new Pokemon("Rhydon",[type.Ground,type.Rock],[moves.ScaryFace,moves.Earthquake,moves.CockPolish,moves.PoisonJab],[165,135,125,50,50,45],"sprites/front/rhydon.png","sprites/back/rhydon.png"),
-          
+        Garchomp: new Pokemon("Garchomp",[type.Dragon,type.Ground],[moves.DragonRush,moves.Crunch,moves.Earthquake,moves.StoneEdge],[168,135,100,85,90,107],"sprites/front/garchomp.png","sprites/back/garchomp.png"),
+        Houndoom: new Pokemon("Houndoom",[type.Dark,type.Fire],[moves.Crunch,moves.ScaryFace,moves.Reversal,moves.Snarl],[135,95,55,115,85,100],"sprites/front/houndoom.png","sprites/back/houndoom.png"),
+        Haxorus: new Pokemon("Haxorus",[type.Dragon],[moves.Earthquake,moves.Guillotine,moves.Outrage,moves.DragonDance],[136,152,95,65,75,103],"sprites/front/haxorus.png","sprites/back/haxorus.png"),
+        Volcarona: new Pokemon("Volcarona",[type.Bug,type.Fire],[moves.Overheat,moves.QuiverDance,moves.BugBuzz,moves.HyperBeam],[145,65,70,140,110,105],"sprites/front/volcarona.png","sprites/back/volcarona.png"),
+        Spiritomb: new Pokemon("Spiritomb",[type.Ghost,type.Dark],[moves.SuckerPunch,moves.ShadowBall,moves.WilloWisp,moves.DoubleTeam],[110,97,113,97,113,40],"sprites/front/spiritomb.png","sprites/back/spiritomb.png"),
+        Aggron: new Pokemon("Aggron",[type.Steel,type.Rock],[moves.Earthquake,moves.DoubleEdge,moves.StoneEdge,moves.Autotomize],[130,115,185,65,65,55],"sprites/front/aggron.png","sprites/back/aggron.png"),
+
     }
 }
