@@ -297,8 +297,11 @@ function PartyOnclick(){
                                     let nameofpokemon = partyelement.children[index].dataset.name
                                     Object.entries(pokemon).forEach( entry =>{
                                         if(entry[1].name == nameofpokemon){
-                                        party.splice(entry[1])
-                                        partyelement.children[index].remove()
+                                            for (let index = 0; index < party.length; index++) {
+                                                if(entry[1] == party[index])
+                                                    party.splice(index, 1)                                                
+                                            }
+                                            partyelement.children[index].remove()
                                     }
                                     })
                                 }
