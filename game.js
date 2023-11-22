@@ -31,7 +31,7 @@ export class Game{
         }
         if(typeof outcome == "string"){
             if(outcome == "lightscreen"){
-                if(target==this.playerActive) this.player.lightscreen = 5
+                if(user==this.playerActive) this.player.lightscreen = 5
                 else this.boss.lightscreen = 5
             }
         }
