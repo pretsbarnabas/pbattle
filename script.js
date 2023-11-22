@@ -108,7 +108,7 @@ function LoadParty(){
                         let nameofpokemon = partyelement.children[index].dataset.name
                         Object.entries(pokemon).forEach( entry =>{
                             if(entry[1].name == nameofpokemon){
-                            party.splice(entry[1])
+                            party.splice(entry[1],1)
                             partyelement.children[index].remove()
                         }
                         })
