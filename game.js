@@ -129,12 +129,14 @@ export class Game{
     async GameOver(winner,loser){
         if(loser==this.boss){
             this.bossActive.imgelement.style.display = "none"
+            await combatLogger.Log("Opponent is out of useable Pokémon")
+            await combatLogger.Log("Player has won the match!")
         }
         else{
             this.playerActive.imgelement.style.display = "none"
+            await combatLogger.Log("Player is out of useable Pokémon")
+            await combatLogger.Log("Opponent has won the match!")
         } 
-        await combatLogger.Log("Opponent is out of useable Pokémon")
-        await combatLogger.Log("Player has won the match!")
         document.querySelector("body").innerHTML = ""
         setup()
         throw "Match Over"

@@ -13,6 +13,10 @@ setup()
 export function setup(){
     let menuContainer = document.createElement("div")
     menuContainer.classList.add("menu-container")
+    let title = document.createElement("h1")
+    title.innerText = "Pokemon Battle"
+    title.classList.add("title")
+    document.querySelector("body").appendChild(title)
     for (let i = 0; i < 2; i++) {
         let menuButton = document.createElement("div")
         menuButton.classList.add("menu-button")
@@ -37,6 +41,7 @@ function start_battle(){
         errormessage.classList.add("errormessage")
         errormessage.textContent = "Choose atleast 1 party member"
         document.querySelector("body").appendChild(errormessage)
+        setTimeout(()=>{document.querySelector(".errormessage").remove()},1500)
         return
     }
     document.body.style.backgroundImage = "none"
@@ -342,7 +347,7 @@ function LoadParty(){
 })
 }
 function PartyOnclick(){
-    console.log();
+    if(document.querySelector(".partycontainer")) return
     const menucontainer = document.querySelector(".menu-container");
     menucontainer.style.top = "50%";
     menucontainer.style.left = "5%";
