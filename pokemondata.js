@@ -30,7 +30,8 @@ export function generatePokemon(){
         Milotic: new Pokemon("Milotic",[type.Water],[moves.HydroPump,moves.Blizzard,moves.Bulldoze,moves.DragonPulse],[155,65,84,105,130,86],"sprites/front/milotic.png","sprites/back/milotic.png"),
         Braviary: new Pokemon("Braviary",[type.Normal,type.Flying],[moves.BraveBird,moves.CrushClaw,moves.ShadowClaw,moves.Endeavor],[160,128,80,62,80,85],"sprites/front/braviary.png","sprites/back/braviary.png"),
         Lucario: new Pokemon("Lucario",[type.Fighting,type.Steel],[moves.ExtremeSpeed,moves.DragonPulse,moves.CloseCombat,moves.AuraSphere],[130,115,75,120,75,95],"sprites/front/lucario.png","sprites/back/lucario.png"),
-        Garchomp: new Pokemon("Garchomp",[type.Dragon,type.Ground],[moves.DragonRush,moves.Crunch,moves.Earthquake,moves.StoneEdge],[168,135,100,85,90,107],"sprites/front/garchomp.png","sprites/back/garchomp.png")
+        Garchomp: new Pokemon("Garchomp",[type.Dragon,type.Ground],[moves.DragonRush,moves.Crunch,moves.Earthquake,moves.StoneEdge],[168,135,100,85,90,107],"sprites/front/garchomp.png","sprites/back/garchomp.png"),
+        Gengar : new Pokemon("Gengar",[type.Ghost,type.Poison],[moves.ShadowBall,moves.ScaryFace,moves.VenoShock,moves.DarkPulse],[120,70,65,135,80,115],"sprites/front/gengar.png","sprites/back/gengar.png"),
     }
 }
 

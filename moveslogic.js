@@ -906,3 +906,22 @@ export async function DragonRush(user,target){
     }
     return [damage,flinch]
 }
+export async function VenoShock(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    if(target.statusCondition == statusCondition.poison){
+        damage *= 2;
+    }
+    return damage;
+    
+}
+export async function DarkPulse(user,target){
+    if(!HitCheck(user,target,this.accuracy)) return -1
+    let damage = await CalculateDamage(user,this,target)
+    let flinch = false;
+    if(rngCheck(20)){
+        flinch = true;
+    }
+    return [damage,flinch]
+
+}
